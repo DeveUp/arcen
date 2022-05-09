@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import uvircorn
 
 app = FastAPI()
 

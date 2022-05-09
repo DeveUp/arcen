@@ -1,0 +1,11 @@
+Crear Env
+python -m venv --copies .env 
+
+Axtivar .env
+.\.env\Scripts\Activate.ps1 
+
+Installar en env
+pip install -r .\requirements.txt
+
+Ejecutar 
+python -m uvicorn main:app  

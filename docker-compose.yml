@@ -1,0 +1,10 @@
+version: '3'
+services:
+  servicio-captura:
+    build: ../servicio-captura
+    ports: 
+      - "4000:80" 
+  servicio-login:
+    build: ../servicio-login
+    ports: 
+      - "4001:81" 
