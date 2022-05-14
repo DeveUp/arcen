@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 
-class Audit(BaseModel):
+class AuditDto(BaseModel):
     service: str
     operation: str
-    idUser: str
+    id_user: str
     response: str
     date: str
