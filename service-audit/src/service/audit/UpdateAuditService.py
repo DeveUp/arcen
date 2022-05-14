@@ -3,8 +3,9 @@ from src.persistence.repository.audit.UpdateAuditRepository import UpdateAuditRe
 
 class UpdateAuditService(IService):
 
-    def __init__(self, data):
-        self.data = data
+    def __init__(self):
+        self.repository = UpdateAuditRepository()
 
-    def execute(self):
-        return UpdateAuditRepository.execute(self.data)
+    def execute(self, data):
+        element = self.repository.execute(data)
+        return element

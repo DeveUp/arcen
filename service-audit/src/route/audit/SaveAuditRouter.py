@@ -7,6 +7,6 @@ router_save_audit = APIRouter()
 
 @router_save_audit.post("/")
 async def save(audit: AuditDto):
-    data = dict(audit=audit)
+    data = dict({'audit': audit})
     service = SaveAuditService()
     return service.execute(data)

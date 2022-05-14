@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 
-from src.service.audit.FindByIdAuditService import FindByIdAuditService
+from src.service.audit.FindAllAuditService import FindAllAuditService
 
 router_find_all_audit = APIRouter()
 
 @router_find_all_audit.get("/")
 async def find_all():
-    data = dict()
-    return FindByIdAuditService.execute(data)
+    service = FindAllAuditService()
+    return service.execute(dict())

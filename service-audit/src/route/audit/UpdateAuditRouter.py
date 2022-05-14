@@ -7,5 +7,9 @@ router_update_audit = APIRouter()
 
 @router_update_audit.put("/{id}")
 async def update(id: str, audit: AuditDto):
-    data = dict(id=id, audit=audit)
-    return UpdateAuditService.execute(data)
+    data = dict({
+        'id': id, 
+        'audit': audit
+    })
+    service = UpdateAuditService()
+    return service.execute(data)

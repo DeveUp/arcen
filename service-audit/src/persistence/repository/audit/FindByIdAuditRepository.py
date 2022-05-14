@@ -6,8 +6,16 @@ from src.persistence.schema.AuditSchema import AuditSchema
 
 class FindByIdAuditRepository(IRepository):
 
-    def execute(data):
-        db = AuditDB()
-        schema = AuditSchema()
-        collection = db.get_db_audit()
-        return schema.audit_dic(collection.find_one({"_id": ObjectId(data.id)}))
+    def __init__(self):
+        self.db = AuditDB()
+        self.schema = AuditSchema()
+        self.collection = self.db.get_db_audit()
+
+    def execute(self, data):
+        try:
+            id = ObjectId(data['id'])
+            element = self.collection.find_one({"_id":id})
+            element = self.schema.audit(element)
+        except:
+            element= None
+        return element

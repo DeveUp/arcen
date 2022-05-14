@@ -1,12 +1,22 @@
 from src.persistence.repository.IRepository import IRepository
 from src.persistence.repository.audit.FindByIdAuditRepository import FindByIdAuditRepository
 from src.persistence.database.AuditDB import AuditDB
+from src.persistence.schema.AuditSchema import AuditSchema
 
 class SaveAuditRepository(IRepository):
 
-    def execute(data):
-        db = AuditDB()
-        collection = db.get_db_audit()
-        id = collection.insert_one(dict(data.audit))
-        find = FindByIdAuditRepository()
-        return find.execute(id)
+    def __init__(self):
+        self.db = AuditDB()
+        self.schema = AuditSchema()
+        self.collection = self.db.get_db_audit()
+        self.findAuditById = FindByIdAuditRepository()
+
+    def execute(self, data):
+        try:
+            audit = dict(data['audit'])
+            id = self.collection.insert_one(audit)
+            id = dict({'id': id.inserted_id})
+            audit = self.findAuditById.execute(id)
+        except:
+            audit= None
+        return audit

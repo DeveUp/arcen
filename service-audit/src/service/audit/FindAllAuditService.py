@@ -3,8 +3,9 @@ from src.persistence.repository.audit.FindAllAuditRepository import FindAllAudit
 
 class FindAllAuditService(IService):
 
-    def __init__(self, data):
-        self.data = data
+    def __init__(self):
+        self.repository = FindAllAuditRepository()
 
-    def execute(self):
-        return FindAllAuditRepository.execute(self.data)
+    def execute(self, data):
+        element = self.repository.execute(data)
+        return element

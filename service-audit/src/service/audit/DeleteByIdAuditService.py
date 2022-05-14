@@ -3,8 +3,9 @@ from src.persistence.repository.audit.DeleteByIdAuditRepository import DeleteByI
 
 class DeleteByIdAuditService(IService):
 
-    def __init__(self, data):
-        self.data = data
+    def __init__(self):
+        self.repository = DeleteByIdAuditRepository()
 
-    def execute(self):
-        return DeleteByIdAuditRepository.execute(self.data)
+    def execute(self, data): 
+        element = self.repository.execute(data)
+        return element

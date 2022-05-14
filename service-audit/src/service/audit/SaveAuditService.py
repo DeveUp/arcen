@@ -3,6 +3,9 @@ from src.persistence.repository.audit.SaveAuditRepository import SaveAuditReposi
 
 class SaveAuditService(IService):
 
-    def execute(data):
-        repository = SaveAuditRepository()
-        return repository.execute(data)
+    def __init__(self):
+        self.repository = SaveAuditRepository()
+
+    def execute(self, data):
+        element = self.repository.execute(data)
+        return element
