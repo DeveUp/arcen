@@ -1,3 +1,4 @@
+# DATABASE
 DATABASE_MONGODB_USER = "prince:<password>@cluster0.xfinu";
 DATABASE_MONGODB_URL = "mongodb+srv://"+DATABASE_MONGODB_USER+".mongodb.net/";
 DATABASE_MONGODB_NAME = "audit";
