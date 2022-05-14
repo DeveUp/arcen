@@ -4,4 +4,4 @@ class IService:
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def execute(self, data:dict): raise NotImplementedError
+    def execute(data): raise NotImplementedError

@@ -1,7 +1,10 @@
 from src.service.IService import IService
-from src.repository.audit.UpdateAuditRepository import UpdateAuditRepository
+from src.persistence.repository.audit.UpdateAuditRepository import UpdateAuditRepository
 
 class UpdateAuditService(IService):
 
-    def execute(self, data:dict):
-        return UpdateAuditRepository.execute(data)
+    def __init__(self, data):
+        self.data = data
+
+    def execute(self):
+        return UpdateAuditRepository.execute(self.data)

@@ -1,7 +1,10 @@
 from src.service.IService import IService
-from src.repository.audit.DeleteByIdAuditRepository import DeleteByIdAuditRepository
+from src.persistence.repository.audit.DeleteByIdAuditRepository import DeleteByIdAuditRepository
 
 class DeleteByIdAuditService(IService):
 
-    def execute(self, data:dict):
-        return DeleteByIdAuditRepository.execute(data)
+    def __init__(self, data):
+        self.data = data
+
+    def execute(self):
+        return DeleteByIdAuditRepository.execute(self.data)

@@ -1,7 +1,9 @@
+from traceback import print_last
 from src.service.IService import IService
-from src.repository.audit.FindByIdAuditRepository import FindByIdAuditRepository
+from src.persistence.repository.audit.FindByIdAuditRepository import FindByIdAuditRepository
 
 class FindByIdAuditService(IService):
 
-    def execute(self, data:dict):
-        return FindByIdAuditRepository.execute(data)
+    def execute(data):
+        repository = FindByIdAuditRepository()
+        return repository.execute(data)

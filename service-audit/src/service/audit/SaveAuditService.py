@@ -1,7 +1,8 @@
 from src.service.IService import IService
-from src.repository.audit.SaveAuditRepository import SaveAuditRepository
+from src.persistence.repository.audit.SaveAuditRepository import SaveAuditRepository
 
 class SaveAuditService(IService):
 
-    def execute(self, data:dict):
-        return SaveAuditRepository.execute(data)
+    def execute(data):
+        repository = SaveAuditRepository()
+        return repository.execute(data)

@@ -7,4 +7,5 @@ router_find_by_id_audit = APIRouter()
 @router_find_by_id_audit.get("/{id}")
 async def find_by_id(id: str):
     data = dict(id=id)
-    return FindByIdAuditService.execute(data)
+    service = FindByIdAuditService()
+    return service.execute(data)
