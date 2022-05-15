@@ -2,28 +2,20 @@ from bson import ObjectId
 
 from src.persistence.repository.IRepository import IRepository
 from src.persistence.database.AuditDB import AuditDB
-from src.persistence.schema.AuditSchema import AuditSchema
+from src.util.constant import COLUMN_AUDIT_NAME, COLUMN_AUDIT_ID_NAME, COLUMN_AUDIT_ID_TWO_NAME
 
 class UpdateAuditRepository(IRepository):
 
     def __init__(self):
         self.db = AuditDB()
-        self.schema = AuditSchema()
         self.collection = self.db.get_db_audit()
 
     def execute(self, data:dict):
-        try:
-            id = data['id']
-            audit = data['audit']
-        except:
-            return None
-        try:
-            id = self.collection.find_one_and_update({
-                "_id": ObjectId(id)
-            },{
-                "$set": dict(audit)
-            })
-            audit = self.findAuditById.execute(id)
-        except:
-            audit= None
-        return audit
+        id = data[COLUMN_AUDIT_ID_TWO_NAME]
+        audit = data[COLUMN_AUDIT_NAME]
+        id = self.collection.find_one_and_update({
+            COLUMN_AUDIT_ID_NAME: ObjectId(id)
+        },{
+            "$set": dict(audit)
+        })
+        return self.findAuditById.execute(id)
