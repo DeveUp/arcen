@@ -1,21 +1,15 @@
 from bson import ObjectId
 
 from src.persistence.repository.IRepository import IRepository
-from src.persistence.database.StorageDB import StorageDB
-from src.util.constant import COLUMN_FURNITURE, COLUMN_FURNITURE_ID_TWO
+from src.persistence.database.database import get_db
+from src.util.constant import COLUMN_FURNITURE, COLUMN_FURNITURE_ID
 
 class UpdateFurnitureRepository(IRepository):
 
     def __init__(self):
-        self.db = StorageDB()
-        self.collection = self.db.get_db_furniture()
+        self.db = get_db()
 
     def execute(self, data:dict):
-        id = data[COLUMN_FURNITURE_ID_TWO]
+        id = data[COLUMN_FURNITURE_ID]
         furniture = data[COLUMN_FURNITURE]
-        furniture = self.collection.find_one_and_update({
-            COLUMN_FURNITURE_ID_TWO: ObjectId(id)
-        },{
-            "$set": dict(furniture)
-        })
-        return furniture
+        return None

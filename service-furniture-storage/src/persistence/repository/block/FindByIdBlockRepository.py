@@ -1,16 +1,19 @@
-from bson import ObjectId
+from fastapi import Depends
+from sqlalchemy.orm import Session
 
+from src.model.entity.Block import Block
 from src.persistence.repository.IRepository import IRepository
-from src.persistence.database.StorageDB import StorageDB
-from src.util.constant import COLUMN_BLOCK_ID, COLUMN_BLOCK_ID_TWO
+from src.persistence.database.table.BlockTable import BlockTable
+from src.util.constant import COLUMN_BLOCK_ID
 
 class FindByIdBlockRepository(IRepository):
 
     def __init__(self):
-        self.db = StorageDB()
-        self.collection = self.db.get_db_block()
+        table = BlockTable()
+        self.db: Session = Depends(table.execute())
 
     def execute(self, data:dict):
-        id = ObjectId(data[COLUMN_BLOCK_ID_TWO])
-        return self.collection.find_one({COLUMN_BLOCK_ID:id})
+        id = data[COLUMN_BLOCK_ID]
+        element = self.db.query(Block).filter(Block.id == id).first()
+        return element
        

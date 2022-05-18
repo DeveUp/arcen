@@ -1,16 +1,19 @@
-from bson import ObjectId
+from fastapi import Depends
+from sqlalchemy.orm import Session
 
 from src.persistence.repository.IRepository import IRepository
-from src.persistence.database.StorageDB import StorageDB
-from src.util.constant import COLUMN_BLOCK_ID, COLUMN_BLOCK_ID_TWO
+from src.persistence.repository.block.FindByIdBlockRepository import FindByIdBlockRepository
+from src.persistence.database.table.BlockTable import BlockTable
 
 class DeleteByIdBlockRepository(IRepository):
 
     def __init__(self):
-        self.db = StorageDB()
-        self.collection = self.db.get_db_block()
+        table = BlockTable()
+        self.find_by_id = FindByIdBlockRepository()
+        self.db: Session = Depends(table.execute())
 
     def execute(self, data:dict):
-        id = ObjectId(data[COLUMN_BLOCK_ID_TWO])
-        self.collection.find_one_and_delete({COLUMN_BLOCK_ID:id})
+        element = self.find_by_id.execute(data)
+        self.db.delete(element)
+        self.db.commit()
         return True
