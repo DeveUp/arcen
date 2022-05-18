@@ -1,6 +1,6 @@
 from src.model.entity.Furniture import Furniture
 from src.model.dto.FurnitureDto import FurnitureDto
-from src.util.constant import COLUMN_FURNITURE_ID, COLUMN_FURNITURE_ID_BLOCK, COLUMN_FURNITURE_ID_TYPE_FURNITURE, COLUMN_FURNITURE_NUMBER_FURNITURE, COLUMN_FURNITURE_DATE
+from src.util.constant import COLUMN_FURNITURE_ID, COLUMN_FURNITURE_ID_BLOCK, COLUMN_FURNITURE_ID_TYPE_FURNITURE, COLUMN_FURNITURE_NUMBER_FURNITURE, COLUMN_FURNITURE_CREATION_DATE
 
 class FurnitureSchema:
 
@@ -9,17 +9,18 @@ class FurnitureSchema:
         self.id_block = COLUMN_FURNITURE_ID_BLOCK
         self.id_type_furniture = COLUMN_FURNITURE_ID_TYPE_FURNITURE
         self.number_furniture = COLUMN_FURNITURE_NUMBER_FURNITURE
-        self.date = COLUMN_FURNITURE_DATE
+        self.creation_date = COLUMN_FURNITURE_CREATION_DATE
 
     def furniture(self, furniture) -> Furniture:
         if furniture == None: 
             return furniture
-        entity = Furniture()
-        entity.set_id(str(furniture[self.id]))
-        entity.set_id_block(furniture[self.id_block])
-        entity.set_id_type_furniture(furniture[self.id_type_furniture])
-        entity.set_number_furniture(furniture[self.number_furniture])
-        entity.set_date(furniture[self.date])
+        entity = Furniture(
+            COLUMN_FURNITURE_ID = furniture[self.id],
+            COLUMN_FURNITURE_ID_BLOCK = furniture[self.id_block],
+            COLUMN_FURNITURE_ID_TYPE_FURNITURE = furniture[self.id_type_furniture],
+            COLUMN_FURNITURE_NUMBER_FURNITURE = furniture[self.number_furniture],
+            COLUMN_FURNITURE_CREATION_DATE = furniture[self.creation_date]
+        )
         return entity
     
     def furnitures(self, furnitures) -> list:
@@ -31,10 +32,10 @@ class FurnitureSchema:
         if furniture == None: 
             return furniture
         return FurnitureDto(
-            id_block = furniture[self.id_block], 
-            id_type_furniture = furniture[self.id_type_furniture], 
-            number_furniture = furniture[self.number_furniture], 
-            date = furniture[self.date]
+            COLUMN_FURNITURE_ID_BLOCK = furniture[self.id_block], 
+            COLUMN_FURNITURE_ID_TYPE_FURNITURE = furniture[self.id_type_furniture], 
+            COLUMN_FURNITURE_NUMBER_FURNITURE = furniture[self.number_furniture], 
+            COLUMN_FURNITURE_CREATION_DATE = furniture[self.creation_date]
         )
 
     def furniture_dict(self, furniture, create= None) -> dict:
@@ -45,9 +46,9 @@ class FurnitureSchema:
         except:
             id = None
         try:
-            date = furniture[self.date]
+            creation_date = furniture[self.creation_date]
         except:
-            date = None
+            creation_date = None
         data = {
             self.id_block: furniture[self.id_block],
             self.id_type_furniture: furniture[self.id_type_furniture],
@@ -55,8 +56,8 @@ class FurnitureSchema:
         }
         if id != None:
             data[self.id]= id
-        if date != None:
-            data[self.date]= date
+        if creation_date != None:
+            data[self.creation_date]= creation_date
         if create != None:
-            data[self.date]= create
+            data[self.creation_date]= create
         return data

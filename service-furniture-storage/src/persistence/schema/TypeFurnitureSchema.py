@@ -1,6 +1,6 @@
 from src.model.entity.TypeFurniture import TypeFurniture
 from src.model.dto.TypeFurnitureDto import TypeFurnitureDto
-from src.util.constant import COLUMN_TYPE_FURNITURE_ID, COLUMN_TYPE_FURNITURE_NUMBER_TYPE_FURNITURE, COLUMN_TYPE_FURNITURE_COUNT_RACK, COLUMN_TYPE_FURNITURE_COUNT_ROW, COLUMN_TYPE_FURNITURE_DEPTH, COLUMN_TYPE_FURNITURE_HEIGHT, COLUMN_TYPE_FURNITURE_WIDTH, COLUMN_TYPE_FURNITURE_DATE
+from src.util.constant import COLUMN_TYPE_FURNITURE_ID, COLUMN_TYPE_FURNITURE_NUMBER_TYPE_FURNITURE, COLUMN_TYPE_FURNITURE_COUNT_RACK, COLUMN_TYPE_FURNITURE_COUNT_ROW, COLUMN_TYPE_FURNITURE_DEPTH, COLUMN_TYPE_FURNITURE_HEIGHT, COLUMN_TYPE_FURNITURE_WIDTH, COLUMN_TYPE_FURNITURE_CREATION_DATE
 
 class TypeFurnitureSchema:
 
@@ -12,20 +12,21 @@ class TypeFurnitureSchema:
         self.depth = COLUMN_TYPE_FURNITURE_DEPTH
         self.height = COLUMN_TYPE_FURNITURE_HEIGHT
         self.width = COLUMN_TYPE_FURNITURE_WIDTH
-        self.date = COLUMN_TYPE_FURNITURE_DATE
+        self.creation_date = COLUMN_TYPE_FURNITURE_CREATION_DATE
 
     def type_furniture(self, type_furniture) -> TypeFurniture:
         if type_furniture == None: 
             return type_furniture
-        entity = TypeFurniture()
-        entity.set_id(str(type_furniture[self.id]))
-        entity.set_number_type_furniture(type_furniture[self.number_type_furniture])
-        entity.set_count_rack(type_furniture[self.count_rack])
-        entity.set_count_row(type_furniture[self.count_row])
-        entity.set_depth(type_furniture[self.depth])
-        entity.set_height(type_furniture[self.height])
-        entity.set_width(type_furniture[self.width])
-        entity.set_date(type_furniture[self.date])
+        entity = TypeFurniture(
+            COLUMN_TYPE_FURNITURE_ID = type_furniture[self.id],
+            COLUMN_TYPE_FURNITURE_NUMBER_TYPE_FURNITURE = type_furniture[self.number_type_furniture],
+            COLUMN_TYPE_FURNITURE_COUNT_RACK = type_furniture[self.count_rack],
+            COLUMN_TYPE_FURNITURE_COUNT_ROW = type_furniture[self.count_row],
+            COLUMN_TYPE_FURNITURE_DEPTH = type_furniture[self.depth],
+            COLUMN_TYPE_FURNITURE_HEIGHT = type_furniture[self.height],
+            COLUMN_TYPE_FURNITURE_WIDTH = type_furniture[self.width],
+            COLUMN_TYPE_FURNITURE_CREATION_DATE = type_furniture[self.creation_date]
+        )
         return entity
     
     def type_furnitures(self, type_furnitures) -> list:
@@ -37,13 +38,13 @@ class TypeFurnitureSchema:
         if type_furniture == None: 
             return type_furniture
         return TypeFurnitureDto(
-            number_type_furniture = type_furniture[self.number_type_furniture], 
-            count_rack = type_furniture[self.count_rack], 
-            count_row = type_furniture[self.count_row], 
-            depth = type_furniture[self.depth],
-            height = type_furniture[self.height],
-            width = type_furniture[self.width],
-            date = type_furniture[self.date]
+            COLUMN_TYPE_FURNITURE_NUMBER_TYPE_FURNITURE = type_furniture[self.number_type_furniture],
+            COLUMN_TYPE_FURNITURE_COUNT_RACK = type_furniture[self.count_rack],
+            COLUMN_TYPE_FURNITURE_COUNT_ROW = type_furniture[self.count_row],
+            COLUMN_TYPE_FURNITURE_DEPTH = type_furniture[self.depth],
+            COLUMN_TYPE_FURNITURE_HEIGHT = type_furniture[self.height],
+            COLUMN_TYPE_FURNITURE_WIDTH = type_furniture[self.width],
+            COLUMN_TYPE_FURNITURE_CREATION_DATE = type_furniture[self.creation_date]
         )
 
     def type_furniture_dict(self, type_furniture, create= None) -> dict:
@@ -54,9 +55,9 @@ class TypeFurnitureSchema:
         except:
             id = None
         try:
-            date = type_furniture[self.date]
+            creation_date = type_furniture[self.creation_date]
         except:
-            date = None
+            creation_date = None
         data = {
             self.number_type_furniture: type_furniture[self.number_type_furniture],
             self.count_rack: type_furniture[self.count_rack],
@@ -67,8 +68,8 @@ class TypeFurnitureSchema:
         }
         if id != None:
             data[self.id]= id
-        if date != None:
-            data[self.date]= date
+        if creation_date != None:
+            data[self.creation_date]= creation_date
         if create != None:
-            data[self.date]= create
+            data[self.creation_date]= create
         return data
