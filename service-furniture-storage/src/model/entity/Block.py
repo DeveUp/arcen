@@ -8,6 +8,6 @@ from src.util.constant import DATABASE_POSTGRESQL_TABLE_BLOCK
 class Block(Base):
     __tablename__ = DATABASE_POSTGRESQL_TABLE_BLOCK
     id = Column(Integer, primary_key=True, index=True)
-    letter = Column(String(20))
+    letter = Column(String(255))
     flat = Column(String(20))
-    date = Column(DateTime(), default=datetime.utcnow)
+    creation_date = Column(DateTime(), default=datetime.utcnow)

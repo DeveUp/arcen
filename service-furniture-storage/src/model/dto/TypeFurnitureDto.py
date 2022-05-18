@@ -7,4 +7,4 @@ class TypeFurnitureDto(BaseModel):
     depth: int
     height: int
     width: int
-    date: str
+    creation_date: str

@@ -11,4 +11,4 @@ class Furniture(Base):
     id_block = Column(Integer, index=True)
     id_type_furniture = Column(Integer, index=True)
     number_furniture = Column(Integer, index=True)
-    date = Column(DateTime, default=datetime.utcnow)
+    creation_date = Column(DateTime, default=datetime.utcnow)
