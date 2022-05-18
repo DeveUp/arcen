@@ -4,4 +4,4 @@ class FurnitureDto(BaseModel):
     id_block: str
     id_type_furniture: str
     number_furniture: str
-    date: str
+    creation_date: str
