@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
-class IService:
+class ITable:
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def execute(self, data:dict): raise NotImplementedError
+    def execute(self): raise NotImplementedError

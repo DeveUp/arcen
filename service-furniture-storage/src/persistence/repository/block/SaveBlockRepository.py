@@ -1,21 +1,23 @@
+from fastapi import Depends
+from sqlalchemy.orm import Session
+
+from src.model.entity.Block import Block
 from src.persistence.repository.IRepository import IRepository
-from src.persistence.repository.block.FindByIdBlockRepository import FindByIdBlockRepository
-from src.persistence.database.StorageDB import StorageDB
-from src.util.constant import COLUMN_BLOCK, COLUMN_BLOCK_ID_TWO
+from src.persistence.database.table.BlockTable import BlockTable
+from src.util.constant import COLUMN_BLOCK, COLUMN_BLOCK_LETTER, COLUMN_BLOCK_FLAT
 
 class SaveBlockRepository(IRepository):
 
     def __init__(self):
-        self.db = StorageDB()
-        self.find_by_id = FindByIdBlockRepository()
-        self.collection = self.db.get_db_block()
+        table = BlockTable()
+        self.db: Session = Depends(table.execute())
 
     def execute(self, data:dict):
         try:
-            block = dict(data[COLUMN_BLOCK])
-            id = self.collection.insert_one(block)
-            data = dict({COLUMN_BLOCK_ID_TWO: id.inserted_id})
-            block = self.find_by_id.execute(data)
+            element = Block(**dict(data[COLUMN_BLOCK]))
+            self.db.add(element)
+            self.db.commit()
+            self.db.refresh(element)
         except:
-            block= None
-        return block
+            element= None
+        return element

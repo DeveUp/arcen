@@ -1,16 +1,19 @@
-from bson import ObjectId
+from fastapi import Depends
+from sqlalchemy.orm import Session
 
+from src.model.entity.Furniture import Furniture
 from src.persistence.repository.IRepository import IRepository
-from src.persistence.database.StorageDB import StorageDB
-from src.util.constant import COLUMN_FURNITURE_ID, COLUMN_FURNITURE_ID_TWO
+from src.persistence.database.table.FurnitureTable import FurnitureTable
+from src.util.constant import COLUMN_FURNITURE_ID
 
 class FindByIdFurnitureRepository(IRepository):
 
     def __init__(self):
-        self.db = StorageDB()
-        self.collection = self.db.get_db_furniture()
+        table = FurnitureTable()
+        self.db: Session = Depends(table.execute())
 
     def execute(self, data:dict):
-        id = ObjectId(data[COLUMN_FURNITURE_ID_TWO])
-        return self.collection.find_one({COLUMN_FURNITURE_ID:id})
+        id = data[COLUMN_FURNITURE_ID]
+        element = self.db.query(Furniture).filter(Furniture.id == id).first()
+        return element
        

@@ -2,16 +2,31 @@
  STARTING
 /**********************************************************/
 Crear Env
+  python -m venv env
+    o
   python -m venv --copies .env 
 
 Axtivar .env
+  env\Scripts\activate
+    o
   .\.env\Scripts\Activate.ps1 
 
 /**********************************************************/
  INSTALL
 /**********************************************************/
+python -m pip install -U pip
+pip install uvicorn
+pip install databases[postgres]
+pip install databases[postgresql]
+pip install gunicorn
+GENERA ARCHIVO
+pip freeze > requirements.txt 
+  o
+
 Installar en env
   pip install -r .\requirements.txt
+
+
 
 /**********************************************************/
   DATABASE

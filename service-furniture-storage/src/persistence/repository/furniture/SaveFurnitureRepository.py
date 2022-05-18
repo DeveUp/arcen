@@ -1,21 +1,23 @@
+from fastapi import Depends
+from sqlalchemy.orm import Session
+
+from src.model.entity.Furniture import Furniture
 from src.persistence.repository.IRepository import IRepository
-from src.persistence.repository.furniture.FindByIdFurnitureRepository import FindByIdFurnitureRepository
-from src.persistence.database.StorageDB import StorageDB
-from src.util.constant import COLUMN_FURNITURE, COLUMN_FURNITURE_ID_TWO
+from src.persistence.database.table.FurnitureTable import FurnitureTable
+from src.util.constant import COLUMN_FURNITURE
 
 class SaveFurnitureRepository(IRepository):
 
     def __init__(self):
-        self.db = StorageDB()
-        self.find_by_id = FindByIdFurnitureRepository()
-        self.collection = self.db.get_db_furniture()
+        table = FurnitureTable()
+        self.db: Session = Depends(table.execute())
 
     def execute(self, data:dict):
         try:
-            furniture = dict(data[COLUMN_FURNITURE])
-            id = self.collection.insert_one(furniture)
-            data = dict({COLUMN_FURNITURE_ID_TWO: id.inserted_id})
-            furniture = self.find_by_id.execute(data)
+            element = Furniture(**dict(data[COLUMN_FURNITURE]))
+            self.db.add(element)
+            self.db.commit()
+            self.db.refresh(element)
         except:
-            furniture= None
-        return furniture
+            element= None
+        return element

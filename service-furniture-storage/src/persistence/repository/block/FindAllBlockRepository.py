@@ -1,13 +1,15 @@
-from src.persistence.repository.IRepository import IRepository
+from fastapi import Depends
+from sqlalchemy.orm import Session
 
+from src.model.entity.Block import Block
 from src.persistence.repository.IRepository import IRepository
-from src.persistence.database.StorageDB import StorageDB
+from src.persistence.database.table.BlockTable import BlockTable
 
 class FindAllBlockRepository(IRepository):
 
     def __init__(self):
-        self.db = StorageDB()
-        self.collection = self.db.get_db_block()
+        table = BlockTable()
+        self.db: Session = Depends(table.execute())
 
     def execute(self, data:dict):
-        return self.collection.find()
+        return self.db.query(Block).all()
