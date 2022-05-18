@@ -4,7 +4,6 @@ from sqlalchemy.orm import Session
 from src.persistence.repository.IRepository import IRepository
 from src.persistence.database.table.FurnitureTable import FurnitureTable
 from src.persistence.repository.furniture.FindByIdFurnitureRepository import FindByIdFurnitureRepository
-from src.util.constant import COLUMN_FURNITURE_ID, COLUMN_FURNITURE_ID
 
 class DeleteByIdFurnitureRepository(IRepository):
 
