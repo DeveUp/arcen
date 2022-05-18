@@ -1,21 +1,21 @@
-from bson import ObjectId
+from fastapi import Depends
+from sqlalchemy.orm import Session
 
+from src.model.entity.Furniture import Furniture
 from src.persistence.repository.IRepository import IRepository
-from src.persistence.database.StorageDB import StorageDB
-from src.util.constant import COLUMN_FURNITURE, COLUMN_FURNITURE_ID_TWO
+from src.persistence.database.table.FurnitureTable import FurnitureTable
+from src.util.constant import COLUMN_FURNITURE, COLUMN_FURNITURE_ID
 
 class UpdateFurnitureRepository(IRepository):
 
     def __init__(self):
-        self.db = StorageDB()
-        self.collection = self.db.get_db_furniture()
+        table = FurnitureTable()
+        self.db: Session = Depends(table.execute())
 
     def execute(self, data:dict):
-        id = data[COLUMN_FURNITURE_ID_TWO]
-        furniture = data[COLUMN_FURNITURE]
-        furniture = self.collection.find_one_and_update({
-            COLUMN_FURNITURE_ID_TWO: ObjectId(id)
-        },{
-            "$set": dict(furniture)
-        })
-        return furniture
+        id = data[COLUMN_FURNITURE_ID]
+        element = data[COLUMN_FURNITURE]
+        element = self.db.query(Furniture).get(id)
+        self.db.commit()
+        self.db.refresh(element)
+        return element
