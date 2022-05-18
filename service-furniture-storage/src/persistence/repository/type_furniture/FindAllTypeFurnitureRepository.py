@@ -1,12 +1,15 @@
-from src.persistence.repository.IRepository import IRepository
+from fastapi import Depends
+from sqlalchemy.orm import Session
 
+from src.model.entity.TypeFurniture import TypeFurniture
 from src.persistence.repository.IRepository import IRepository
-from src.persistence.database.database import get_db
+from src.persistence.database.table.TypeFurnitureTable import TypeFurnitureTable
 
 class FindAllTypeFurnitureRepository(IRepository):
 
     def __init__(self):
-        self.db = get_db()
+        table = TypeFurnitureTable()
+        self.db: Session = Depends(table.execute())
 
     def execute(self, data:dict):
-        return None
+        return self.db.query(TypeFurniture).all()

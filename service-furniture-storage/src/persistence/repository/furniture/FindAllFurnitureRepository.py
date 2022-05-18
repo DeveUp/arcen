@@ -1,4 +1,3 @@
-from operator import ge
 from fastapi import Depends
 from sqlalchemy.orm import Session
 
@@ -13,4 +12,4 @@ class FindAllFurnitureRepository(IRepository):
         self.db: Session = Depends(table.execute())
 
     def execute(self, data:dict):
-         return self.db.query(Furniture).all()
+        return self.db.query(Furniture).all()

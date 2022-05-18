@@ -1,16 +1,17 @@
-import datetime as _dt
-import sqlalchemy as _sql
+from datetime import datetime
+from sqlalchemy.schema import Column
+from sqlalchemy.types import String,Integer, DateTime
 
-import src.persistence.database.database as _database
+from src.persistence.database.database import Base
 from src.util.constant import DATABASE_POSTGRESQL_TABLE_TYPE_FURNITURE
 
-class TypeFurniture(_database.Base):
+class TypeFurniture(Base):
     __tablename__ = DATABASE_POSTGRESQL_TABLE_TYPE_FURNITURE
-    id = _sql.Column(_sql.Integer, primary_key=True, index=True)
-    number_type_furniture = _sql.Column(_sql.String, index=True)
-    count_rack = _sql.Column(_sql.Integer, index=True)
-    count_row = _sql.Column(_sql.Integer, index=True)
-    depth = _sql.Column(_sql.Integer, index=True)
-    height = _sql.Column(_sql.Integer, index=True)
-    width = _sql.Column(_sql.Integer, index=True)
-    date= _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
+    id = Column(Integer, primary_key=True, index=True)
+    number_type_furniture = Column(String, index=True)
+    count_rack = Column(Integer, index=True)
+    count_row = Column(Integer, index=True)
+    depth = Column(Integer, index=True)
+    height = Column(Integer, index=True)
+    width = Column(Integer, index=True)
+    date= Column(DateTime, default=datetime.utcnow)
