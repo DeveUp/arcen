@@ -5,14 +5,21 @@ docker pull postgres:alpine
 docker images
 docker run --name arcen-postgres -e POSTGRES_PASSWORD=arcen -d -p 5432:5432 postgres:alpine
 docker ps
-
 docker exec -it arcen-postgres bash
 ls
+
+su postgres
 psql -U postgres
 
 create database arcen_furniture;
 create user arcen with encrypted password 'arcen';
+\du
+
 grant all privileges on database arcen_furniture to arcen;
 
-\c arcen_furniture;
+\c arcen_furniture;  #Connect
+\dt # Table
+grant all privileges on all tables in schema public to arcen;
+grant all privileges on all sequences in schema public to arcen;
+
 psql -h localhost -p 5432 postgres

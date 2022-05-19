@@ -26,8 +26,6 @@ pip freeze > requirements.txt
 Installar en env
   pip install -r .\requirements.txt
 
-
-
 /**********************************************************/
   DATABASE
 /**********************************************************/
