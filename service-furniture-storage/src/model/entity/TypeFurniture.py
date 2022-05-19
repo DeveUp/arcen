@@ -1,6 +1,6 @@
 from datetime import datetime
 from sqlalchemy.schema import Column
-from sqlalchemy.types import String,Integer, DateTime
+from sqlalchemy.types import Integer, DateTime
 
 from src.persistence.database.database import Base
 from src.util.constant import DATABASE_POSTGRESQL_TABLE_TYPE_FURNITURE
@@ -14,4 +14,4 @@ class TypeFurniture(Base):
     depth = Column(Integer, index=True)
     height = Column(Integer, index=True)
     width = Column(Integer, index=True)
-    creation_date= Column(DateTime, default=datetime.utcnow)
+    date= Column(DateTime, default=datetime.utcnow)

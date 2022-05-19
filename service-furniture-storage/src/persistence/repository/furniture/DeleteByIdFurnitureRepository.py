@@ -1,19 +1,15 @@
-from fastapi import Depends
 from sqlalchemy.orm import Session
 
 from src.persistence.repository.IRepository import IRepository
-from src.persistence.database.table.FurnitureTable import FurnitureTable
-from src.persistence.repository.furniture.FindByIdFurnitureRepository import FindByIdFurnitureRepository
+from src.util.constant import COLUMN_FURNITURE
 
 class DeleteByIdFurnitureRepository(IRepository):
 
-    def __init__(self):
-        table = FurnitureTable()
-        self.find_by_id = FindByIdFurnitureRepository()
-        self.db: Session = Depends(table.execute())
+    def __init__(self, db: Session):
+        self.db = db
 
     def execute(self, data:dict):
-        element = self.find_by_id.execute(data)
+        element = data[COLUMN_FURNITURE]
         self.db.delete(element)
         self.db.commit()
         return True

@@ -13,14 +13,19 @@ class BlockSchema:
     def block(self, block) -> Block:
         if block == None: 
             return block
+        return block
+        
+    def block_other(self, block) -> Block:
+        if block == None: 
+            return block
         entity = Block(
-            COLUMN_BLOCK_ID = str(block[self.id]),
+            COLUMN_BLOCK_ID = block[self.id],
             COLUMN_BLOCK_LETTER = block[self.letter],
             COLUMN_BLOCK_FLAT = block[self.flat],
             COLUMN_BLOCK_CREATION_DATE = block[self.creation_date]
         )
         return entity
-    
+
     def blocks(self, blocks) -> list:
         if blocks == None: 
             return blocks

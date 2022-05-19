@@ -1,11 +1,13 @@
+from sqlalchemy.orm import Session
+
 from src.service.IService import IService
 from src.persistence.repository.block.FindByIdBlockRepository import FindByIdBlockRepository
 from src.persistence.schema.BlockSchema import BlockSchema
 
 class FindByIdBlockService(IService):
 
-    def __init__(self):
-        self.repository = FindByIdBlockRepository()
+    def __init__(self, db: Session):
+        self.repository = FindByIdBlockRepository(db)
         self.schema = BlockSchema()
 
     def execute(self, data:dict): 

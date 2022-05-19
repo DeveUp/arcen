@@ -17,6 +17,11 @@ class TypeFurnitureSchema:
     def type_furniture(self, type_furniture) -> TypeFurniture:
         if type_furniture == None: 
             return type_furniture
+        return type_furniture
+
+    def type_furniture_other(self, type_furniture) -> TypeFurniture:
+        if type_furniture == None: 
+            return type_furniture
         entity = TypeFurniture(
             COLUMN_TYPE_FURNITURE_ID = type_furniture[self.id],
             COLUMN_TYPE_FURNITURE_NUMBER_TYPE_FURNITURE = type_furniture[self.number_type_furniture],
