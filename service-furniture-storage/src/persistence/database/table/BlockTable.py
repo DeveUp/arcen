@@ -12,4 +12,5 @@ class BlockTable(ITable):
             db = SessionLocal()
             yield db
         finally:
-            db.close()
+           db.close()
+

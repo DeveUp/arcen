@@ -1,11 +1,13 @@
+from sqlalchemy.orm import Session
+
 from src.service.IService import IService
 from src.persistence.repository.type_furniture.UpdateTypeFurnitureRepository import UpdateTypeFurnitureRepository
 from src.persistence.schema.TypeFurnitureSchema import TypeFurnitureSchema
 
 class UpdateTypeFurnitureService(IService):
 
-    def __init__(self):
-        self.repository = UpdateTypeFurnitureRepository()
+    def __init__(self, db: Session):
+        self.repository = UpdateTypeFurnitureRepository(db)
         self.schema = TypeFurnitureSchema()
 
     def execute(self, data:dict):

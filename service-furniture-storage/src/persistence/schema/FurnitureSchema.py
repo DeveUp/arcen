@@ -14,6 +14,11 @@ class FurnitureSchema:
     def furniture(self, furniture) -> Furniture:
         if furniture == None: 
             return furniture
+        return furniture
+
+    def furniture_other(self, furniture) -> Furniture:
+        if furniture == None: 
+            return furniture
         entity = Furniture(
             COLUMN_FURNITURE_ID = furniture[self.id],
             COLUMN_FURNITURE_ID_BLOCK = furniture[self.id_block],

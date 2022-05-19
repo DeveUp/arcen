@@ -9,5 +9,5 @@ class Block(Base):
     __tablename__ = DATABASE_POSTGRESQL_TABLE_BLOCK
     id = Column(Integer, primary_key=True, index=True)
     letter = Column(String(255))
-    flat = Column(String(20))
-    creation_date = Column(DateTime(), default=datetime.utcnow)
+    flat = Column(String(255))
+    date = Column(DateTime, default=datetime.utcnow)
