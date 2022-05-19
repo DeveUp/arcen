@@ -1,4 +1,4 @@
-CREATE TABLE block(
+CREATE TABLE public.block(
 	id BIGINT NOT NULL,
     letter VARCHAR(255) NOT NULL,
     flat VARCHAR(255),
@@ -6,7 +6,11 @@ CREATE TABLE block(
     PRIMARY KEY (id)
 );
 
-CREATE TABLE furniture(
+INSERT INTO public.block
+(id, letter, flat, creation_date)
+VALUES(1, 'Test Letter', 'Test Flat', '2000/08/09');
+
+CREATE TABLE public.furniture(
 	id BIGINT NOT NULL,
     id_block BIGINT NOT NULL,
     id_type_furniture BIGINT NOT NULL,
@@ -16,7 +20,7 @@ CREATE TABLE furniture(
 );
 
 
-CREATE TABLE type_furniture(
+CREATE TABLE public.type_furniture(
 	id BIGINT NOT NULL,
     number_type_furniture INT NOT NULL,
     count_rack INT NOT NULL,
