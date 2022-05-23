@@ -1,5 +1,3 @@
-from bson import ObjectId
-
 from src.model.entity.Audit import Audit
 from src.model.dto.AuditDto import AuditDto
 from src.util.constant import COLUMN_AUDIT_DATE_NAME, COLUMN_AUDIT_RESPONSE_NAME, COLUMN_AUDIT_ID_USER_NAME, COLUMN_AUDIT_ID_NAME, COLUMN_AUDIT_SERVICE_NAME, COLUMN_AUDIT_OPERATION_NAME
@@ -54,10 +52,10 @@ class AuditSchema:
         except:
             date = None
         data = {
-            self.service: audit[self.service],
-            self.operation: audit[self.operation],
-            self.id_user: audit[self.id_user],
-            self.response: audit[self.response]
+            COLUMN_AUDIT_SERVICE_NAME: audit[self.service],
+            COLUMN_AUDIT_OPERATION_NAME: audit[self.operation],
+            COLUMN_AUDIT_ID_USER_NAME: audit[self.id_user],
+            COLUMN_AUDIT_RESPONSE_NAME: audit[self.response]
         }
         if id != None:
             data[self.id]= id
