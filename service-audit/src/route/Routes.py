@@ -13,6 +13,7 @@ from src.route.control_audit.FindByIdControlAuditRouter import router_find_by_id
 # ROUTES AUDIT CLOSURE
 from src.route.audit_closure.FindAllAuditClosureRouter import router_find_all_audit_closure
 from src.route.audit_closure.FindByIdAuditClosureRouter import router_find_by_id_audit_closure
+from src.route.audit_closure.SaveAuditClosureRouter import router_save_audit_closure
 
 routes = FastAPI()
 
@@ -27,3 +28,4 @@ routes.include_router(router_find_by_id_control_audit)
 
 routes.include_router(router_find_all_audit_closure)
 routes.include_router(router_find_by_id_audit_closure)
+routes.include_router(router_save_audit_closure)

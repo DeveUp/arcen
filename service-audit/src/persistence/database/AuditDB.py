@@ -16,5 +16,5 @@ class AuditDB:
         return self.get_db(DATABASE_MONGODB, COLUMN_CONTROL_AUDIT_NAME)
     
     def get_db_audit_id(self, id:str):
-        table = DATABASE_MONGODB_NAME_TABLE+id
+        table = DATABASE_MONGODB_NAME_TABLE+"_"+id
         return self.get_db(DATABASE_MONGODB, table)

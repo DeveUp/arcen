@@ -1,3 +1,6 @@
+import bson
+import uuid
+
 from datetime import datetime
 from email.policy import strict
 
@@ -25,3 +28,13 @@ def isGenericDate(str_date:str, format:str):
     except ValueError:
         return False
     return True
+
+def generateId(type:int =1):
+    id = None
+    if type == 1:
+        id = str(bson.ObjectId())
+    if type == 2:
+        id = str(uuid.uuid1())
+    if id == None:
+        return generateId(type)
+    return id
