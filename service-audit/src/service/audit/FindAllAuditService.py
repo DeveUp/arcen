@@ -9,9 +9,5 @@ class FindAllAuditService(IService):
         self.schema = AuditSchema()
 
     def execute(self, data:dict):
-        try:
-            elements = self.repository.execute(data)
-            elements = self.schema.audits(elements)
-        except:
-            elements= None
-        return elements
+        elements = self.repository.execute(data)
+        return self.schema.audits(elements)

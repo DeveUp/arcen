@@ -3,7 +3,7 @@ from datetime import datetime
 from src.service.IService import IService
 from src.persistence.repository.audit.SaveAuditRepository import SaveAuditRepository
 from src.persistence.schema.AuditSchema import AuditSchema
-from src.util.constant import COLUMN_AUDIT_NAME, COLUMN_AUDIT_DATE_NAME, FORMAT_DATE
+from src.util.constant import COLUMN_AUDIT_NAME, FORMAT_DATE
 
 class SaveAuditService(IService):
 
