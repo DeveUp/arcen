@@ -3,7 +3,7 @@ from src.persistence.repository.audit.FindAllByRangeDateCreationAuditRepository 
 from src.persistence.schema.AuditSchema import AuditSchema
 from src.util.constant import COLUMN_AUDIT_DATE_START_NAME, COLUMN_AUDIT_DATE_END_NAME
 from src.util.constant import EXCEPTION_MSG_GENERIC_DATE_START_FORMAT, EXCEPTION_MSG_GENERIC_DATE_END_FORMAT
-from src.util.common import isDateTime, replaceCharacterDate
+from src.util.common import is_date_time, replace_character_date
 
 class FindAllByRangeDateCreationAuditService(IService):
 
@@ -12,11 +12,11 @@ class FindAllByRangeDateCreationAuditService(IService):
         self.schema = AuditSchema()
 
     def execute(self, data:dict): 
-        date_start = replaceCharacterDate(data[COLUMN_AUDIT_DATE_START_NAME])
-        date_end = replaceCharacterDate(data[COLUMN_AUDIT_DATE_END_NAME])
-        if isDateTime(date_start) == False:
+        date_start = replace_character_date(data[COLUMN_AUDIT_DATE_START_NAME])
+        date_end = replace_character_date(data[COLUMN_AUDIT_DATE_END_NAME])
+        if is_date_time(date_start) == False:
             raise Exception(EXCEPTION_MSG_GENERIC_DATE_START_FORMAT)
-        if isDateTime(date_end) == False:
+        if is_date_time(date_end) == False:
             raise Exception(EXCEPTION_MSG_GENERIC_DATE_END_FORMAT)
         data = dict({
             COLUMN_AUDIT_DATE_START_NAME:date_start,
