@@ -23,21 +23,21 @@ class ObjectSchema:
             COLUMN_OBJECT_ID = get_validate_field(object, self.id),
             COLUMN_OBJECT_ID_TYPE_OBJECT = get_validate_field(object, self.id_type_object),
             COLUMN_OBJECT_ID_SUB_OBJECT = get_validate_field(object, self.id_sub_object),
-            COLUMN_OBJECT_CREATION_DATE = get_validate_field(object, self.creation_date),
+            COLUMN_OBJECT_CREATION_DATE = get_validate_field(object, self.creation_date)
         )
         return entity
 
     def list(self, objects) -> list:
         if objects == None: 
             return objects
-        return [self.object(object) for object in objects]
+        return [self.entity(object) for object in objects]
     
     def dto(self, object) -> ObjectDto:
         if object == None: 
             return object
         return ObjectDto(
             COLUMN_OBJECT_ID_TYPE_OBJECT = get_validate_field(object, self.id_type_object),
-            COLUMN_OBJECT_ID_SUB_OBJECT = get_validate_field(object, self.id_sub_object),
+            COLUMN_OBJECT_ID_SUB_OBJECT = get_validate_field(object, self.id_sub_object)
         )
 
     def dict(self, object, create= None) -> dict:
@@ -47,7 +47,7 @@ class ObjectSchema:
             COLUMN_OBJECT_ID: get_validate_field(object, self.id),
             COLUMN_OBJECT_ID_TYPE_OBJECT: get_validate_field(object, self.id_type_object),
             COLUMN_OBJECT_ID_SUB_OBJECT: get_validate_field(object, self.id_sub_object),
-            COLUMN_OBJECT_CREATION_DATE: get_validate_field(object, self.creation_date),
+            COLUMN_OBJECT_CREATION_DATE: get_validate_field(object, self.creation_date)
         }
         if create != None:
             data[self.creation_date]= create
