@@ -1,23 +1,25 @@
-from datetime import datetime
-
 from src.service.IService import IService
 from src.persistence.repository.audit.SaveAuditRepository import SaveAuditRepository
 from src.persistence.schema.AuditSchema import AuditSchema
-from src.util.constant import COLUMN_AUDIT_NAME, FORMAT_DATE
+from src.service.audit.FindByIdAuditService import FindByIdAuditService
+from src.util.constant import COLUMN_AUDIT_NAME, COLUMN_AUDIT_ID_TWO_NAME
+from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_AUDIT_SAVE_ERROR_SAVE
+from src.util.common import generate_date, get_ip_address, get_http_exception
 
 class SaveAuditService(IService):
 
     def __init__(self):
         self.repository = SaveAuditRepository()
+        self.findByIdAudit = FindByIdAuditService()
         self.schema = AuditSchema()
 
     def execute(self, data:dict):
         try:
-            date = str(datetime.today().strftime(FORMAT_DATE))
-            audit = self.schema.audit_dict(dict(data[COLUMN_AUDIT_NAME]), date)
-            audit = self.schema.audit_dto(dict(audit))
-            data = dict({COLUMN_AUDIT_NAME: audit})
-            element = self.schema.audit(self.repository.execute(data))
+            audit = self.schema.dict(dict(data[COLUMN_AUDIT_NAME]), generate_date(), get_ip_address())
+            data = dict({COLUMN_AUDIT_NAME: self.schema.request(dict(audit))})
+            element = self.repository.execute(data)
         except:
-            element= None
-        return element
+            raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_AUDIT_SAVE_ERROR_SAVE)
+        # Find audit by id
+        data = dict({COLUMN_AUDIT_ID_TWO_NAME: element})
+        return self.findByIdAudit.execute(data)

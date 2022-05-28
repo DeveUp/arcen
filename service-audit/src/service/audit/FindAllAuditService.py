@@ -10,4 +10,4 @@ class FindAllAuditService(IService):
 
     def execute(self, data:dict):
         elements = self.repository.execute(data)
-        return self.schema.audits(elements)
+        return self.schema.list(elements)
