@@ -12,40 +12,40 @@ class ControlAuditSchema:
         self.date_end:str = COLUMN_CONTROL_AUDIT_DATE_END_NAME
         self.date:str = COLUMN_CONTROL_AUDIT_DATE_NAME
 
-    def control_audit(self, control_audit) -> ControlAudit:
-        if control_audit == None: 
-            return control_audit
+    def entity(self, object) -> ControlAudit:
+        if object == None: 
+            return object
         entity = ControlAudit()
-        entity.set_id(str(get_validate_field(control_audit, self.id)))
-        entity.set_name(get_validate_field(control_audit, self.name))
-        entity.set_date_start(get_validate_field(control_audit, self.date_start))
-        entity.set_date_end(get_validate_field(control_audit, self.date_end))
-        entity.set_date(get_validate_field(control_audit, self.date))
+        entity.set_id(str(get_validate_field(object, self.id)))
+        entity.set_name(get_validate_field(object, self.name))
+        entity.set_date_start(get_validate_field(object, self.date_start))
+        entity.set_date_end(get_validate_field(object, self.date_end))
+        entity.set_date(get_validate_field(object, self.date))
         return entity
     
-    def control_audits(self, control_audits) -> list:
-        if control_audits == None: 
-            return control_audits
-        return [self.control_audit(control_audit) for control_audit in control_audits]
+    def list(self, objects) -> list:
+        if objects == None: 
+            return objects
+        return [self.entity(object) for object in objects]
     
-    def control_audit_dto(self, control_audit) -> ControlAuditDto:
-        if control_audit == None: 
-            return control_audit
+    def dto(self, object) -> ControlAuditDto:
+        if object == None: 
+            return object
         return ControlAuditDto(
-            name = get_validate_field(control_audit, self.name), 
-            date_start= get_validate_field(control_audit, self.date_start), 
-            date_end= get_validate_field(control_audit, self.date_end)
+            name = get_validate_field(object, self.name), 
+            date_start= get_validate_field(object, self.date_start), 
+            date_end= get_validate_field(object, self.date_end)
         )
 
-    def control_audit_dict(self, control_audit, create= None) -> dict:
-        if control_audit == None: 
-            return control_audit
+    def dict(self, object, create= None) -> dict:
+        if object == None: 
+            return object
         data = {
-            COLUMN_CONTROL_AUDIT_ID_NAME: get_validate_field(control_audit, self.id),
-            COLUMN_CONTROL_AUDIT_NAME_NAME: get_validate_field(control_audit, self.name), 
-            COLUMN_CONTROL_AUDIT_DATE_START_NAME: get_validate_field(control_audit, self.date_start), 
-            COLUMN_CONTROL_AUDIT_DATE_END_NAME: get_validate_field(control_audit, self.date_end),
-            COLUMN_CONTROL_AUDIT_DATE_NAME: get_validate_field(control_audit, self.date),
+            COLUMN_CONTROL_AUDIT_ID_NAME: get_validate_field(object, self.id),
+            COLUMN_CONTROL_AUDIT_NAME_NAME: get_validate_field(object, self.name), 
+            COLUMN_CONTROL_AUDIT_DATE_START_NAME: get_validate_field(object, self.date_start), 
+            COLUMN_CONTROL_AUDIT_DATE_END_NAME: get_validate_field(object, self.date_end),
+            COLUMN_CONTROL_AUDIT_DATE_NAME: get_validate_field(object, self.date),
         }
         if create != None:
             data[self.date]= create

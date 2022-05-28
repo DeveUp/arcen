@@ -4,6 +4,9 @@ from src.util.constant import DATABASE_MONGODB, DATABASE_MONGODB_NAME_TABLE, DAT
 
 class AuditDB:
 
+    def __init__(self):
+        self.separator:str = "_"
+
     def get_db(self, db:str, table):
         client = MongoClient(db)
         database_audit = client[DATABASE_MONGODB_NAME]
@@ -16,5 +19,4 @@ class AuditDB:
         return self.get_db(DATABASE_MONGODB, COLUMN_CONTROL_AUDIT_NAME)
     
     def get_db_audit_id(self, id:str):
-        table = DATABASE_MONGODB_NAME_TABLE+"_"+id
-        return self.get_db(DATABASE_MONGODB, table)
+        return self.get_db(DATABASE_MONGODB, DATABASE_MONGODB_NAME_TABLE+self.separator+id)

@@ -10,7 +10,7 @@ from src.persistence.schema.AuditSchema import AuditSchema
 
 from src.util.common import generate_id
 from src.util.constant import COLUMN_AUDIT_CLOSURE_NAME, COLUMN_CONTROL_AUDIT_NAME
-from src.util.constant import COLUMN_AUDIT_DATE_START_NAME, COLUMN_AUDIT_DATE_END_NAME, EXCEPTION_MSG_AUDIT_FIND_ALL
+from src.util.constant import COLUMN_AUDIT_DATE_START_NAME, COLUMN_AUDIT_DATE_END_NAME
 
 class SaveAuditClosureService(IService):
 
@@ -47,7 +47,7 @@ class SaveAuditClosureService(IService):
         })
         audits = find_all_audit_range.execute(data_range)
         if audits == None or len(audits) == 0:
-            raise Exception(EXCEPTION_MSG_AUDIT_FIND_ALL)
+            raise Exception("")
         return audits
 
     def control_audit(self, name:str, date_start:str, date_end:str):

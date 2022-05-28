@@ -9,9 +9,6 @@ class FindByIdAuditClosureService(IService):
         self.schema = AuditSchema()
 
     def execute(self, data:dict): 
-        try:
-            element = self.repository.execute(data)
-            element = self.schema.audit(element)
-        except:
-            element= None
+        element = self.repository.execute(data)
+        element = self.schema.entity(element)
         return element
