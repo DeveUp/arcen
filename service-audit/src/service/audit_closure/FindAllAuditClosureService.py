@@ -11,7 +11,7 @@ class FindAllAuditClosureService(IService):
     def execute(self, data:dict):
         try:
             elements = self.repository.execute(data)
-            elements = self.schema.audits(elements)
+            elements = self.schema.list(elements)
         except:
             elements= None
         return elements

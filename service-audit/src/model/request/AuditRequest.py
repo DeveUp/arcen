@@ -1,7 +1,7 @@
+from ipaddress import ip_address
 from pydantic import BaseModel
 
-class Audit(BaseModel):
-    id:str
+class AuditRequest(BaseModel):
     service:str
     operation:str
     id_user:str

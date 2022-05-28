@@ -14,10 +14,10 @@ class SaveControlAuditClosureService(IService):
     def execute(self, data:dict):
         try:
             date = str(datetime.today().strftime(FORMAT_DATE))
-            control_audit = self.schema.control_audit_dict(dict(data[COLUMN_CONTROL_AUDIT_NAME]), date)
-            control_audit = self.schema.control_audit_dto(dict(control_audit))
+            control_audit = self.schema.dict(dict(data[COLUMN_CONTROL_AUDIT_NAME]), date)
+            control_audit = self.schema.dto(dict(control_audit))
             data = dict({COLUMN_CONTROL_AUDIT_NAME: control_audit})
-            element = self.schema.control_audit(self.repository.execute(data))
+            element = self.schema.entity(self.repository.execute(data))
         except:
             element= None
         return element

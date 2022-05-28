@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 
-class ControlAudit(BaseModel):
-    id:str
+class ControlAuditRequest(BaseModel):
     name: str
     date_start: str
     date_end: str

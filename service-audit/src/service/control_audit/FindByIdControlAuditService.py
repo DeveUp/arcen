@@ -11,7 +11,7 @@ class FindByIdControlAuditService(IService):
     def execute(self, data:dict): 
         try:
             element = self.repository.execute(data)
-            element = self.schema.control_audit(element)
+            element = self.schema.entity(element)
         except:
             element= None
         return element
