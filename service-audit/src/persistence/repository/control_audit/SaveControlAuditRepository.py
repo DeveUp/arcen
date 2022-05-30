@@ -11,11 +11,6 @@ class SaveControlAuditRepository(IRepository):
         self.collection = self.db.get_db_control_audit()
 
     def execute(self, data:dict):
-        try:
-            control_audit = dict(data[COLUMN_CONTROL_AUDIT_NAME])
-            id = self.collection.insert_one(control_audit)
-            data = dict({COLUMN_CONTROL_AUDIT_ID_TWO_NAME: id.inserted_id})
-            control_audit = self.find_by_id.execute(data)
-        except:
-            control_audit= None
-        return control_audit
+        control_audit = dict(data[COLUMN_CONTROL_AUDIT_NAME])
+        id = self.collection.insert_one(control_audit)
+        return id.inserted_id

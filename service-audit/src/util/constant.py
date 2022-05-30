@@ -6,7 +6,7 @@ FORMAT_DATE_STR = '%Y-%m-%d'
 ENDPOINT_APP = "/api"
 ENDPOINT_APP_AUDIT = "/audit"
 ENDPOINT_APP_AUDIT_CLOSURE = "/audit-closure"
-ENDPOINT_APP_CONTROL_AUDIT_CLOSURE = "/control-audit-closure"
+ENDPOINT_APP_CONTROL_AUDIT_CLOSURE = "/audit-control"
 ENDPOINT_APP_AUDIT_CLOSURE_TABLE_ID = "/table-id/{table}"
 ENDPOINT_GENERIC_FIND_BY_ID = "/{id}"
 ENDPOINT_GENERIC_FIND_BY_RANGE_DATE = "/all/find/range/date/{start}/{end}"
@@ -59,8 +59,16 @@ RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE = 423
 RESPONSE_MODEL_AUDIT_FIND_ALL = list
 RESPONSE_MODEL_AUDIT_FIND_ALL_BY_RANGE_DATE = list
 
+RESPONSE_MODEL_CONTROL_AUDIT_FIND_ALL = list
+
 # RESPONSE MSG
 RESPONSE_MSG_GENERIC_DATE_ERROR_FORMAT = "Por favor verificar las fechas no son validas."
 
 RESPONSE_MSG_AUDIT_FIND_BY_ID_NOT_CONTENT =  "No se encontro una auditoria con el id suministrado."
 RESPONSE_MSG_AUDIT_SAVE_ERROR_SAVE =  "No se registro la auditoria, vuelvalo a intentar mas tarde."
+
+RESPONSE_MSG_CONTROL_AUDIT_FIND_BY_ID_NOT_CONTENT =  "No se encontro ningun control de auditoria con el id suministrado."
+RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_SAVE =  "No se registro la auditoria, vuelvalo a intentar mas tarde."
+
+RESPONSE_MSG_CLOSURE_AUDIT_FIND_BY_ID_CONTROL_NOT_CONTENT = "No se encontro ningun control de auditoria con el id suministrado."
+RESPONSE_MSG_CLOSURE_AUDIT_FIND_BY_ID_NOT_CONTENT =  "No se encontro una auditoria con el id suministrado."
