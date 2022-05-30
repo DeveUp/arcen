@@ -17,13 +17,13 @@ class FindAllByRangeDateCreationAuditService(IService):
         # Validate format
         if is_date_time(date_start) == False or is_date_time(date_end) == False:
             raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_FIND_ALL_BY_RANGE_DATE_ERROR_FORMAT, RESPONSE_MSG_GENERIC_DATE_ERROR_FORMAT)
-        # Build data
-        data = dict({
-            COLUMN_AUDIT_DATE_START_NAME:date_start,
-            COLUMN_AUDIT_DATE_END_NAME: date_end
-        })
         try:
-            element = self.repository.execute(data)
+            element = self.repository.execute(
+                dict({
+                    COLUMN_AUDIT_DATE_START_NAME:date_start,
+                    COLUMN_AUDIT_DATE_END_NAME: date_end
+                })
+            )
             element = self.schema.list(element)
         except:
             element= list()

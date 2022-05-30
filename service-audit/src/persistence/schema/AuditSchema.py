@@ -48,7 +48,7 @@ class AuditSchema:
         if object == None: 
             return object
         data = {
-            COLUMN_AUDIT_ID_NAME: get_validate_field(object, self.id),
+            COLUMN_AUDIT_ID_NAME: str(get_validate_field(object, self.id, "")),
             COLUMN_AUDIT_SERVICE_NAME: get_validate_field(object, self.service),
             COLUMN_AUDIT_OPERATION_NAME: get_validate_field(object, self.operation),
             COLUMN_AUDIT_ID_USER_NAME: get_validate_field(object, self.id_user),
