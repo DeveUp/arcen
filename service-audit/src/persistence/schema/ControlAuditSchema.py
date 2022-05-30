@@ -1,5 +1,5 @@
 from src.model.entity.ControlAudit import ControlAudit
-from src.model.dto.ControlAuditDto import ControlAuditDto
+from src.model.request.ControlAuditRequest import ControlAuditRequest
 from src.util.constant import COLUMN_CONTROL_AUDIT_ID_NAME, COLUMN_CONTROL_AUDIT_NAME_NAME, COLUMN_CONTROL_AUDIT_DATE_START_NAME, COLUMN_CONTROL_AUDIT_DATE_END_NAME, COLUMN_CONTROL_AUDIT_DATE_NAME
 from src.util.common import get_validate_field
 
@@ -15,12 +15,13 @@ class ControlAuditSchema:
     def entity(self, object) -> ControlAudit:
         if object == None: 
             return object
-        entity = ControlAudit()
-        entity.set_id(str(get_validate_field(object, self.id)))
-        entity.set_name(get_validate_field(object, self.name))
-        entity.set_date_start(get_validate_field(object, self.date_start))
-        entity.set_date_end(get_validate_field(object, self.date_end))
-        entity.set_date(get_validate_field(object, self.date))
+        entity = ControlAudit(
+            id = str(get_validate_field(object, self.id, "")),
+            name= get_validate_field(object, self.name),
+            date_start= get_validate_field(object, self.date_start),
+            date_end= get_validate_field(object, self.date_end),
+            date= get_validate_field(object, self.date)
+        )
         return entity
     
     def list(self, objects) -> list:
@@ -28,20 +29,21 @@ class ControlAuditSchema:
             return objects
         return [self.entity(object) for object in objects]
     
-    def dto(self, object) -> ControlAuditDto:
+    def request(self, object) -> ControlAuditRequest:
         if object == None: 
             return object
-        return ControlAuditDto(
-            name = get_validate_field(object, self.name), 
-            date_start= get_validate_field(object, self.date_start), 
-            date_end= get_validate_field(object, self.date_end)
+        return ControlAuditRequest(
+            name= get_validate_field(object, self.name),
+            date_start= get_validate_field(object, self.date_start),
+            date_end= get_validate_field(object, self.date_end),
+            date= get_validate_field(object, self.date)
         )
 
     def dict(self, object, create= None) -> dict:
         if object == None: 
             return object
         data = {
-            COLUMN_CONTROL_AUDIT_ID_NAME: get_validate_field(object, self.id),
+            COLUMN_CONTROL_AUDIT_ID_NAME: str(get_validate_field(object, self.id, "")),
             COLUMN_CONTROL_AUDIT_NAME_NAME: get_validate_field(object, self.name), 
             COLUMN_CONTROL_AUDIT_DATE_START_NAME: get_validate_field(object, self.date_start), 
             COLUMN_CONTROL_AUDIT_DATE_END_NAME: get_validate_field(object, self.date_end),

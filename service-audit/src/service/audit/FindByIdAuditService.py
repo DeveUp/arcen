@@ -13,7 +13,6 @@ class FindByIdAuditService(IService):
     def execute(self, data:dict): 
         try:
             element = self.repository.execute(data)
-            element = self.schema.entity(element)
+            return self.schema.entity(element)
         except:
             raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTENT, RESPONSE_MSG_AUDIT_FIND_BY_ID_NOT_CONTENT)
-        return element
