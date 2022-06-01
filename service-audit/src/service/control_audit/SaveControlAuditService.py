@@ -3,9 +3,9 @@ from src.persistence.repository.control_audit.SaveControlAuditRepository import 
 from src.persistence.schema.ControlAuditSchema import ControlAuditSchema
 from src.service.control_audit.FindByNameControlAuditService import FindByNameControlAuditService
 from src.service.control_audit.FindByIdControlAuditService import FindByIdControlAuditService
-from src.util.constant import COLUMN_CONTROL_AUDIT_NAME, COLUMN_CONTROL_AUDIT_ID_TWO
+from src.util.constant import COLUMN_CONTROL_AUDIT, COLUMN_CONTROL_AUDIT_ID_TWO
 from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_SAVE
-from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_NAME_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_NAME_SAVE, COLUMN_CONTROL_AUDIT_NAME_NAME
+from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_NAME_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_NAME_SAVE, COLUMN_CONTROL_AUDIT_NAME
 from src.util.common import generate_date, get_http_exception
 
 class SaveControlAuditClosureService(IService):
@@ -23,7 +23,7 @@ class SaveControlAuditClosureService(IService):
         try:
             control_audit = self.findByNameControlAudit.execute(
                 dict({
-                    COLUMN_CONTROL_AUDIT_NAME_NAME: data.name
+                    COLUMN_CONTROL_AUDIT_NAME: data.name
                 })
             )
         except:
@@ -33,7 +33,7 @@ class SaveControlAuditClosureService(IService):
         # Save control audit
         try:
             control_audit = self.schema.dict(dict(data), generate_date())
-            data = dict({COLUMN_CONTROL_AUDIT_NAME: self.schema.request(dict(control_audit))})
+            data = dict({COLUMN_CONTROL_AUDIT: self.schema.request(dict(control_audit))})
             element = self.repository.execute(data)
         except:
             raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_SAVE)
