@@ -3,7 +3,7 @@ from src.persistence.repository.IRepository import IRepository
 from src.persistence.repository.IRepository import IRepository
 from src.persistence.database.AuditDB import AuditDB
 
-class FindAllControlAuditClosureRepository(IRepository):
+class FindAllControlAuditRepository(IRepository):
 
     def __init__(self):
         self.db = AuditDB()
