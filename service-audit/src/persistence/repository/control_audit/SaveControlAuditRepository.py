@@ -1,7 +1,7 @@
 from src.persistence.repository.IRepository import IRepository
 from src.persistence.repository.control_audit.FindByIdControlAuditRepository import FindByIdControlAuditRepository
 from src.persistence.database.AuditDB import AuditDB
-from src.util.constant import COLUMN_CONTROL_AUDIT_NAME, COLUMN_CONTROL_AUDIT_ID_TWO_NAME
+from src.util.constant import COLUMN_CONTROL_AUDIT
 
 class SaveControlAuditRepository(IRepository):
 
@@ -11,6 +11,6 @@ class SaveControlAuditRepository(IRepository):
         self.collection = self.db.get_db_control_audit()
 
     def execute(self, data:dict):
-        control_audit = dict(data[COLUMN_CONTROL_AUDIT_NAME])
+        control_audit = dict(data[COLUMN_CONTROL_AUDIT])
         id = self.collection.insert_one(control_audit)
         return id.inserted_id
