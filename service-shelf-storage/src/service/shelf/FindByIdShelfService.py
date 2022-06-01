@@ -1,8 +1,11 @@
 from sqlalchemy.orm import Session
+from fastapi import HTTPException
+
 
 from src.service.IService import IService
 from src.persistence.repository.Shelf.FindByIdShelfRepository import FindByIdShelfRepository
 from src.persistence.schema.ShelfSchema import ShelfSchema
+from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTENT,RESPONSE_MSG_SHELF_FIND_BY_ID_NOT_CONTENT
 
 class FindByIdShelfService(IService):
 
@@ -13,7 +16,7 @@ class FindByIdShelfService(IService):
     def execute(self, data:dict): 
         try:
             element = self.repository.execute(data)
-            element = self.schema.shelf(element)
+            return self.schema.shelf(element)
         except:
-            element= None
-        return element
+            raise HTTPException(RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTENT,RESPONSE_MSG_SHELF_FIND_BY_ID_NOT_CONTENT)
+        
