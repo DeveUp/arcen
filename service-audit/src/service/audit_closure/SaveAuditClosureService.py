@@ -40,9 +40,9 @@ class SaveAuditClosureService(IService):
             name = generate_id()
             isControlAudit = True 
         # Build repository save closure audit
-        self.repository = SaveAuditClosureRepository(name)   
         self.control_audit(name, date_start, date_end, isControlAudit)
         # Save closure audit
+        self.repository = SaveAuditClosureRepository(name)   
         # Iterrator audits
         for entity_audit in audits:
             self.repository.execute(
@@ -56,8 +56,13 @@ class SaveAuditClosureService(IService):
                     )
                 })
             )
-        return True
-    
+        return self.audit_closure(name)
+
+    def audit_closure(self, name:str) -> list:
+        print(name)
+        find_all_audit_closure = FindAllAuditClosureService(name)
+        return find_all_audit_closure.execute(dict())
+
     def audits(self, date_start:str, date_end:str):
         find_all_audit_range = FindAllByRangeDateCreationAuditService()
         audits = find_all_audit_range.execute(
