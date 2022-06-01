@@ -9,6 +9,7 @@ from src.route.audit.SaveAuditRouter import router_save_audit
 # ROUTES CONTROL AUDIT CLOSURE
 from src.route.control_audit.FindAllControlAuditRouter import router_find_all_control_audit
 from src.route.control_audit.FindByIdControlAuditRouter import router_find_by_id_control_audit
+from src.route.control_audit.FindByNameControlAuditRouter import router_find_by_name_control_audit
 
 # ROUTES AUDIT CLOSURE
 from src.route.audit_closure.FindAllAuditClosureRouter import router_find_all_audit_closure
@@ -25,6 +26,7 @@ routes.include_router(router_save_audit)
 
 routes.include_router(router_find_all_control_audit)
 routes.include_router(router_find_by_id_control_audit)
+routes.include_router(router_find_by_name_control_audit)
 
 routes.include_router(router_find_all_audit_closure)
 routes.include_router(router_find_by_id_audit_closure)
