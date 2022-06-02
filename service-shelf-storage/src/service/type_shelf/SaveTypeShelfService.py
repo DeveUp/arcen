@@ -12,12 +12,9 @@ class SaveTypeShelfService(IService):
 
     def execute(self, data:dict):
         try:
-            #print(data)
-            print("Ger")
+            print(data)
             element = self.repository.execute(data)
-            print("Ger")
             element = self.schema.type_shelf(element)
-            print(element)
         except:
             element= None
         return element

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from src.model.entity.Shelf import Shelf
 from src.persistence.repository.IRepository import IRepository
 
-class FindAllTypeShelfRepository(IRepository):
+class FindAllShelfRepository(IRepository):
 
     def __init__(self, db: Session):
         self.db = db

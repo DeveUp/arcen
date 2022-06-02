@@ -4,7 +4,7 @@ from src.model.entity.Shelf import Shelf
 from src.persistence.repository.IRepository import IRepository
 from src.util.constant import COLUMN_SHELF_ID
 
-class FindByIdTypeShelfRepository(IRepository):
+class FindByIdShelfRepository(IRepository):
 
     def __init__(self, db:Session):
         self.db = db

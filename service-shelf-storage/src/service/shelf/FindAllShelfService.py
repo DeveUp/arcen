@@ -1,4 +1,6 @@
 from sqlalchemy.orm import Session
+from fastapi import HTTPException
+
 
 from src.service.IService import IService
 from src.persistence.repository.Shelf.FindAllShelfRepository import FindAllShelfRepository
@@ -15,5 +17,5 @@ class FindAllShelfService(IService):
             elements = self.repository.execute(data)
             elements = self.schema.shelfs(elements)
         except:
-            elements= None
-        return elements
+            raise HTTPException(200, "No hay estantes registrados")
+        return elements        
