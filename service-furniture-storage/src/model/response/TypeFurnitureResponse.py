@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class TypeFurnitureRequest(BaseModel):
+class TypeFurnitureResponse(BaseModel):
     id:int
     number_type_furniture: int
     count_rack: int

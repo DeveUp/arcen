@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from src.model.dto.FurnitureDto import FurnitureDto
-from src.model.request.FurnitureRequest import FurnitureRequest
+from src.model.response.FurnitureResponse import FurnitureResponse as ResponseArcen
 from src.service.furniture.SaveFurnitureService import SaveFurnitureService as ServiceArcen
 from src.persistence.database.table.FurnitureTable import FurnitureTable as TableArcen
 from src.util.constant import COLUMN_FURNITURE, ENDPOINT_APP, ENDPOINT_APP_FURNITURE, ENDPOINT_GENERIC_SAVE
@@ -12,7 +12,7 @@ router_save_furniture = APIRouter()
 table = TableArcen()
 
 endpoint = ENDPOINT_APP+ENDPOINT_APP_FURNITURE+ENDPOINT_GENERIC_SAVE
-response = FurnitureRequest
+response = ResponseArcen
 status = RESPONSE_STATUS_CODE_GENERIC_SAVE
 
 @router_save_furniture.post(endpoint, response_model = response, status_code= status)

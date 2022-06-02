@@ -1,6 +1,7 @@
 from src.model.entity.Block import Block
-from src.model.dto.BlockDto import BlockDto
+from src.model.response.BlockResponse import BlockResponse
 from src.util.constant import COLUMN_BLOCK_ID, COLUMN_BLOCK_LETTER, COLUMN_BLOCK_FLAT, COLUMN_BLOCK_CREATION_DATE
+from src.util.common import get_validate_field
 
 class BlockSchema:
 
@@ -10,55 +11,35 @@ class BlockSchema:
         self.flat = COLUMN_BLOCK_FLAT
         self.creation_date = COLUMN_BLOCK_CREATION_DATE
 
-    def block(self, block) -> Block:
-        if block == None: 
-            return block
-        return block
+    def entity(self, object) -> Block:
+        if object == None: 
+            return object
+        return object
         
-    def block_other(self, block) -> Block:
-        if block == None: 
-            return block
-        entity = Block(
-            COLUMN_BLOCK_ID = block[self.id],
-            COLUMN_BLOCK_LETTER = block[self.letter],
-            COLUMN_BLOCK_FLAT = block[self.flat],
-            COLUMN_BLOCK_CREATION_DATE = block[self.creation_date]
-        )
-        return entity
-
-    def blocks(self, blocks) -> list:
-        if blocks == None: 
-            return blocks
-        return [self.block(block) for block in blocks]
+    def list(self, objects) -> list:
+        if objects == None: 
+            return objects
+        return [self.entity(object) for object in objects]
     
-    def block_dto(self, block) -> BlockDto:
-        if block == None: 
-            return block
-        return BlockDto(
-            COLUMN_BLOCK_LETTER = block[self.letter], 
-            COLUMN_BLOCK_FLAT = block[self.flat], 
-            COLUMN_BLOCK_CREATION_DATE = block[self.creation_date]
+    def response(self, object) -> BlockResponse:
+        if object == None: 
+            return object
+        return BlockResponse(
+            id = object.id,
+            letter= object.letter,
+            flat= object.flat,
+            date= object.date,
         )
 
-    def block_dict(self, block, create= None) -> dict:
-        if block == None: 
-            return block
-        try:
-            id = block[self.id]
-        except:
-            id = None
-        try:
-            creation_date = block[self.creation_date]
-        except:
-            creation_date = None
+    def dict(self, object, create= None) -> dict:
+        if object == None: 
+            return object
         data = {
-            self.letter: block[self.letter],
-            self.flat: block[self.flat]
+            COLUMN_BLOCK_ID: object.id,
+            COLUMN_BLOCK_LETTER: object.letter, 
+            COLUMN_BLOCK_FLAT: object.flat, 
+            COLUMN_BLOCK_CREATION_DATE: object.creation_date,
         }
-        if id != None:
-            data[self.id]= id
-        if creation_date != None:
-            data[self.creation_date]= creation_date
         if create != None:
             data[self.creation_date]= create
         return data

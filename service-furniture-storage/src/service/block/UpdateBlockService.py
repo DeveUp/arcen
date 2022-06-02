@@ -13,7 +13,7 @@ class UpdateBlockService(IService):
     def execute(self, data:dict):
         try:
             element = self.repository.execute(data)
-            element = self.schema.block(element)
+            element = self.schema.entity(element)
         except:
             element= None
         return element
