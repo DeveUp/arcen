@@ -11,10 +11,5 @@ class FindAllBlockService(IService):
         self.schema = BlockSchema()
 
     def execute(self, data:dict):
-        try:
-            elements = self.repository.execute(data)
-            elements = self.schema.blocks(elements)
-        except:
-            print("Error")
-            elements = list()
-        return elements
+        elements = self.repository.execute(data)
+        return self.schema.list(elements)
