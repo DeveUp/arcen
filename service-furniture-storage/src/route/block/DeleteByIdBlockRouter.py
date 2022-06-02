@@ -16,4 +16,4 @@ status = RESPONSE_STATUS_CODE_GENERIC_DELETE_BY_ID
 async def delete_by_id(id: str, db: Session = Depends(table.execute)):
     data = dict({COLUMN_BLOCK_ID:id})
     service = ServiceArcen(db)
-    return service.execute(data)
+    service.execute(data)
