@@ -13,8 +13,7 @@ class TypeShelfSchema:
         self.creation_date = COLUMN_TYPE_SHELF_CREATION_DATE
 
     def type_shelf(self, type_shelf) -> TypeShelf:
-        print("Gregorio")
-        print(type_shelf)
+        #print(type_shelf)
         if type_shelf == None: 
             return type_shelf
         return type_shelf

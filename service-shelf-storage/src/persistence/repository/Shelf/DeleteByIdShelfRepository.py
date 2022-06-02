@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from src.persistence.repository.IRepository import IRepository
 from src.util.constant import COLUMN_SHELF
 
-class DeleteByIdTypeShelfRepository(IRepository):
+class DeleteByIdShelfRepository(IRepository):
 
     def __init__(self, db: Session):
         self.db = db
