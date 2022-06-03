@@ -11,6 +11,5 @@ class FindByIdFurnitureRepository(IRepository):
 
     def execute(self, data:dict):
         id = data[COLUMN_FURNITURE_ID]
-        element = self.db.query(Furniture).filter(Furniture.id == id).first()
-        return element
+        return self.db.query(Furniture).filter(Furniture.id == id).first()
        
