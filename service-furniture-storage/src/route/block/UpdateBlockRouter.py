@@ -21,5 +21,5 @@ async def update(id: str, block: BlockDto, db: Session = Depends(table.execute))
         COLUMN_BLOCK_ID: id, 
         COLUMN_BLOCK: block
     })
-    service = ServiceArcen()
+    service = ServiceArcen(db)
     return service.execute(data)

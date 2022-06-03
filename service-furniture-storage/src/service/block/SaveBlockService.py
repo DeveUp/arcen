@@ -5,7 +5,8 @@ from src.service.IService import IService
 from src.persistence.repository.block.SaveBlockRepository import SaveBlockRepository
 from src.persistence.schema.BlockSchema import BlockSchema
 from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_BLOCK_SAVE_ERROR_SAVE
-from src.util.common import get_http_exception
+from src.util.constant import AUDIT_BLOCK_SERVICE, AUDIT_BLOCK_OPERATION_SAVE
+from src.util.common import get_http_exception, get_response_audit
 
 class SaveBlockService(IService):
 
@@ -21,7 +22,7 @@ class SaveBlockService(IService):
         except:
             element = None
         finally:
-            self.feign.save(self.feign.build("BLOCK", "SAVE", "TEST"))
+            self.feign.save(self.feign.build(AUDIT_BLOCK_SERVICE, AUDIT_BLOCK_OPERATION_SAVE, get_response_audit(element)))
             if element == None:
                 raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_BLOCK_SAVE_ERROR_SAVE)
         return element
