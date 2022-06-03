@@ -35,7 +35,7 @@ class TypeFurnitureSchema:
             depth= object.depth,
             height= object.height,
             width= object.width,
-            date= object.creation_date
+            date= str(object.date)
         )
 
     def dict(self, object, create= None) -> dict:

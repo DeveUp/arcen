@@ -23,13 +23,13 @@ class FurnitureSchema:
     
     def response(self, object) -> FurnitureResponse:
         if object == None: 
-            return object
+            return object  
         return FurnitureResponse(
             id = object.id, 
             id_block = object.id_block, 
             id_type_furniture = object.id_type_furniture, 
             number_furniture = object.number_furniture,
-            date= object.creation_date
+            date= str(object.date)
         )
 
     def dict(self, object, create= None) -> dict:
@@ -40,7 +40,7 @@ class FurnitureSchema:
             COLUMN_FURNITURE_ID_BLOCK: object[self.id_block], 
             COLUMN_FURNITURE_ID_TYPE_FURNITURE: object[self.id_type_furniture],  
             COLUMN_FURNITURE_NUMBER_FURNITURE: object[self.number_furniture],
-            COLUMN_FURNITURE_CREATION_DATE: object[self.creation_date]
+            COLUMN_FURNITURE_CREATION_DATE: str(object[self.creation_date])
         }
         if create != None:
             data[self.creation_date]= create
