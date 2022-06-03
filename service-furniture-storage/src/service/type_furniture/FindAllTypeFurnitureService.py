@@ -11,9 +11,5 @@ class FindAllTypeFurnitureService(IService):
         self.schema = TypeFurnitureSchema()
 
     def execute(self, data:dict):
-        try:
-            elements = self.repository.execute(data)
-            elements = self.schema.type_furnitures(elements)
-        except:
-            elements= None
-        return elements
+        elements = self.repository.execute(data)
+        return self.schema.list(elements)

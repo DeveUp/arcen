@@ -11,6 +11,5 @@ class FindByIdBlockRepository(IRepository):
 
     def execute(self, data:dict):
         id = data[COLUMN_BLOCK_ID]
-        element = self.db.query(Block).filter(Block.id == id).first()
-        return element
+        return self.db.query(Block).filter(Block.id == id).first()
        
