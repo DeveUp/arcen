@@ -1,8 +1,6 @@
-from bson import ObjectId
-
 from src.persistence.repository.IRepository import IRepository
 from src.persistence.database.AuditDB import AuditDB
-from src.util.constant import COLUMN_AUDIT_ID_NAME, COLUMN_AUDIT_ID_TWO_NAME
+from src.util.constant import COLUMN_AUDIT_CLOSURE_ID_TWO, COLUMN_AUDIT
 
 class FindByIdAuditClosureRepository(IRepository):
 
@@ -11,6 +9,9 @@ class FindByIdAuditClosureRepository(IRepository):
         self.collection = self.db.get_db_audit_id(table_id)
 
     def execute(self, data:dict):
-        id = ObjectId(data[COLUMN_AUDIT_ID_TWO_NAME])
-        return self.collection.find_one({COLUMN_AUDIT_ID_NAME:id})
+        id = data[COLUMN_AUDIT_CLOSURE_ID_TWO]
+        key = COLUMN_AUDIT+"."+COLUMN_AUDIT_CLOSURE_ID_TWO
+        return self.collection.find_one({
+            key: id
+        })
        

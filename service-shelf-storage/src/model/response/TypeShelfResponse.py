@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
-class TypeShelfDto(BaseModel):
+class TypeShelfResponse(BaseModel):
+    id: int
     number_type_shelf: int
     depth: int
     height: int

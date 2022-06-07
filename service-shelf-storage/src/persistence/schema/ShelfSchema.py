@@ -1,5 +1,5 @@
 from src.model.entity.Shelf import Shelf
-from src.model.dto.ShelfDto import ShelfDto
+from src.model.response.ShelfResponse import ShelfResponse
 from src.util.constant import COLUMN_SHELF_ID, COLUMN_SHELF_ID_DEPENDENCE, COLUMN_SHELF_ID_TYPE_SHELF, COLUMN_SHELF_ID_FURNITURE, COLUMN_SHELF_CREATION_DATE, COLUMN_SHELF_NUMBER_SHELF
 
 class ShelfSchema:
@@ -30,15 +30,16 @@ class ShelfSchema:
         )
         return entity
     
-    def shelfs(self, shelfs) -> list:
+    def lists(self, shelfs) -> list:
         if shelfs == None: 
             return shelfs
         return [self.shelf(shelf) for shelf in shelfs]
     
-    def shelf_dto(self, shelf) -> ShelfDto:
+    def response(self, shelf) -> ShelfResponse:
         if shelf == None: 
             return shelf
-        return ShelfDto(
+        return ShelfResponse(
+            COLUMN_SHELF_ID = shelf[self.id],
             COLUMN_SHELF_ID_DEPENDENCE = shelf[self.id_dependence],
             COLUMN_SHELF_ID_TYPE_SHELF = shelf[self.id_type_shelf],
             COLUMN_SHELF_ID_FURNITURE = shelf[self.id_furniture],
@@ -46,7 +47,7 @@ class ShelfSchema:
             COLUMN_SHELF_CREATION_DATE = shelf[self.creation_date]
         )
 
-    def shelf_dict(self, shelf, create= None) -> dict:
+    def dict(self, shelf, create= None) -> dict:
         if shelf == None: 
             return shelf
         try:
@@ -58,6 +59,7 @@ class ShelfSchema:
         except:
             creation_date = None
         data = {
+            self.id: shelf[self.id],
             self.id_dependence: shelf[self.id_dependence],
             self.id_type_shelf: shelf[self.id_type_shelf],
             self.id_furniture: shelf[self.id_furniture],

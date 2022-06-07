@@ -31,12 +31,12 @@ class TypeShelfSchema:
         )
         return entity
     
-    def type_shelfs(self, type_shelfs) -> list:
+    def lists(self, type_shelfs) -> list:
         if type_shelfs == None: 
             return type_shelfs
         return [self.type_shelf(type_shelf) for type_shelf in type_shelfs]
     
-    def type_shelf_dto(self, type_shelf) -> TypeShelfDto:
+    def response(self, type_shelf) -> TypeShelfDto:
         if type_shelf == None: 
             return type_shelf
         return TypeShelfDto(

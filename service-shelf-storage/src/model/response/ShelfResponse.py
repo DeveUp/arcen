@@ -1,7 +1,8 @@
 from unicodedata import name
 from pydantic import BaseModel
 
-class ShelfDto(BaseModel):
+class ShelfResponse(BaseModel):
+    id: int
     id_dependence: int
     id_type_shelf: int
     id_furniture: int

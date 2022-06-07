@@ -1,23 +1,42 @@
-from datetime import datetime
-
 from src.service.IService import IService
 from src.persistence.repository.control_audit.SaveControlAuditRepository import SaveControlAuditRepository
 from src.persistence.schema.ControlAuditSchema import ControlAuditSchema
-from src.util.constant import COLUMN_CONTROL_AUDIT_NAME, FORMAT_DATE
+from src.service.control_audit.FindByNameControlAuditService import FindByNameControlAuditService
+from src.service.control_audit.FindByIdControlAuditService import FindByIdControlAuditService
+from src.util.constant import COLUMN_CONTROL_AUDIT, COLUMN_CONTROL_AUDIT_ID_TWO
+from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_SAVE
+from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_NAME_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_NAME_SAVE, COLUMN_CONTROL_AUDIT_NAME
+from src.util.common import generate_date, get_http_exception
 
 class SaveControlAuditClosureService(IService):
 
     def __init__(self):
         self.repository = SaveControlAuditRepository()
+        self.findByIdControlAudit = FindByIdControlAuditService()
+        self.findByNameControlAudit = FindByNameControlAuditService()
         self.schema = ControlAuditSchema()
 
     def execute(self, data:dict):
+        data = data[COLUMN_CONTROL_AUDIT_NAME]
+        # Validate find by name control audit
+        isErrorName = True
         try:
-            date = str(datetime.today().strftime(FORMAT_DATE))
-            control_audit = self.schema.control_audit_dict(dict(data[COLUMN_CONTROL_AUDIT_NAME]), date)
-            control_audit = self.schema.control_audit_dto(dict(control_audit))
-            data = dict({COLUMN_CONTROL_AUDIT_NAME: control_audit})
-            element = self.schema.control_audit(self.repository.execute(data))
+            control_audit = self.findByNameControlAudit.execute(
+                dict({
+                    COLUMN_CONTROL_AUDIT_NAME: data.name
+                })
+            )
         except:
-            element= None
-        return element
+            isErrorName = False
+        if isErrorName:
+            raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_NAME_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_NAME_SAVE)
+        # Save control audit
+        try:
+            control_audit = self.schema.dict(dict(data), generate_date())
+            data = dict({COLUMN_CONTROL_AUDIT: self.schema.request(dict(control_audit))})
+            element = self.repository.execute(data)
+        except:
+            raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_SAVE)
+        # Find control audit by id
+        data = dict({COLUMN_CONTROL_AUDIT_ID_TWO: element})
+        return self.findByIdControlAudit.execute(data)

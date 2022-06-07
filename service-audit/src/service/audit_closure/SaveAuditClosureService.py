@@ -1,16 +1,22 @@
 from src.model.dto.ControlAuditDto import ControlAuditDto
-from src.model.entity.ClosureAudit import ClosureAudit
+from src.model.entity.Audit import Audit
+from src.model.request.ClosureAuditRequest import ClosureAuditRequest
 
 from src.service.IService import IService
+from src.service.control_audit.FindByNameControlAuditService import FindByNameControlAuditService
 from src.service.audit.FindAllByRangeDateCreationAuditService import FindAllByRangeDateCreationAuditService
 from src.service.control_audit.SaveControlAuditService import SaveControlAuditClosureService
+from src.service.audit_closure.FindAllAuditClosureService import FindAllAuditClosureService
 
 from src.persistence.repository.audit_closure.SaveAuditClosureRepository import SaveAuditClosureRepository
 from src.persistence.schema.AuditSchema import AuditSchema
 
 from src.util.common import generate_id
-from src.util.constant import COLUMN_AUDIT_CLOSURE_NAME, COLUMN_CONTROL_AUDIT_NAME
-from src.util.constant import COLUMN_AUDIT_DATE_START_NAME, COLUMN_AUDIT_DATE_END_NAME, EXCEPTION_MSG_AUDIT_FIND_ALL
+from src.util.constant import COLUMN_AUDIT_CLOSURE, COLUMN_CONTROL_AUDIT_NAME, COLUMN_CONTROL_AUDIT_NAME
+from src.util.constant import COLUMN_AUDIT_DATE_START, COLUMN_AUDIT_DATE_END
+from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_FIND_ALL_BY_RANGE_DATE_ERROR_FORMAT, RESPONSE_MSG_GENERIC_DATE_ERROR_FORMAT
+from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_RANGE_DATE_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_RANGE_DATE_SAVE
+from src.util.common import is_date_time, generate_date, get_http_exception
 
 class SaveAuditClosureService(IService):
 
@@ -18,47 +24,74 @@ class SaveAuditClosureService(IService):
         self.schema = AuditSchema()
 
     def execute(self, data:dict):
-        audit_closure =  data[COLUMN_AUDIT_CLOSURE_NAME]
+        # Get range date
+        audit_closure =  data[COLUMN_AUDIT_CLOSURE]
+        # Validate date
         date_start = audit_closure.date_start
         date_end = audit_closure.date_end
-        name = audit_closure.id    
+        if is_date_time(date_start) == False or is_date_time(date_end) == False:
+            raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_FIND_ALL_BY_RANGE_DATE_ERROR_FORMAT, RESPONSE_MSG_GENERIC_DATE_ERROR_FORMAT)
+        # Get audits by range date
+        audits = self.audits(date_start, date_end)
+        # Get control audit
+        name = audit_closure.id  
+        isControlAudit = False
         if name == None or name == 'None' or len(name) == 0:
             name = generate_id()
-        self.repository = SaveAuditClosureRepository(name) 
-        audits = self.audits(date_start, date_end)
-        control_audit = self.control_audit(name, date_start, date_end)
-        for audit in audits:
-            audit_closure = ClosureAudit()
-            audit_closure.set_control(control_audit.get_name())
-            audit_closure.set_audit(audit)
-            audit_closure.set_date("None")
-            audit = self.repository.execute(
+            isControlAudit = True 
+        # Build repository save closure audit
+        self.control_audit(name, date_start, date_end, isControlAudit)
+        # Save closure audit
+        self.repository = SaveAuditClosureRepository(name)   
+        # Iterrator audits
+        for entity_audit in audits:
+            self.repository.execute(
                 dict({
-                    COLUMN_AUDIT_CLOSURE_NAME: audit_closure
+                    COLUMN_AUDIT_CLOSURE: dict(
+                        ClosureAuditRequest(
+                            control= name,
+                            audit= dict(entity_audit),
+                            date = generate_date()
+                        )
+                    )
                 })
             )
-        return True
-    
+        return self.audit_closure(name)
+
+    def audit_closure(self, name:str) -> list:
+        print(name)
+        find_all_audit_closure = FindAllAuditClosureService(name)
+        return find_all_audit_closure.execute(dict())
+
     def audits(self, date_start:str, date_end:str):
         find_all_audit_range = FindAllByRangeDateCreationAuditService()
-        data_range = dict({
-            COLUMN_AUDIT_DATE_START_NAME:date_start,
-            COLUMN_AUDIT_DATE_END_NAME: date_end
-        })
-        audits = find_all_audit_range.execute(data_range)
+        audits = find_all_audit_range.execute(
+            dict({
+                COLUMN_AUDIT_DATE_START:date_start,
+                COLUMN_AUDIT_DATE_END: date_end
+            })
+        )
         if audits == None or len(audits) == 0:
-            raise Exception(EXCEPTION_MSG_AUDIT_FIND_ALL)
+            raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_RANGE_DATE_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_RANGE_DATE_SAVE)
         return audits
 
-    def control_audit(self, name:str, date_start:str, date_end:str):
-        save_control_audit = SaveControlAuditClosureService()
-        data_control = dict({
-            COLUMN_CONTROL_AUDIT_NAME:ControlAuditDto(
-                name= name,
-                date_start= date_start,
-                date_end= date_end,
-                date = "None"
+    def control_audit(self, name:str, date_start:str, date_end:str, is_find:bool=False):
+        if is_find:
+            find_by_name_control_audit = FindByNameControlAuditService()
+            return find_by_name_control_audit.execute(
+                dict({
+                    COLUMN_CONTROL_AUDIT_NAME: name
+                })
             )
-        })
-        return save_control_audit.execute(data_control)
+        else:
+            save_control_audit = SaveControlAuditClosureService()
+            return save_control_audit.execute(
+                dict({
+                    COLUMN_CONTROL_AUDIT_NAME:ControlAuditDto(
+                        name= name,
+                        date_start= date_start,
+                        date_end= date_end
+                    )
+                })
+            )
 
