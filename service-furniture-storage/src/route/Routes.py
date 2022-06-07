@@ -16,10 +16,10 @@ from src.route.furniture.UpdateFurnitureRouter import router_update_furniture
 
 # ROUTES TYPE FURNITURE
 from src.route.type_furniture.DeleteByIdTypeFurnitureRouter import router_detele_by_id_type_furniture
-from src.route.type_furniture.FindAllTypeFurnitureRouter import router_find_all_type_furniture
 from src.route.type_furniture.FindByIdTypeFurnitureRouter import router_find_by_id_type_furniture
 from src.route.type_furniture.SaveTypeFurnitureRouter import router_save_type_furniture
 from src.route.type_furniture.UpdateTypeFurnitureRouter import router_update_type_furniture
+from src.route.type_furniture.FindAllTypeFurnitureRouter import router_find_all_type_furniture
 
 routes = FastAPI()
 
