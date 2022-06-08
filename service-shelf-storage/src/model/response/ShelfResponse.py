@@ -1,5 +1,6 @@
-from unicodedata import name
 from pydantic import BaseModel
+from datetime import datetime
+
 
 class ShelfResponse(BaseModel):
     id: int
@@ -7,3 +8,7 @@ class ShelfResponse(BaseModel):
     id_type_shelf: int
     id_furniture: int
     number_shelf: int
+    date: datetime
+
+    class Config:
+        orm_mode = True

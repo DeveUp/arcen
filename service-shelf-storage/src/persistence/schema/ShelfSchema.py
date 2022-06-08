@@ -12,63 +12,39 @@ class ShelfSchema:
         self.number_shelf = COLUMN_SHELF_NUMBER_SHELF
         self.creation_date = COLUMN_SHELF_CREATION_DATE
 
-    def shelf(self, shelf) -> Shelf:
-        if shelf == None: 
-            return shelf
-        return shelf
+    def entity(self, object) -> Shelf:
+        if object == None: 
+            return object
+        return object
 
-    def shelf_other(self, shelf) -> Shelf:
-        if shelf == None: 
-            return shelf
-        entity = Shelf(
-            COLUMN_SHELF_ID = shelf[self.id],
-            COLUMN_SHELF_ID_DEPENDENCE = shelf[self.id_dependence],
-            COLUMN_SHELF_ID_TYPE_SHELF = shelf[self.id_type_shelf],
-            COLUMN_SHELF_ID_FURNITURE = shelf[self.id_furniture],
-            COLUMN_SHELF_NUMBER_SHELF = shelf[self.number_shelf],
-            COLUMN_SHELF_CREATION_DATE = shelf[self.creation_date]
-        )
-        return entity
+    def lists(self, objects) -> list:
+        if objects == None: 
+            return objects
+        return [self.entity(object) for object in objects]
     
-    def lists(self, shelfs) -> list:
-        if shelfs == None: 
-            return shelfs
-        return [self.shelf(shelf) for shelf in shelfs]
-    
-    def response(self, shelf) -> ShelfResponse:
-        if shelf == None: 
-            return shelf
+    def response(self, object) -> ShelfResponse:
+        if object == None: 
+            return object
         return ShelfResponse(
-            COLUMN_SHELF_ID = shelf[self.id],
-            COLUMN_SHELF_ID_DEPENDENCE = shelf[self.id_dependence],
-            COLUMN_SHELF_ID_TYPE_SHELF = shelf[self.id_type_shelf],
-            COLUMN_SHELF_ID_FURNITURE = shelf[self.id_furniture],
-            COLUMN_SHELF_NUMBER_SHELF = shelf[self.number_shelf],
-            COLUMN_SHELF_CREATION_DATE = shelf[self.creation_date]
+            COLUMN_SHELF_ID = object.id,
+            COLUMN_SHELF_ID_DEPENDENCE = object.id_dependence,
+            COLUMN_SHELF_ID_TYPE_SHELF = object.id_type_shelf,
+            COLUMN_SHELF_ID_FURNITURE = object.id_furniture,
+            COLUMN_SHELF_NUMBER_SHELF = object.number_shelf,
+            COLUMN_SHELF_CREATION_DATE = object.date
         )
 
-    def dict(self, shelf, create= None) -> dict:
-        if shelf == None: 
-            return shelf
-        try:
-            id = shelf[self.id]
-        except:
-            id = None
-        try:
-            creation_date = shelf[self.creation_date]
-        except:
-            creation_date = None
+    def dict(self, object, create= None) -> dict:
+        if object == None: 
+            return object
         data = {
-            self.id: shelf[self.id],
-            self.id_dependence: shelf[self.id_dependence],
-            self.id_type_shelf: shelf[self.id_type_shelf],
-            self.id_furniture: shelf[self.id_furniture],
-            self.number_shelf: shelf[self.number_shelf]
+            self.id: object[self.id],
+            self.id_dependence: object[self.id_dependence],
+            self.id_type_shelf: object[self.id_type_shelf],
+            self.id_furniture: object[self.id_furniture],
+            self.number_shelf: object[self.number_shelf],
+            self.creation_date: str(object[self.creation_date])
         }
         if id != None:
-            data[self.id]= id
-        if creation_date != None:
-            data[self.creation_date]= creation_date
-        if create != None:
             data[self.creation_date]= create
         return data

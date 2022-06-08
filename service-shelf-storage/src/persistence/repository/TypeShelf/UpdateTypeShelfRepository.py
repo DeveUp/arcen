@@ -11,8 +11,12 @@ class UpdateTypeShelfRepository(IRepository):
 
     def execute(self, data:dict):
         id = data[COLUMN_TYPE_SHELF_ID]
-        element = data[COLUMN_TYPE_SHELF]
+        element2 = data[COLUMN_TYPE_SHELF]
         element = self.db.query(TypeShelf).get(id)
+        element.number_type_shelf = element2.number_type_shelf
+        element.depth = element2.depth
+        element.height = element2.height
+        element.width = element2.width
         self.db.commit()
         self.db.refresh(element)
         return element
