@@ -95,9 +95,13 @@ RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE = 423
 RESPONSE_STATUS_CODE_GENERIC_DELETE = 204
 RESPONSE_STATUS_CODE_GENERIC_UPDATE = 202
 
+RESPONSE_STATUS_CODE_AUDIT_ERROR_SAVE = 423
+
 
 
 # RESPONSE MSG
+RESPONSE_MSG_AUDIT_ERROR_SAVE = "Ups hemos tenido un problema interno! vuelva a intentar mas tarde."
+
 RESPONSE_MSG_GENERIC_DATE_ERROR_FORMAT = "Por favor verificar las fechas no son validas."
 
 RESPONSE_MSG_BOX_FIND_BY_ID_NOT_CONTENT =  "No se encontro una caja con el id suministrado."
