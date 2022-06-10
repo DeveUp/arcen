@@ -1,0 +1,8 @@
+ARCEN_VL_MYSQL=/var/lib/mysql
+
+echo $ARCEN_VL_MYSQL
+
+docker volume create arcen_mysql
+/var/lib/docker/volumes/arcen_mysql
+
+docker run -d --rm --name mysql -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -v $ARCEN_VL_MYSQL:/var/lib/mysql mysql:5.7.22
