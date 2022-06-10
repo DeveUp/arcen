@@ -1,24 +1,27 @@
-from src.model.entity.ClosureAudit import ClosureAudit
-from src.model.entity.Audit import Audit
-from src.model.request.ClosureAuditRequest import ClosureAuditRequest
-from src.util.constant import COLUMN_AUDIT_CLOSURE_ID, COLUMN_AUDIT_CLOSURE_AUDIT, COLUMN_AUDIT_CLOSURE_CONTROL, COLUMN_AUDIT_CLOSURE_DATE
+from src.model.entity.Document import Document
+from src.model.request.DocumentRequest import DocumentRequest
+from src.util.constant import COLUMN_DOCUMENT_DATE, COLUMN_DOCUMENT_PATH_DOCUMENT_LOCAL, COLUMN_DOCUMENT_BASE64, COLUMN_DOCUMENT_NAME, COLUMN_DOCUMENT_LOCATION_ID, COLUMN_DOCUMENT_ID_DOCUEMNT_LOCATION
 from src.util.common import get_validate_field
 
-class AuditClosureSchema:
+class DocumentSchema:
 
     def __init__(self):
-        self.id:str = COLUMN_AUDIT_CLOSURE_ID
-        self.control:str = COLUMN_AUDIT_CLOSURE_CONTROL
-        self.audit:Audit = COLUMN_AUDIT_CLOSURE_AUDIT
-        self.date:str = COLUMN_AUDIT_CLOSURE_DATE
+        self.id:str = COLUMN_DOCUMENT_LOCATION_ID
+        self.id_document_location:str = COLUMN_DOCUMENT_ID_DOCUEMNT_LOCATION
+        self.name:str = COLUMN_DOCUMENT_NAME
+        self.document:str = COLUMN_DOCUMENT_BASE64
+        self.path_document_local = COLUMN_DOCUMENT_PATH_DOCUMENT_LOCAL
+        self.date:str = COLUMN_DOCUMENT_DATE
 
-    def entity(self, object) -> ClosureAudit:
+    def entity(self, object) -> Document:
         if object == None: 
             return object
-        entity = ClosureAudit(
+        entity = Document(
             id = str(get_validate_field(object, self.id, "")),
-            control= get_validate_field(object, self.control),
-            audit= get_validate_field(object, self.audit),
+            id_document_location= get_validate_field(object, self.id_document_location),
+            name= get_validate_field(object, self.name),
+            document= get_validate_field(object, self.document),
+            path_document_local= get_validate_field(object, self.path_document_local),
             date= get_validate_field(object, self.date)
         )
         return entity
@@ -28,12 +31,14 @@ class AuditClosureSchema:
             return objects
         return [self.entity(object) for object in objects]
     
-    def request(self, object) -> ClosureAuditRequest:
+    def request(self, object) -> DocumentRequest:
         if object == None: 
             return object
-        return ClosureAuditRequest(
-            control= get_validate_field(object, self.control),
-            audit= get_validate_field(object, self.audit),
+        return DocumentRequest(
+            id_document_location= get_validate_field(object, self.id_document_location),
+            name= get_validate_field(object, self.name),
+            document= get_validate_field(object, self.document),
+            path_document_local= get_validate_field(object, self.path_document_local),
             date= get_validate_field(object, self.date)
         )
 
@@ -41,10 +46,12 @@ class AuditClosureSchema:
         if object == None: 
             return object
         data = {
-            COLUMN_AUDIT_CLOSURE_ID: str(get_validate_field(object, self.id, "")),
-            COLUMN_AUDIT_CLOSURE_CONTROL: get_validate_field(object, self.control), 
-            COLUMN_AUDIT_CLOSURE_AUDIT: get_validate_field(object, self.audit), 
-            COLUMN_AUDIT_CLOSURE_DATE: get_validate_field(object, self.date),
+            COLUMN_DOCUMENT_LOCATION_ID: str(get_validate_field(object, self.id, "")),
+            COLUMN_DOCUMENT_ID_DOCUEMNT_LOCATION: get_validate_field(object, self.id_document_location), 
+            COLUMN_DOCUMENT_NAME: get_validate_field(object, self.name), 
+            COLUMN_DOCUMENT_BASE64: get_validate_field(object, self.document), 
+            COLUMN_DOCUMENT_PATH_DOCUMENT_LOCAL: get_validate_field(object, self.path_document_local), 
+            COLUMN_DOCUMENT_DATE: get_validate_field(object, self.date),
         }
         if create != None:
             data[self.date]= create
