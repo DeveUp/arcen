@@ -6,4 +6,3 @@ class ShelfDto(BaseModel):
     id_type_shelf: int
     id_furniture: int
     number_shelf: int
-    date: str
