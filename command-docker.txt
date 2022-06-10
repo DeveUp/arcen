@@ -13,11 +13,29 @@ psql -U postgres
 
 create database arcen_furniture;
 create user arcen with encrypted password 'arcen';
+
+create database arcen_shelf;
+
+create database arcen_box;
+
 \du
 
 grant all privileges on database arcen_furniture to arcen;
+grant all privileges on database arcen_shelf to arcen;
+grant all privileges on database arcen_box to arcen;
+
 
 \c arcen_furniture;  #Connect
+\dt # Table
+grant all privileges on all tables in schema public to arcen;
+grant all privileges on all sequences in schema public to arcen;
+
+\c arcen_shelf;  #Connect
+\dt # Table
+grant all privileges on all tables in schema public to arcen;
+grant all privileges on all sequences in schema public to arcen;
+
+\c arcen_box;  #Connect
 \dt # Table
 grant all privileges on all tables in schema public to arcen;
 grant all privileges on all sequences in schema public to arcen;
