@@ -20,6 +20,10 @@ from src.route.invoice.FindAllInvoiceRouter import router_find_all_invoice
 from src.route.invoice.FindByIdInvoiceRouter import router_find_by_id_invoice
 from src.route.invoice.SaveInvoiceRouter import router_save_invoice
 
+# ROUTES INVOICE STATUS
+from src.route.invoice_status.FindAllInvoiceStatusRouter import router_find_all_invoice_status
+from src.route.invoice_status.FindByIdInvoiceStatusRouter import router_find_by_id_invoice_status
+from src.route.invoice_status.SaveInvoiceStatusRouter import router_save_invoice_status
 
 routes = FastAPI()
 
@@ -39,3 +43,7 @@ routes.include_router(router_save_document_version)
 routes.include_router(router_find_all_invoice)
 routes.include_router(router_find_by_id_invoice)
 routes.include_router(router_save_invoice)
+
+routes.include_router(router_find_all_invoice_status)
+routes.include_router(router_find_by_id_invoice_status)
+routes.include_router(router_save_invoice_status)

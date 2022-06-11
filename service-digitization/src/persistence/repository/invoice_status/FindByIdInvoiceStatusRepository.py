@@ -8,7 +8,7 @@ class FindByIdInvoiceStatusRepository(IRepository):
 
     def __init__(self):
         self.db = DigitizationDB()
-        self.collection = self.db.get_db_invoice()
+        self.collection = self.db.get_db_invoice_status()
 
     def execute(self, data:dict):
         id = ObjectId(data[COLUMN_INVOICE_STATUS_ID_TWO])
