@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class Invoicen(BaseModel):
+class Invoice(BaseModel):
     id:str
     name: str
     index_number: int
