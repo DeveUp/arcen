@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class InvoicenRequest(BaseModel):
+class InvoiceRequest(BaseModel):
     name: str
     index_number: int
     id_invoice_statu: str
