@@ -1,27 +1,29 @@
 from src.model.entity.Document import Document
 from src.model.request.DocumentRequest import DocumentRequest
-from src.util.constant import COLUMN_DOCUMENT_DATE, COLUMN_DOCUMENT_PATH_DOCUMENT_LOCAL, COLUMN_DOCUMENT_BASE64, COLUMN_DOCUMENT_NAME, COLUMN_DOCUMENT_LOCATION_ID, COLUMN_DOCUMENT_ID_DOCUEMNT_LOCATION
+from src.util.constant import COLUMN_DOCUMENT_DATE, COLUMN_DOCUMENT_PATH_DOCUMENT_LOCAL, COLUMN_DOCUMENT_BASE64, COLUMN_DOCUMENT_NAME, COLUMN_DOCUMENT_ID, COLUMN_DOCUMENT_ID_DOCUEMNT_LOCATION
 from src.util.common import get_validate_field
 
 class DocumentSchema:
 
     def __init__(self):
-        self.id:str = COLUMN_DOCUMENT_LOCATION_ID
+        self.id:str = COLUMN_DOCUMENT_ID
         self.id_document_location:str = COLUMN_DOCUMENT_ID_DOCUEMNT_LOCATION
         self.name:str = COLUMN_DOCUMENT_NAME
         self.document:str = COLUMN_DOCUMENT_BASE64
         self.path_document_local = COLUMN_DOCUMENT_PATH_DOCUMENT_LOCAL
         self.date:str = COLUMN_DOCUMENT_DATE
 
-    def entity(self, object) -> Document:
+    def entity(self, object, id:str=None) -> Document:
         if object == None: 
             return object
+        if id != None:
+            self.id = id
         entity = Document(
             id = str(get_validate_field(object, self.id, "")),
             id_document_location= get_validate_field(object, self.id_document_location),
             name= get_validate_field(object, self.name),
             document= get_validate_field(object, self.document),
-            path_document_local= get_validate_field(object, self.path_document_local),
+            path_document= get_validate_field(object, self.path_document_local),
             date= get_validate_field(object, self.date)
         )
         return entity
@@ -38,7 +40,7 @@ class DocumentSchema:
             id_document_location= get_validate_field(object, self.id_document_location),
             name= get_validate_field(object, self.name),
             document= get_validate_field(object, self.document),
-            path_document_local= get_validate_field(object, self.path_document_local),
+            path_document= get_validate_field(object, self.path_document_local),
             date= get_validate_field(object, self.date)
         )
 
@@ -46,7 +48,7 @@ class DocumentSchema:
         if object == None: 
             return object
         data = {
-            COLUMN_DOCUMENT_LOCATION_ID: str(get_validate_field(object, self.id, "")),
+            COLUMN_DOCUMENT_ID: str(get_validate_field(object, self.id, "")),
             COLUMN_DOCUMENT_ID_DOCUEMNT_LOCATION: get_validate_field(object, self.id_document_location), 
             COLUMN_DOCUMENT_NAME: get_validate_field(object, self.name), 
             COLUMN_DOCUMENT_BASE64: get_validate_field(object, self.document), 

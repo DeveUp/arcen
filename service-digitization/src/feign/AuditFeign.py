@@ -1,7 +1,7 @@
 from src.feign.Feign import Feign
 from src.model.dto.AuditDto import AuditDto
 from src.util.constant import FEIGN_ENDPOINT_AUDIT, FEIGN_ENDPOINT_AUDIT_SAVE
-from src.util.constant import RESPONSE_STATUS_CODE_AUDIT_ERROR_SAVE, RESPONSE_MSG_AUDIT_ERROR_SAVE
+from src.util.constant import RESPONSE_STATUS_CODE_AUDIT_ERROR_SAVE, RESPONSE_MSG_DOCUMENT_SAVE_ERROR_SAVE
 
 class AuditFeign:
 
@@ -19,4 +19,4 @@ class AuditFeign:
         )
     
     def save(self, data):
-        return self.feign.post(FEIGN_ENDPOINT_AUDIT_SAVE, data, RESPONSE_STATUS_CODE_AUDIT_ERROR_SAVE, RESPONSE_MSG_AUDIT_ERROR_SAVE)
+        return self.feign.post(FEIGN_ENDPOINT_AUDIT_SAVE, data, RESPONSE_STATUS_CODE_AUDIT_ERROR_SAVE, RESPONSE_MSG_DOCUMENT_SAVE_ERROR_SAVE)
