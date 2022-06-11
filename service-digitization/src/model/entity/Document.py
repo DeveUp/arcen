@@ -5,5 +5,5 @@ class Document(BaseModel):
     id_document_location: str
     name: str
     document: str
-    path_document_local: str
+    path_document: str
     date:str
