@@ -15,6 +15,12 @@ from src.route.document_version.FindAllDocumentVersionRouter import router_find_
 from src.route.document_version.FindByIdDocumentVersionRouter import router_find_by_id_document_version
 from src.route.document_version.SaveDocumentVersionRouter import router_save_document_version
 
+# ROUTES INVOICE
+from src.route.invoice.FindAllInvoiceRouter import router_find_all_invoice
+from src.route.invoice.FindByIdInvoiceRouter import router_find_by_id_invoice
+from src.route.invoice.SaveInvoiceRouter import router_save_invoice
+
+
 routes = FastAPI()
 
 # ADD ROUTES
@@ -29,3 +35,7 @@ routes.include_router(router_save_document_location)
 routes.include_router(router_find_all_document_version)
 routes.include_router(router_find_by_id_document_version)
 routes.include_router(router_save_document_version)
+
+routes.include_router(router_find_all_invoice)
+routes.include_router(router_find_by_id_invoice)
+routes.include_router(router_save_invoice)
