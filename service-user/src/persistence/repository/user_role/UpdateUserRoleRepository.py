@@ -17,9 +17,9 @@ class UpdateUserRoleRepository(IRepository):
         element.id_role=element2.id_role
         element.id_user=element2.id_user
         element.id_dependence=element2.id_dependence
-        element.status=element2.status
-        if element2.status == False:
-            element.date_end=datetime.utcnow
+        #element.status=element2.status
+        #if element2.status == False:
+            #element.date_end=datetime.utcnow
         self.db.commit()
         self.db.refresh(element)
         return element

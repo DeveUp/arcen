@@ -2,7 +2,7 @@ from urllib import response
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from src.model.response.UserRoleResponse import UserRoleResponse as ResponseArcen
-from src.service.UserRole import FindByIdUserRoleService as ServiceArcen
+from src.service.UserRole.FindByIdUserRoleService import FindByIdUserRoleService as ServiceArcen
 from src.persistence.database.table.UserRoleTable import UserRoleTable as TableArcen
 from src.util.constant import COLUMN_USER_ROLE_ID, ENDPOINT_APP,RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID, ENDPOINT_APP_USER_ROLE, ENDPOINT_GENERIC_FIND_BY_ID
 

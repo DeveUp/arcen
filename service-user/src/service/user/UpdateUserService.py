@@ -17,9 +17,7 @@ class UpdateUserService(IService):
 
     def execute(self, data:dict):
         try:
-            print("Gregorio")
-            element = self.repository.execute(data)
-            
+            element = self.repository.execute(data)            
             print(vars(element))
             element = self.schema.entity(element)
         except:

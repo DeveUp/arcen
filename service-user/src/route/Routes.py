@@ -1,3 +1,4 @@
+import imp
 from fastapi import FastAPI
 
 
@@ -21,6 +22,8 @@ from src.route.User.UpdateUserRouter import router_update_user
 from src.route.UserRole.FindAllUserRoleRouter import router_find_all_user_role
 from src.route.UserRole.FindByIdUserRoleRouter import router_find_by_id_user_role
 from src.route.UserRole.SaveUserRoleRouter import router_save_user_role
+from src.route.UserRole.DeleteByIdUserRoleRouter import router_detele_by_id_user_role
+from src.route.UserRole.UpdateUserRoleRouter import router_update_user_role
 
 routes = FastAPI()
 
@@ -38,7 +41,8 @@ routes.include_router(router_save_user)
 routes.include_router(router_update_user)
 
 
-
+routes.include_router(router_detele_by_id_user_role)
 routes.include_router(router_find_all_user_role)
 routes.include_router(router_find_by_id_user_role)
 routes.include_router(router_save_user_role)
+routes.include_router(router_update_user_role)
