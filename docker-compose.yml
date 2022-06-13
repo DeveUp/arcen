@@ -1,10 +1,9 @@
-version: '3'
+version: '3.8'
 services:
-  servicio-captura:
-    build: ../servicio-captura
+  servicio-auditoria:
+    build: ./service-audit
+    environment:
+      - MONGODB_CONNSTRING=mongodb://arcen:arcen@localhost/
     ports: 
-      - "4000:80" 
-  servicio-login:
-    build: ../servicio-login
-    ports: 
-      - "4001:81" 
+      - "8001:8182" 
+    
