@@ -1,0 +1,12 @@
+ARCEN_VL_MONGODB=/var/lib/docker/volumes/arcen_mongodb
+
+docker volume create arcen_mongodb
+/var/lib/docker/volumes/arcen_mongodb
+
+docker pull mongo:4.2.2
+docker images
+docker run --name arcen-mongodb -d -e MONGODB_CONNSTRING=mongodb://arcen:arcen@localhost/ -e MONGO_INITDB_ROOT_USERNAME=arcen -e MONGO_INITDB_ROOT_PASSWORD=arcen -p 27017:27017 -v arcen_mongodb mongo:4.2.2
+
+MONGO_INITDB_ROOT_USERNAME=arcen
+MONGO_INITDB_ROOT_PASSWORD=arcen
+MONGODB_CONNSTRING=mongodb://arcen:arcen@localhost/

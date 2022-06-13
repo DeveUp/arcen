@@ -1,5 +1,5 @@
-FROM python:3.6
+FROM python:3.8
 COPY . /usr/src/app
-WORKDIR /user/src/app
-RUN pythob3 -m pip install -r requirements.txt
-CMD [ "uvicorn", "main:app", "--host", "0.0.0.0", "port", "80"]
+WORKDIR /usr/src/app
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+CMD ["uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8182"]
