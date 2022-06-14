@@ -3,7 +3,7 @@ services:
   servicio-auditoria:
     build: ./service-audit
     environment:
-      - MONGODB_CONNSTRING=mongodb://arcen:arcen@localhost/
+      - MONGODB_CONNSTRING=mongodb://arcen:arcen@localhost
     ports: 
-      - "8001:8182" 
+      - "8001:8181" 
     
