@@ -1,9 +1,32 @@
 version: '3.8'
 services:
-  servicio-auditoria:
+  mongodb:
+    image: mongo:4.2.2
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: arcen
+      MONGO_INITDB_ROOT_PASSWORD: arcen
+    volumes:
+      - arcen_mongodb
+    ports:
+      - "27017:27017"
+  postgresql:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=arcen
+      - POSTGRES_PASSWORD=arcen
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+  service-audit:
     build: ./service-audit
     environment:
       - MONGODB_CONNSTRING=mongodb://arcen:arcen@localhost
     ports: 
-      - "8001:8181" 
+      - "8001:8181"
+    depends_on:
+      - mongodb
+volumes:
+  db:
+    driver: local
     
