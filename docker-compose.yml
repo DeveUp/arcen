@@ -109,6 +109,27 @@ services:
         aliases: 
           - arcen-service-furniture-storage-host
 
+  # OBJECT STORAGE
+  arcen-service-object-storage:
+    build: ./service-object-storage
+    container_name: arcen-service-object-storage
+    environment:
+      - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
+      - POSTGRESQL_DB=arcen
+      - POSTGRESQL_HOST=arcen-postgresql-host
+      - POSTGRESQL_PORT=5432
+      - ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
+    depends_on:
+      - arcen-postgresql
+      - arcen-service-audit
+    restart: always
+    ports: 
+      - "8006:8186"
+    networks:
+      nginx_net:
+        aliases: 
+          - arcen-service-object-storage-host
+
 ######################################
 # VOLUMEN
 ######################################
