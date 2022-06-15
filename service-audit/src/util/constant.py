@@ -196,6 +196,7 @@ RESPONSE = {
                 }
             },
             "find_all":{
+                "response": list,
                 "success": {
                     "default": {
                         "code": RESPONSE_GENERIC['get']['find_all']['success']['default']['code']
@@ -205,7 +206,11 @@ RESPONSE = {
         },  
         "post":{
             "save":{
-                "response": list
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['success']['default']['code']
+                    }
+                }
             }
         }    
     }
