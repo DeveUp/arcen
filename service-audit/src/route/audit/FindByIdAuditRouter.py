@@ -1,18 +1,22 @@
 from fastapi import APIRouter
 
-from src.model.entity.Audit import Audit
+from src.model.entity.Audit import Audit as EntityArcen
+
 from src.service.audit.FindByIdAuditService import FindByIdAuditService as ServiceArcen
-from src.util.constant import COLUMN_AUDIT_ID_TWO, ENDPOINT_APP, ENDPOINT_APP_AUDIT, ENDPOINT_GENERIC_FIND_BY_ID
-from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID
+
+from src.util.constant import ENDPOINT
+from src.util.constant import RESPONSE
+from src.util.constant import DATABASE
 
 router_find_by_id_audit = APIRouter()
 
-endpoint = ENDPOINT_APP+ENDPOINT_APP_AUDIT+ENDPOINT_GENERIC_FIND_BY_ID
-response = Audit
-status = RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID
+endpoint = ENDPOINT['path']+ENDPOINT['service']['audit']['path']+ENDPOINT['operation']['get']['find_by_id']
+response = EntityArcen
+status = RESPONSE['audit']['get']['find_by_id']['success']['default']['code']
+info_data = DATABASE['table']['audit']['column'][0]
 
 @router_find_by_id_audit.get(endpoint, response_model = response, status_code= status)
 async def find_by_id(id:str):
-    data = dict({COLUMN_AUDIT_ID_TWO:id})
+    data = dict({info_data:id})
     service = ServiceArcen()
     return service.execute(data)

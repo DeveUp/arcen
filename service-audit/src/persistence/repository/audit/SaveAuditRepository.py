@@ -1,5 +1,7 @@
 from src.persistence.repository.IRepository import IRepository
+
 from src.persistence.database.AuditDB import AuditDB
+
 from src.util.constant import COLUMN_AUDIT
 
 class SaveAuditRepository(IRepository):
