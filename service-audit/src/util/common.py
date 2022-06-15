@@ -64,6 +64,9 @@ def replace_character_date(str_date:str):
     return str_date
 
 # ERROR
+def get_exception_http(error) -> HTTPException:
+    return HTTPException(status_code=error['code'], detail=error['msg'])
+
 def get_http_exception(code:str, message:str) -> HTTPException:
     return HTTPException(status_code=code, detail=message)
 

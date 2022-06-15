@@ -1,4 +1,12 @@
 docker-compose build
-docker-compose up
+docker-compose up -s 
 
 http://127.0.0.1:8001/api/audit/
+http://127.0.0.1:8001/docs#/default
+
+docker-compose ps
+docker network ls
+docker network rm NAME
+docker-compose prune
+
+docker exec -it f4617ff5422a /bin/sh
