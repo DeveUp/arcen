@@ -1,32 +1,87 @@
 version: '3.8'
+
+######################################
+# SERVICES
+######################################
+
 services:
-  mongodb:
-    image: mongo:4.2.2
+
+  ######################################
+  # DATABASES
+  ######################################
+
+  # MONGODB
+  arcen-mongodb:
+    image: mongo:latest
+    container_name: arcen-mongodb
+    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: arcen
       MONGO_INITDB_ROOT_PASSWORD: arcen
     volumes:
-      - arcen_mongodb
+      - arcen_db_mongodb:/data/db
     ports:
-      - "27017:27017"
-  postgresql:
+      - '27017:27017'
+    networks:
+      nginx_net:
+        aliases:
+          - arcen-mongodb-host
+
+  # POSTGRESQL
+  arcen-postgresql:
     image: postgres:alpine
+    container_name: arcen-postgresql
     environment:
       - POSTGRES_USER=arcen
       - POSTGRES_PASSWORD=arcen
     ports:
       - '5432:5432'
     volumes: 
-      - db:/var/lib/postgresql/data
-  service-audit:
+      - arcen_db_postgresql:/var/lib/postgresql/data
+    networks:
+      nginx_net:
+        aliases: 
+          - arcen-postgresql-host
+
+  ######################################
+  # MICROSERVICES
+  ######################################
+
+  # AUDIT
+  arcen-service-audit:
     build: ./service-audit
+    container_name: arcen-service-audit
     environment:
-      - MONGODB_CONNSTRING=mongodb://arcen:arcen@localhost
+      - MONGODB_CONNSTRING=mongodb://arcen:arcen@arcen-mongodb:27017/
+      - MONGODB_DB=arcen_audit
+      - MONGODB_HOST=arcen-postgresql-host
+      - MONGODB_PORT=27017
+    depends_on:
+      - arcen-mongodb
+    restart: always
     ports: 
       - "8001:8181"
-    depends_on:
-      - mongodb
+    networks:
+      nginx_net:
+        aliases: 
+          - arcen-service-audit-host
+
+######################################
+# VOLUMEN
+######################################
+
 volumes:
-  db:
-    driver: local
+  arcen_db_mongodb: {}
+  arcen_db_postgresql: {}
+
+######################################
+# NETWORK
+######################################
+
+networks:
+  nginx_net:
+    name: nginx_net
+    driver: bridge
+    ipam:
+      driver: default
     

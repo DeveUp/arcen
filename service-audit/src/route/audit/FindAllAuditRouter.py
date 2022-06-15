@@ -1,14 +1,15 @@
 from fastapi import APIRouter
 
 from src.service.audit.FindAllAuditService import FindAllAuditService as ServiceArcen
-from src.util.constant import ENDPOINT_APP, ENDPOINT_APP_AUDIT, ENDPOINT_GENERIC_FIND_ALL
-from src.util.constant import RESPONSE_MODEL_AUDIT_FIND_ALL, RESPONSE_STATUS_CODE_GENERIC_FIND_ALL
+
+from src.util.constant import ENDPOINT
+from src.util.constant import RESPONSE
 
 router_find_all_audit = APIRouter()
 
-endpoint = ENDPOINT_APP+ENDPOINT_APP_AUDIT+ENDPOINT_GENERIC_FIND_ALL
-response = RESPONSE_MODEL_AUDIT_FIND_ALL
-status = RESPONSE_STATUS_CODE_GENERIC_FIND_ALL
+endpoint = ENDPOINT['path']+ENDPOINT['service']['audit']['path']+ENDPOINT['operation']['get']['find_all']
+response = RESPONSE['audit']['get']['find_all']['response']
+status = RESPONSE['audit']['get']['find_all']['success']['default']['code']
 
 @router_find_all_audit.get(endpoint, response_model = response, status_code= status)
 async def find_all():

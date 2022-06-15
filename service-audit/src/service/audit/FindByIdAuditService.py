@@ -1,8 +1,10 @@
 from src.service.IService import IService
+
 from src.persistence.repository.audit.FindByIdAuditRepository import FindByIdAuditRepository
 from src.persistence.schema.AuditSchema import AuditSchema
-from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTENT, RESPONSE_MSG_AUDIT_FIND_BY_ID_NOT_CONTENT
-from src.util.common import get_http_exception
+
+from src.util.constant import RESPONSE
+from src.util.common import get_exception_http
 
 class FindByIdAuditService(IService):
 
@@ -15,4 +17,4 @@ class FindByIdAuditService(IService):
             element = self.repository.execute(data)
             return self.schema.entity(element)
         except:
-            raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTENT, RESPONSE_MSG_AUDIT_FIND_BY_ID_NOT_CONTENT)
+            raise get_exception_http(RESPONSE['audit']['get']['find_by_id']['error']['default'])
