@@ -34,10 +34,11 @@ services:
     environment:
       - POSTGRES_USER=arcen
       - POSTGRES_PASSWORD=arcen
+      - POSTGRES_DB=arcen
     ports:
       - '5432:5432'
     volumes: 
-      - arcen_db_postgresql:/var/lib/postgresql/data
+      - arcen_db_postgresql:/var/lib/postgresql/data/
     networks:
       nginx_net:
         aliases: 
@@ -65,6 +66,69 @@ services:
       nginx_net:
         aliases: 
           - arcen-service-audit-host
+
+  # DIGITIZATION
+  arcen-service-digitization:
+    build: ./service-digitization
+    container_name: arcen-service-digitization
+    environment:
+      - MONGODB_CONNSTRING=mongodb://arcen:arcen@arcen-mongodb:27017/
+      - MONGODB_DB=arcen_audit
+      - MONGODB_HOST=arcen-postgresql-host
+      - MONGODB_PORT=27017
+      - ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
+    depends_on:
+      - arcen-mongodb
+      - arcen-service-audit
+    restart: always
+    ports: 
+      - "8003:8183"
+    networks:
+      nginx_net:
+        aliases: 
+          - arcen-service-digitization-host
+  
+  # FURNITURE STORAGE
+  arcen-service-furniture-storage:
+    build: ./service-furniture-storage
+    container_name: arcen-service-furniture-storage
+    environment:
+      - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
+      - POSTGRESQL_DB=arcen
+      - POSTGRESQL_HOST=arcen-postgresql-host
+      - POSTGRESQL_PORT=5432
+      - ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
+    depends_on:
+      - arcen-postgresql
+      - arcen-service-audit
+    restart: always
+    ports: 
+      - "8004:8184"
+    networks:
+      nginx_net:
+        aliases: 
+          - arcen-service-furniture-storage-host
+
+  # OBJECT STORAGE
+  arcen-service-object-storage:
+    build: ./service-object-storage
+    container_name: arcen-service-object-storage
+    environment:
+      - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
+      - POSTGRESQL_DB=arcen
+      - POSTGRESQL_HOST=arcen-postgresql-host
+      - POSTGRESQL_PORT=5432
+      - ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
+    depends_on:
+      - arcen-postgresql
+      - arcen-service-audit
+    restart: always
+    ports: 
+      - "8006:8186"
+    networks:
+      nginx_net:
+        aliases: 
+          - arcen-service-object-storage-host
 
 ######################################
 # VOLUMEN

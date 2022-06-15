@@ -10,6 +10,7 @@ ls
 
 su postgres
 psql -U postgres
+psql -U arcen
 
 create database arcen_furniture;
 create user arcen with encrypted password 'arcen';
