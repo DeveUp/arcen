@@ -1,8 +1,7 @@
 from src.persistence.repository.IRepository import IRepository
-
 from src.persistence.database.AuditDB import AuditDB
 
-from src.util.constant import COLUMN_AUDIT
+from src.util.constant import DATABASE
 
 class SaveAuditRepository(IRepository):
 
@@ -11,6 +10,6 @@ class SaveAuditRepository(IRepository):
         self.collection = self.db.get_db_audit()
 
     def execute(self, data:dict):
-        audit = dict(data[COLUMN_AUDIT])
+        audit = dict(data[DATABASE['table']['audit']['name']])
         id = self.collection.insert_one(audit)
         return id.inserted_id

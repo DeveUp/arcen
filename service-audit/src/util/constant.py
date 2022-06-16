@@ -62,7 +62,7 @@ DATABASE= {
             ]
         },
         "audit_closure":{
-            "name": "audit-closure",
+            "name": "audit-closure-%s",
             "pk": "_id",
             "column": [
                 "id",
@@ -213,6 +213,23 @@ RESPONSE = {
                 }
             }
         }    
+    },
+    "audit_closure":{
+        "get":{
+            "find_by_id":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['get']['find_by_id']['error']['default']['msg']%("del cierre de auditoria")
+                    }
+                }
+            },
+        }
     }
 }
 
