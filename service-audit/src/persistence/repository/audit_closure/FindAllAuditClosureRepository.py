@@ -13,6 +13,7 @@ class FindAllAuditClosureRepository(IRepository):
         self.db = AuditDB()
         self.collection = self.db.get_db_audit_id(table_id)
 
+    # @Overrride
     # @Method - Consulta todas los cierres de auditoria
     # @Parameter - data (Optional) - No cumple
     # @Return - Collections

@@ -15,10 +15,11 @@ class SaveAuditClosureRepository(IRepository):
         self.db = AuditDB()
         self.collection = self.db.get_db_audit_id(table_id)
 
+    # @Overrride
     # @Method - Registra un cierre de auditoria
     # @Parameter - data - {closure_audit} - Representa el cierre de auditoria
     # @Return - PK
     def execute(self, data:dict):
-        closure_audit = dict(data[DATABASE['table']['audit_closure']['name']])
+        closure_audit = dict(data[DATABASE['table']['audit_closure']['subname']])
         id = self.collection.insert_one(closure_audit)
         return id.inserted_id

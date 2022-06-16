@@ -13,6 +13,7 @@ class FindAllAuditRepository(IRepository):
         self.db = AuditDB()
         self.collection = self.db.get_db_audit()
 
+    # @Overrride
     # @Method - Consulta todas las auditorias
     # @Parameter - data (Optional) - No cumple
     # @Return - Collections

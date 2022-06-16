@@ -14,17 +14,16 @@ class FindAllByRangeDateCreationAuditRepository(IRepository):
         self.db = AuditDB()
         self.collection = self.db.get_db_audit()
 
+    # @Overrride
     # @Method - Consulta todas las auditorias entre un rango de dos fechas
     # @Parameter - data - {date_start, date_end} - Rango fechas
     # @Return - Collections
     def execute(self, data:dict):
         date = DATABASE['table']['audit']['column'][6]
-        length = len(DATABASE['table']['audit']['column']) - 1;
-        date_start = DATABASE['table']['audit']['column'][length][0]
-        date_end = DATABASE['table']['audit']['column'][length][1]
+        length = len(DATABASE['table']['audit']['column']) - 1
         return self.collection.find({
             date:{
-                "$gte": date_start, 
-                "$lt": date_end
+                "$gte": data[DATABASE['table']['audit']['column'][length][0]], 
+                "$lt":  data[DATABASE['table']['audit']['column'][length][1]]
             }
         })
