@@ -15,6 +15,7 @@ class FindByIdAuditClosureRepository(IRepository):
         self.db = AuditDB()
         self.collection = self.db.get_db_audit_id(table_id)
 
+    # @Overrride
     # @Method - Consulta un cierre de auditoria por un el id de la auditoria y cierre
     # @Parameter - data - {id, closure_audit} - Representa los parametros
     # @Return - Collection
