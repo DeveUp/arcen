@@ -1,6 +1,7 @@
 from src.persistence.repository.IRepository import IRepository
 from src.persistence.database.AuditDB import AuditDB
-from src.util.constant import COLUMN_CONTROL_AUDIT_NAME
+
+from src.util.constant import DATABASE
 
 class FindByNameControlAuditRepository(IRepository):
 
@@ -9,6 +10,7 @@ class FindByNameControlAuditRepository(IRepository):
         self.collection = self.db.get_db_control_audit()
 
     def execute(self, data:dict):
+        self.name = DATABASE['table']['control_audit']['column'][1]
         return self.collection.find_one({
-            COLUMN_CONTROL_AUDIT_NAME:data[COLUMN_CONTROL_AUDIT_NAME]
+            self.name:data[self.name]
         })

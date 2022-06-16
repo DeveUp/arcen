@@ -4,12 +4,17 @@ from src.model.request.AuditRequest import AuditRequest
 from src.util.constant import DATABASE
 from src.util.common import get_validate_field
 
+# @Class AuditSchema - Esquema de auditoria
+# @Author Sergio Stives Barrios Buitrago
+# @Version 1.0.0
 class AuditSchema:
 
+    # @Method - Contructor 
+    # @Return - Void
     def __init__(self):
         self.table = DATABASE['table']['audit']
         self.id:str = self.table['pk']
-        self.table = DATABASE['table']['audit']['column']
+        self.table = self.table['column']
         self.service:str = self.table[1]
         self.operation:str = self.table[2]
         self.id_user:str = self.table[3]
@@ -17,6 +22,9 @@ class AuditSchema:
         self.response:str = self.table[5]
         self.date:str = self.table[6]
 
+    # @Method - Convierte un objeto a una entidad
+    # @Parameter - object - Representa objecto a convertir
+    # @Return - Audit
     def entity(self, object, id:str=None) -> Audit:
         if object == None: 
             return object
@@ -32,11 +40,17 @@ class AuditSchema:
             date= get_validate_field(object, self.date)
         )
     
+    # @Method - Convierte un objeto a una lista
+    # @Parameter - objects - Representa los objectos a convertir
+    # @Return - list
     def list(self, objects) -> list:
         if objects == None: 
             return objects
         return [self.entity(object) for object in objects]
     
+    # @Method - Convierte un objeto a un request
+    # @Parameter - object - Representa los objecto a convertir
+    # @Return - AuditRequest
     def request(self, object) -> AuditRequest:
         if object == None: 
             return object
@@ -49,6 +63,11 @@ class AuditSchema:
             date= get_validate_field(object, self.date)
         )
 
+    # @Method - Convierte un objeto a un diccionario
+    # @Parameter - object - Representa los objecto a convertir
+    # @Parameter - create (Optional) - Representa la fecha creacion
+    # @Parameter - ip_address (Optional) - Representa la ip
+    # @Return - dict
     def dict(self, object, create= None, ip_address = None) -> dict:
         if object == None: 
             return object

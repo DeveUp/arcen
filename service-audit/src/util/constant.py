@@ -68,9 +68,8 @@ DATABASE= {
                 "id",
                 "control",
                 "audit",
-                "date_start",
-                "date_end",
-                "date"
+                "date",
+                ["date_start", "date_end"]
             ]
         }
     }

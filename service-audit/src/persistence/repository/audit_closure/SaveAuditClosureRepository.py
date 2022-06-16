@@ -1,7 +1,7 @@
 from src.persistence.repository.IRepository import IRepository
-from src.persistence.repository.control_audit.FindByIdControlAuditRepository import FindByIdControlAuditRepository
 from src.persistence.database.AuditDB import AuditDB
-from src.util.constant import COLUMN_AUDIT_CLOSURE
+
+from src.util.constant import DATABASE
 
 class SaveAuditClosureRepository(IRepository):
 
@@ -10,6 +10,6 @@ class SaveAuditClosureRepository(IRepository):
         self.collection = self.db.get_db_audit_id(table_id)
 
     def execute(self, data:dict):
-        closure_audit = dict(data[COLUMN_AUDIT_CLOSURE])
+        closure_audit = dict(data[DATABASE['table']['audit_closure']['name']])
         id = self.collection.insert_one(closure_audit)
         return id.inserted_id
