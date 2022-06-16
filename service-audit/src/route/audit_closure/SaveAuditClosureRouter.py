@@ -11,8 +11,8 @@ from src.util.constant import DATABASE
 router_save_audit_closure = APIRouter()
 
 endpoint = ENDPOINT['path']+ENDPOINT['service']['audit_closure']['path']+ENDPOINT['operation']['post']['save']
-response = RESPONSE['audit_closure']['post']['save']['success']['default']['code']
-status = RESPONSE['audit_closure']['post']['save']['response']
+status = RESPONSE['audit_closure']['post']['save']['success']['default']['code']
+response = RESPONSE['audit_closure']['post']['save']['response']
 info_data = DATABASE['table']['audit_closure']['name']
 
 # @Rest - Registra una auditoria de cierre

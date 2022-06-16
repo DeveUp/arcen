@@ -12,8 +12,8 @@ from src.util.constant import DATABASE
 router_save_audit = APIRouter()
 
 endpoint = ENDPOINT['path']+ENDPOINT['service']['audit']['path']+ENDPOINT['operation']['post']['save']
-response = EntityArcen
 status = RESPONSE['audit']['post']['save']['success']['default']['code']
+response = EntityArcen
 info_data = DATABASE['table']['audit']['name']
 
 # @Rest - Registra una auditoria

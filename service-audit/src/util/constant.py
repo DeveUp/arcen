@@ -22,7 +22,7 @@ ENDPOINT = {
                 }
             }
         },
-        "audit_control": {
+        "control_audit": {
            "path": "/audit-control" 
         }
     },
@@ -68,13 +68,14 @@ DATABASE= {
         },
         "audit_closure":{
             "name": "audit-closure-%s",
+            "subname": "audit-closure",
             "pk": "_id",
             "column": [
                 "id",
                 "control",
                 "audit",
                 "date",
-                ["date_start", "date_end"]
+                ["start", "end"]
             ]
         }
     }
@@ -132,6 +133,12 @@ RESPONSE_GENERIC = {
                 "default": {
                     "code": RESPONSE_GENERIC_CODE['success']['find']
                 } 
+            },
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['find'],
+                    "msg": "¡Och! no encontramos ningun%s resultado."
+                }
             }
         },
         "find_by_range_date_all": {
@@ -206,13 +213,26 @@ RESPONSE = {
                         "code": RESPONSE_GENERIC['get']['find_all']['success']['default']['code']
                     }
                 },
-            }
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_all']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['get']['find_all']['error']['default']['msg']%("")
+                    }
+                }
+            },
+            "find_by_range_date_all": RESPONSE_GENERIC['get']['find_by_range_date_all']
         },  
         "post":{
             "save":{
                 "success": {
                     "default": {
                         "code": RESPONSE_GENERIC['post']['save']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("la auditoria")
                     }
                 }
             }
@@ -287,6 +307,9 @@ RESPONSE = {
                     "default": {
                         "code": RESPONSE_GENERIC['post']['save']['success']['default']['code']
                     }
+                },
+                "error":{
+                    "range_date": RESPONSE_GENERIC['get']['find_by_range_date_all']
                 }
             }
         }  

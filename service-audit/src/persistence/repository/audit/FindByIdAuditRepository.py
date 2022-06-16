@@ -17,10 +17,11 @@ class FindByIdAuditRepository(IRepository):
         self.collection = self.db.get_db_audit()
         self.data = DATABASE['table']['audit']
 
+    # @Overrride
     # @Method - Consulta una auditoria por su pk
     # @Parameter - data - {id} - Representa pk de la auditoria
     # @Return - Collection
     def execute(self, data:dict):
-        id = ObjectId(data[self.data['column']['id']])
+        id = ObjectId(data[self.data['column'][0]])
         return self.collection.find_one({self.data['pk']:id})
        

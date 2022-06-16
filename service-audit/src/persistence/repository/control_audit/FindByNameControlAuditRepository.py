@@ -14,6 +14,7 @@ class FindByNameControlAuditRepository(IRepository):
         self.db = AuditDB()
         self.collection = self.db.get_db_control_audit()
 
+    # @Overrride
     # @Method - Consulta un control de auditorias por el nombre
     # @Parameter - data - {name} - Representa el nombre del control
     # @Return - Collection

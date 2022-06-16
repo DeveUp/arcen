@@ -14,6 +14,7 @@ class SaveControlAuditRepository(IRepository):
         self.db = AuditDB()
         self.collection = self.db.get_db_control_audit()
 
+    # @Overrride
     # @Method - Regustra un control de auditoria
     # @Parameter - data - {control_audit} - Representa el control de auditoria
     # @Return - PK
