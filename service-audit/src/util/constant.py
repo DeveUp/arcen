@@ -1,6 +1,11 @@
-# FORMAT
-FORMAT_DATE = '%Y-%m-%d %H:%M'
-FORMAT_DATE_STR = '%Y-%m-%d'
+UTIL = {
+    "format":{
+        "date": [
+            '%Y-%m-%d',
+            '%Y-%m-%d %H:%M'
+        ]
+    }
+}
 
 # ENDPOINT
 ENDPOINT = {
@@ -213,6 +218,44 @@ RESPONSE = {
             }
         }    
     },
+    "control_audit":{
+        "get": {
+            "find_by_id":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['get']['find_by_id']['error']['default']['msg']%("del control de auditoria")
+                    }
+                }
+            },
+            "find_by_name":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_name']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_name']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['get']['find_by_name']['error']['default']['msg']%("del control de auditoria")
+                    }
+                }
+            },
+            "find_all":{
+                "response": list,
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_all']['success']['default']['code']
+                    }
+                },
+            }
+        }
+    },
     "audit_closure":{
         "get":{
             "find_by_id":{
@@ -228,7 +271,25 @@ RESPONSE = {
                     }
                 }
             },
-        }
+            "find_all":{
+                "response": list,
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_all']['success']['default']['code']
+                    }
+                },
+            }
+        },
+        "post":{
+            "save":{
+                "response": list,
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['success']['default']['code']
+                    }
+                }
+            }
+        }  
     }
 }
 
