@@ -2,7 +2,8 @@ from bson import ObjectId
 
 from src.persistence.repository.IRepository import IRepository
 from src.persistence.database.AuditDB import AuditDB
-from src.util.constant import COLUMN_CONTROL_AUDIT_ID, COLUMN_CONTROL_AUDIT_ID_TWO
+
+from src.util.constant import DATABASE
 
 class FindByIdControlAuditRepository(IRepository):
 
@@ -11,6 +12,9 @@ class FindByIdControlAuditRepository(IRepository):
         self.collection = self.db.get_db_control_audit()
 
     def execute(self, data:dict):
-        id = ObjectId(data[COLUMN_CONTROL_AUDIT_ID_TWO])
-        return self.collection.find_one({COLUMN_CONTROL_AUDIT_ID:id})
+        self.id = DATABASE['table']['control_audit']['column'][0]
+        id = ObjectId(data[self.id])
+        return self.collection.find_one({
+            self.id:id
+        })
        

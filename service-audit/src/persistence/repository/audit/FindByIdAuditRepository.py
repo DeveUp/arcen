@@ -5,13 +5,21 @@ from src.persistence.database.AuditDB import AuditDB
 
 from src.util.constant import DATABASE
 
+# @Class FindByIdAuditRepository - Repositorio Auditoria 
+# @Author Sergio Stives Barrios Buitrago
+# @Version 1.0.0
 class FindByIdAuditRepository(IRepository):
 
+    # @Method - Contructor 
+    # @Return - Void
     def __init__(self):
         self.db = AuditDB()
         self.collection = self.db.get_db_audit()
         self.data = DATABASE['table']['audit']
 
+    # @Method - Consulta una auditoria por su pk
+    # @Parameter - data - {id} - Representa pk de la auditoria
+    # @Return - Collection
     def execute(self, data:dict):
         id = ObjectId(data[self.data['column']['id']])
         return self.collection.find_one({self.data['pk']:id})
