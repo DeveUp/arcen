@@ -5,12 +5,20 @@ from src.persistence.database.AuditDB import AuditDB
 
 from src.util.constant import DATABASE
 
+# @Class FindByIdControlAuditRepository - Repositorio Control Auditoria 
+# @Author Sergio Stives Barrios Buitrago
+# @Version 1.0.0
 class FindByIdControlAuditRepository(IRepository):
 
+    # @Method - Contructor 
+    # @Return - Void
     def __init__(self):
         self.db = AuditDB()
         self.collection = self.db.get_db_control_audit()
 
+    # @Method - Consulta un control de auditorias por el pk
+    # @Parameter - data - {id} - Representa el pk
+    # @Return - Collection
     def execute(self, data:dict):
         self.id = DATABASE['table']['control_audit']['column'][0]
         id = ObjectId(data[self.id])
