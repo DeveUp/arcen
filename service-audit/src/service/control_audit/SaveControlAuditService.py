@@ -6,7 +6,7 @@ from src.service.control_audit.FindByIdControlAuditService import FindByIdContro
 from src.util.constant import COLUMN_CONTROL_AUDIT, COLUMN_CONTROL_AUDIT_ID_TWO
 from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_SAVE
 from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_NAME_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_NAME_SAVE, COLUMN_CONTROL_AUDIT_NAME
-from src.util.common import generate_date, get_http_exception
+from src.util.common import generate_date, get_exception_http_build
 
 class SaveControlAuditClosureService(IService):
 
@@ -29,14 +29,14 @@ class SaveControlAuditClosureService(IService):
         except:
             isErrorName = False
         if isErrorName:
-            raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_NAME_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_NAME_SAVE)
+            raise get_exception_http_build(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_NAME_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_NAME_SAVE)
         # Save control audit
         try:
             control_audit = self.schema.dict(dict(data), generate_date())
             data = dict({COLUMN_CONTROL_AUDIT: self.schema.request(dict(control_audit))})
             element = self.repository.execute(data)
         except:
-            raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_SAVE)
+            raise get_exception_http_build(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_SAVE)
         # Find control audit by id
         data = dict({COLUMN_CONTROL_AUDIT_ID_TWO: element})
         return self.findByIdControlAudit.execute(data)

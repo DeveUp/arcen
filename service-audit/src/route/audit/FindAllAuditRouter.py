@@ -11,6 +11,11 @@ endpoint = ENDPOINT['path']+ENDPOINT['service']['audit']['path']+ENDPOINT['opera
 response = RESPONSE['audit']['get']['find_all']['response']
 status = RESPONSE['audit']['get']['find_all']['success']['default']['code']
 
+# @Rest - Consulta todas las auditorias
+# @Parameter - endpoint - Representa el punto de entrada
+# @Parameter - response_model (Optional) - Representa el objecto de respuesta
+# @Parameter - status_code (Optional) - Representa el codigo de respuesta
+# @Return - Response
 @router_find_all_audit.get(endpoint, response_model = response, status_code= status)
 async def find_all():
     service = ServiceArcen()

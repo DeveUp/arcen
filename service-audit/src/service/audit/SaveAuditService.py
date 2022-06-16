@@ -7,7 +7,7 @@ from src.service.audit.FindByIdAuditService import FindByIdAuditService
 
 from src.util.constant import COLUMN_AUDIT, COLUMN_AUDIT_ID_TWO
 from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_AUDIT_SAVE_ERROR_SAVE
-from src.util.common import generate_date, get_ip_address, get_http_exception
+from src.util.common import generate_date, get_ip_address, get_exception_http_build
 
 class SaveAuditService(IService):
 
@@ -22,7 +22,7 @@ class SaveAuditService(IService):
             data = dict({COLUMN_AUDIT: self.schema.request(dict(audit))})
             element = self.repository.execute(data)
         except:
-            raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_AUDIT_SAVE_ERROR_SAVE)
+            raise get_exception_http_build(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_AUDIT_SAVE_ERROR_SAVE)
         # Find audit by id
         data = dict({COLUMN_AUDIT_ID_TWO: element})
         return self.findByIdAudit.execute(data)
