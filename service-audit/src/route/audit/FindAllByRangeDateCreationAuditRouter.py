@@ -11,6 +11,11 @@ endpoint = ENDPOINT_APP+ENDPOINT_APP_AUDIT+ENDPOINT_GENERIC_FIND_BY_RANGE_DATE
 response = RESPONSE_MODEL_AUDIT_FIND_ALL_BY_RANGE_DATE
 status = RESPONSE_STATUS_CODE_GENERIC_FIND_ALL_BY_RANGE_DATE
 
+# @Rest - Consulta todas las auditorias entre un rango de fechas
+# @Parameter - endpoint - Representa el punto de entrada
+# @Parameter - response_model (Optional) - Representa el objecto de respuesta
+# @Parameter - status_code (Optional) - Representa el codigo de respuesta
+# @Return - Response
 @router_find_all_by_range_date_creation_audit.get(endpoint, response_model = response, status_code= status)
 async def find_all_by_range_date_creation(start:str, end:str):
     data = dict({

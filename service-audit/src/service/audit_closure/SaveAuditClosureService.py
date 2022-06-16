@@ -16,7 +16,7 @@ from src.util.constant import COLUMN_AUDIT_CLOSURE, COLUMN_CONTROL_AUDIT_NAME, C
 from src.util.constant import COLUMN_AUDIT_DATE_START, COLUMN_AUDIT_DATE_END
 from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_FIND_ALL_BY_RANGE_DATE_ERROR_FORMAT, RESPONSE_MSG_GENERIC_DATE_ERROR_FORMAT
 from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_RANGE_DATE_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_RANGE_DATE_SAVE
-from src.util.common import is_date_time, generate_date, get_http_exception
+from src.util.common import is_date_time, generate_date, get_exception_http_build
 
 class SaveAuditClosureService(IService):
 
@@ -30,7 +30,7 @@ class SaveAuditClosureService(IService):
         date_start = audit_closure.date_start
         date_end = audit_closure.date_end
         if is_date_time(date_start) == False or is_date_time(date_end) == False:
-            raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_FIND_ALL_BY_RANGE_DATE_ERROR_FORMAT, RESPONSE_MSG_GENERIC_DATE_ERROR_FORMAT)
+            raise get_exception_http_build(RESPONSE_STATUS_CODE_GENERIC_FIND_ALL_BY_RANGE_DATE_ERROR_FORMAT, RESPONSE_MSG_GENERIC_DATE_ERROR_FORMAT)
         # Get audits by range date
         audits = self.audits(date_start, date_end)
         # Get control audit
@@ -72,7 +72,7 @@ class SaveAuditClosureService(IService):
             })
         )
         if audits == None or len(audits) == 0:
-            raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_RANGE_DATE_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_RANGE_DATE_SAVE)
+            raise get_exception_http_build(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_RANGE_DATE_SAVE, RESPONSE_MSG_CONTROL_AUDIT_SAVE_ERROR_RANGE_DATE_SAVE)
         return audits
 
     def control_audit(self, name:str, date_start:str, date_end:str, is_find:bool=False):
