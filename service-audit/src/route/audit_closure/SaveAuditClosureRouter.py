@@ -13,7 +13,7 @@ router_save_audit_closure = APIRouter()
 endpoint = ENDPOINT['path']+ENDPOINT['service']['audit_closure']['path']+ENDPOINT['operation']['post']['save']
 status = RESPONSE['audit_closure']['post']['save']['success']['default']['code']
 response = RESPONSE['audit_closure']['post']['save']['response']
-info_data = DATABASE['table']['audit_closure']['name']
+info_data = DATABASE['table']['audit_closure']['subname']
 
 # @Rest - Registra una auditoria de cierre
 # @Parameter - endpoint - Representa el punto de entrada

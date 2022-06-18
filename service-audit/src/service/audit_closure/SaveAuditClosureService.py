@@ -14,7 +14,7 @@ from src.util.constant import DATABASE
 from src.util.constant import RESPONSE
 from src.util.common import generate_id, is_date_time, generate_date, get_exception_http
 
-# @Class SaveAuditClosureService - Servicio de cierre auditoria
+# @Class SaveAuditClosureService - Servicio que registra un cierre de auditoria 
 # @Author Sergio Stives Barrios Buitrago
 # @Version 1.0.0
 class SaveAuditClosureService(IService):
@@ -33,9 +33,9 @@ class SaveAuditClosureService(IService):
     # @Return - list
     def execute(self, data:dict):
         # Se obtiene el cierre
-        audit_closure =  data[self.data['subname']]
+        audit_closure =  dict(data[self.data['subname']])
 
-        # Se obtiene el rango de fechas (Inicio y final) y se validan
+        # Se obtiene el rango de fechas (Inicio y final de la auditoria) y se validan
         date_start = audit_closure[self.data['column'][self.length][0]]
         date_end = audit_closure[self.data['column'][self.length][1]]
         if is_date_time(date_start) == False or is_date_time(date_end) == False:

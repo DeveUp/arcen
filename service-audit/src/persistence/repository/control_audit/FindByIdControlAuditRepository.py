@@ -21,9 +21,9 @@ class FindByIdControlAuditRepository(IRepository):
     # @Parameter - data - {id} - Representa el pk
     # @Return - Collection
     def execute(self, data:dict):
+        self.pk = DATABASE['table']['control_audit']['pk']
         self.id = DATABASE['table']['control_audit']['column'][0]
-        id = ObjectId(data[self.id])
         return self.collection.find_one({
-            self.id:id
+            self.pk:ObjectId(data[self.id])
         })
        
