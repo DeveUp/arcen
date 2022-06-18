@@ -19,6 +19,6 @@ class SaveControlAuditRepository(IRepository):
     # @Parameter - data - {control_audit} - Representa el control de auditoria
     # @Return - PK
     def execute(self, data:dict):
-        control_audit = dict(data[DATABASE['table']['name']])
+        control_audit = dict(data[DATABASE['table']['control_audit']['name']])
         id = self.collection.insert_one(control_audit)
         return id.inserted_id
