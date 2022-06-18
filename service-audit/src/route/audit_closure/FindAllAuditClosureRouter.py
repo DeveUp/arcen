@@ -7,7 +7,7 @@ from src.util.constant import RESPONSE
 
 router_find_all_audit_closure = APIRouter()
 
-endpoint = ENDPOINT['path']+ENDPOINT['service']['audit_closure']['path']+ENDPOINT['operation']['get']['find_all']
+endpoint = ENDPOINT['path']+ENDPOINT['service']['audit_closure']['path']+ENDPOINT['service']['audit_closure']['operation']['get']['find_all']
 response = RESPONSE['audit_closure']['get']['find_all']['response']
 status = RESPONSE['audit_closure']['get']['find_all']['success']['default']['code']
 

@@ -24,7 +24,8 @@ ENDPOINT = {
             "path": "/audit-closure",
             "operation":{
                 "get": {
-                    "find_table_by_id": "/table-id/{table}"
+                    "find_by_id": "/{id}/table-id/{table}",
+                    "find_all": "/table-id/{table}"
                 }
             }
         },
@@ -62,7 +63,7 @@ DATABASE= {
                 "ip_address",
                 "response",
                 "date",
-                ["start", "end"]
+                ["date_start", "date_end"]
             ]
         },
         "control_audit":{
@@ -85,7 +86,7 @@ DATABASE= {
                 "control",
                 "audit",
                 "date",
-                ["start", "end"]
+                ["date_start", "date_end"]
             ]
         }
     }
@@ -162,6 +163,7 @@ RESPONSE_GENERIC = {
             }
         },
         "find_by_range_date_all": {
+            "response": list,
             "success": {
                 "default": {
                     "code": RESPONSE_GENERIC_CODE['success']['find']
@@ -352,7 +354,7 @@ RESPONSE = {
                     }
                 },
                 "error":{
-                    "range_date": RESPONSE_GENERIC['get']['find_by_range_date_all']
+                    "range_date": RESPONSE_GENERIC['get']['find_by_range_date_all']['error']['default']
                 }
             }
         }  

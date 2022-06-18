@@ -21,7 +21,7 @@ class FindByIdAuditClosureRepository(IRepository):
     # @Return - Collection
     def execute(self, data:dict):
         id = data[DATABASE['table']['audit_closure']['column'][0]]
-        key = DATABASE['table']['audit_closure']['name']+"."+DATABASE['table']['audit_closure']['column'][0]
+        key = DATABASE['table']['audit']['name']+"."+DATABASE['table']['audit']['column'][0]
         return self.collection.find_one({
             key: id
         })

@@ -10,7 +10,7 @@ from src.util.constant import RESPONSE
 
 router_find_by_id_audit_closure = APIRouter()
 
-endpoint = ENDPOINT['path']+ENDPOINT['service']['audit_closure']['path']+ENDPOINT['operation']['get']['find_by_id']
+endpoint = ENDPOINT['path']+ENDPOINT['service']['audit_closure']['path']+ENDPOINT['service']['audit_closure']['operation']['get']['find_by_id']
 response = EntityArcen
 status = RESPONSE['audit_closure']['get']['find_by_id']['success']['default']['code']
 info_data = DATABASE['table']['audit_closure']['column'][0]

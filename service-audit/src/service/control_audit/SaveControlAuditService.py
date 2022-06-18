@@ -29,7 +29,7 @@ class SaveControlAuditClosureService(IService):
     # @Return - ControlAudit
     def execute(self, data:dict):
         data = data[DATABASE['table']['control_audit']['name']]
-
+        print(data)
         # Se valida que no exista un cierre de auditoria con ese nombre
         isErrorName = True
         try:
@@ -47,7 +47,9 @@ class SaveControlAuditClosureService(IService):
         # Se registra el control de auditoria
         try:
             control_audit = self.schema.dict(dict(data), generate_date())
-            data = dict({DATABASE['table']['control_audit']['name']: self.schema.request(dict(control_audit))})
+            data = dict({
+                DATABASE['table']['control_audit']['name']: self.schema.request(dict(control_audit))
+            })
             element = self.repository.execute(data)
         except:
             element = None
@@ -56,5 +58,7 @@ class SaveControlAuditClosureService(IService):
                 raise get_exception_http(RESPONSE['control_audit']['post']['save']['error']['default'])
         
         # Se consulta el control de auditoria
+        print("ID")
+        print(element)
         data = dict({DATABASE['table']['control_audit']['column'][0]: str(element)})
         return self.findByIdControlAudit.execute(data)
