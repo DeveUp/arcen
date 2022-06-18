@@ -1,9 +1,27 @@
-from fastapi import HTTPException
+"""
+    @description - Funciones comunes del microservicio digitalizacion
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Sergio Stives Barrios Buitrago
+    @modification-date - 2022-06-18
+    @author-modification -  Sergio Stives Barrios Buitrago
+"""
+import os
+
 from datetime import datetime
-import json
+from fastapi import HTTPException
 
-from src.util.constant import FORMAT_DATE
+from src.util.constant import UTIL
+from src.util.constant import RESPONSE_GENERIC
 
+##########################################################
+# IS
+##########################################################
+
+# @method - Verifica si una cadena es una fecha valida
+# @parameter - str_date - Representa la cadena a validar
+# @parameter - format - Formato de la fecha
+# @return - Boolean
 def is_generic_date(str_date:str, format:str): 
     try:
         datetime.strptime(str_date, format)
@@ -11,6 +29,42 @@ def is_generic_date(str_date:str, format:str):
         return False
     return True
 
+# @method - Verifica si una cadena es una fecha valida
+# @parameter - str_date - Representa la cadena a validar
+# @parameter - format (Optional) - Formato a validar AAAA-MM-DD
+# @return - Boolean
+def is_date(str_date:str, format:str=UTIL['format']['date'][0]): 
+    return is_generic_date(str_date, format)
+
+# @method - Verifica si una cadena es una fecha valida
+# @parameter - str_date - Representa la cadena a validar
+# @parameter - format (Optional) - Formato a validar AAAA-MM-DD HH-MM
+# @return - Boolean
+def is_date_time(str_date:str, strict:bool=False, format:str=UTIL['format']['date'][1]): 
+    rta = is_generic_date(str_date, format)
+    if rta == False and strict == False:
+        rta = is_date(str_date)
+    return rta
+
+##########################################################
+# GENERATE
+##########################################################
+
+# @method - Genera una cadena con la fecha actual
+# @parameter - format (Optional) - Formato a de la fecha AAAA-MM-DD HH-MM
+# @return - String
+def generate_date(format:str=UTIL['format']['date'][1]):
+    return str(datetime.today().strftime(format))
+
+##########################################################
+# VALIDATOR
+##########################################################
+
+# @method - Valida que un objecto tenga una clave
+# @parameter - data - Representa el objeto
+# @parameter - key - Representa la clave
+# @parameter - default - Representa el valor por defecto si no existe la clave
+# @return - String
 def get_validate_field(data:str, key:str, default = None):
     try:
         field= data[key]
@@ -21,25 +75,36 @@ def get_validate_field(data:str, key:str, default = None):
     except:
         field = default
     return field
-    
-def get_http_exception(code:str, message:str) -> HTTPException:
+
+##########################################################
+# EXCEPTION 
+##########################################################
+
+# @method - Genera una excepcion http
+# @parameter - error - Json con el codigo y mensaje de error
+# @return - HTTPException
+def get_exception_http(error) -> HTTPException:
+    return get_exception_http_build(error['code'], error['msg'])
+
+# @method - Genera una excepcion http
+# @parameter - code - Representa el codigo error
+# @parameter - message - Representa el mensaje de error
+# @return - HTTPException
+def get_exception_http_build(code:str, message:str) -> HTTPException:
     return HTTPException(status_code=code, detail=message)
 
-def get_response_audit(data)-> str:
-    if data == None:
-        return "None"
-    element = data
-    if type(data) != 'dict':
-        element = dict(data)
-    try:
-        data = json.dumps(element)
-    except:
-        data = str(element)
-    finally:
-        if data == None:
-            data = "None"
-    return data
+##########################################################
+# FIND 
+##########################################################
 
-def generate_date(format:str=FORMAT_DATE):
-    return str(datetime.today().strftime(format))
+# @method - Busca el valor de una variable de entorno por su nombre
+# @parameter - name - Representa el nombre
+# @return - Object
+def find_env(name:str):
+    try:
+        value = os.environ[name]
+        print(value)
+    except:
+        get_exception_http(RESPONSE_GENERIC['system']['env']['error']['default'])
+    return value
     

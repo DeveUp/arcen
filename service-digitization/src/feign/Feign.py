@@ -6,14 +6,15 @@
     @modification-date - 2022-06-18
     @author-modification -  Sergio Stives Barrios Buitrago
 """
-import os
 import requests
 
 from src.util.constant import FEIGN
-from src.util.common import get_exception_http
+from src.util.common import get_exception_http 
 
 class Feign:
 
+    # @method - Contructor 
+    # @return - Void
     def __init__(self, endpoint):
         self.endpoint = endpoint
         # Se conoce las respuestas esperada por cada metodo
@@ -21,32 +22,47 @@ class Feign:
         self.operation_post = FEIGN['operation'][1]
         self.operation_put = FEIGN['operation'][2]
         self.operation_delete = FEIGN['operation'][3]
-        
-    def request(self, endpoint, data):
-        endpoint = self.endpoint + endpoint
-        return os.environ.get(FEIGN_ENDPOINT) or endpoint
     
-    def response(self, response, code_success, error):
-        try:
-            isResponse = True if response.status_code == code_success else False
-        except:
-            isResponse = False
-        finally:
-            if isResponse == False:
-                raise get_exception_http(error)
-        return isResponse
+    # @method - Valida la peticion del servicio
+    # @parameter - endpoint - Punto de entrada del servicio
+    # @parameter - data - Informacion a validar
+    # @parameter - error - Json con el codigo y mensaje de error
+    # @return - String
+    def request(self, endpoint, data, error):
+        if data == None or endpoint == None:
+            raise get_exception_http(error)
+        endpoint = self.endpoint + endpoint
+        return endpoint
+    
+    # @method - Valida la respuesta del servicio
+    # @parameter - response - Json con la respuesta del servicio
+    # @parameter - code_success - Codigo exitoso
+    # @parameter - error - Json con el codigo y mensaje de error
+    # @return - Boolean
+    def is_response(self, response, code_success, error):
+        if response == None:
+            is_response = False
+        else:
+            try:
+                is_response = True if response.status_code == code_success else False
+            except:
+                is_response = False
+        if is_response == False:
+            raise get_exception_http(error)
+        return is_response
 
+    # @method - Envia la peticion al servicio
+    # @parameter - type - El metodo http a utilizar
+    # @parameter - endpoint - Punto de entrada del servicio
+    # @parameter - data - Json de la peticion del servicio
+    # @parameter - error - Json con el codigo y mensaje de error
+    # @return - Json
     def send(self, type:int, endpoint, data, error):  
         # Se valida el punto de entrada y la informacion
-        endpoint = self.request(endpoint, data)
+        endpoint = self.request(endpoint, data, error)
         response = None
         # Se consulta el metodo a utilizar la peticion
-        code_success = FEIGN['response']['success']['get']['code']
-        if type == self.operation_get:
-            # Peticion por el metodo GET
-            code_success = FEIGN['response']['success']['get']['code']
-            response = requests.get(endpoint, json= data)
-        elif type == self.operation_post:
+        if type == self.operation_post:
             # Peticion por el metodo POST
             code_success = FEIGN['response']['success']['post']['code']
             response = requests.post(endpoint, json= data)        
@@ -58,18 +74,42 @@ class Feign:
             # Peticion por el metodo DELETE
             code_success = FEIGN['response']['success']['delete']['code']
             response = requests.delete(endpoint, json= data)
+        else:
+            # Peticion por el metodo GET
+            code_success = FEIGN['response']['success']['get']['code']
+            response = requests.get(endpoint, json= data)
         # Se valida la respuesta
-        self.response(response, code_success, error)
+        self.is_response(response, code_success, error)
         return response    
 
+    # @method - Envia la peticion al servicio con el metodo get
+    # @parameter - endpoint - Punto de entrada del servicio
+    # @parameter - data - Json de la peticion del servicio
+    # @parameter - error - Json con el codigo y mensaje de error
+    # @return - Json
     def get(self, endpoint, data, error = None):
         return self.send(self.operation_get, endpoint, data, error)    
 
+    # @method - Envia la peticion al servicio con el metodo post
+    # @parameter - endpoint - Punto de entrada del servicio
+    # @parameter - data - Json de la peticion del servicio
+    # @parameter - error - Json con el codigo y mensaje de error
+    # @return - Json
     def post(self, endpoint, data, error = None):
        return self.send(self.operation_post, endpoint, data, error)    
     
+    # @method - Envia la peticion al servicio con el metodo put
+    # @parameter - endpoint - Punto de entrada del servicio
+    # @parameter - data - Json de la peticion del servicio
+    # @parameter - error - Json con el codigo y mensaje de error
+    # @return - Json
     def put(self, endpoint, data, error = None):
         return self.send(self.operation_put, endpoint, data, error)    
     
+    # @method - Envia la peticion al servicio con el metodo delete
+    # @parameter - endpoint - Punto de entrada del servicio
+    # @parameter - data - Json de la peticion del servicio
+    # @parameter - error - Json con el codigo y mensaje de error
+    # @return - Json
     def delete(self, endpoint, data, error = None):
         return self.send(self.operation_delete, endpoint, data, error)    

@@ -143,33 +143,6 @@ RESPONSE_GENERIC_CODE = {
     }
 }
 
-# @json - Comunicacion con otros microservicios
-# @content - service.operation - Operaciones expone feign
-FEIGN = {
-    "operation":[
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-    ],
-    "response":{
-        "success":{
-            "get":{
-                "code": RESPONSE_GENERIC_CODE['success']['find']
-            },
-            "post":{
-                "code": RESPONSE_GENERIC_CODE['success']['save']
-            },
-            "put":{
-                "code": RESPONSE_GENERIC_CODE['success']['update']
-            },
-            "delete":{
-                "code": RESPONSE_GENERIC_CODE['success']['delete']
-            }
-        }
-    }
-}
-
 # @json - Repsuestas genericas
 # @content - get 
 # @content - post 
@@ -269,6 +242,48 @@ RESPONSE_GENERIC = {
     }
 }
 
+# @json - Comunicacion con otros microservicios
+# @content - service.operation - Operaciones expone feign
+FEIGN = {
+    "operation":[
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+    ],
+    "response":{
+        "success":{
+            "get":{
+                "code": RESPONSE_GENERIC_CODE['success']['find']
+            },
+            "post":{
+                "code": RESPONSE_GENERIC_CODE['success']['save']
+            },
+            "put":{
+                "code": RESPONSE_GENERIC_CODE['success']['update']
+            },
+            "delete":{
+                "code": RESPONSE_GENERIC_CODE['success']['delete']
+            }
+        }
+    },
+    "microservice": {
+        "audit": {
+            "service": {
+                "audit": {
+                    "response":{
+                        "error":{
+                            "default": {
+                                "code": RESPONSE_GENERIC_CODE['error']['save'],
+                                "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("la auditoria")
+                            } 
+                        }
+                    }
+                }
+            }  
+        }
+    }
+}
 
 # @json - Respuestas servicios del microservicio de digitalizacion
 # @Content - documento - Respuesta documento
