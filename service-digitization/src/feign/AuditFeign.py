@@ -42,4 +42,5 @@ class AuditFeign:
     # @return - Json 
     def save(self, operation, data):
         self.operation = operation
-        return self.feign.post(self.operation, data, FEIGN['microservice']['audit']['service']['audit']['response']['error']['default'])
+        error = FEIGN['microservice']['audit']['service']['audit']['response']['error']['default']
+        return self.feign.post(self.operation, data, error)

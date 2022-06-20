@@ -23,7 +23,7 @@ status = RESPONSE['document']['get']['find_all']['success']['default']['code']
 # @Parameter - endpoint - Representa el punto de entrada
 # @Parameter - response_model (Optional) - Representa el objecto de respuesta
 # @Parameter - status_code (Optional) - Representa el codigo de respuesta
-# @Return - Response
+# @Return - Response<list>
 @router_find_all_document.get(endpoint, response_model = response, status_code= status)
 async def find_all():
     service = ServiceArcen()

@@ -7,8 +7,11 @@
     @author-modification -  Sergio Stives Barrios Buitrago
 """
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util import Retry
 
 from src.util.constant import FEIGN
+from src.util.constant import RESPONSE_GENERIC
 from src.util.common import get_exception_http 
 
 class Feign:
@@ -62,23 +65,35 @@ class Feign:
         endpoint = self.request(endpoint, data, error)
         response = None
         # Se consulta el metodo a utilizar la peticion
-        if type == self.operation_post:
-            # Peticion por el metodo POST
-            code_success = FEIGN['response']['success']['post']['code']
-            response = requests.post(endpoint, json= data)        
-        elif type == self.operation_put:
-            # Peticion por el metodo PUT
-            code_success = FEIGN['response']['success']['put']['code']
-            response = requests.put(endpoint, json= data)
-        elif type == self.operation_delete:
-            # Peticion por el metodo DELETE
-            code_success = FEIGN['response']['success']['delete']['code']
-            response = requests.delete(endpoint, json= data)
-        else:
-            # Peticion por el metodo GET
-            code_success = FEIGN['response']['success']['get']['code']
-            response = requests.get(endpoint, json= data)
-        # Se valida la respuesta
+        session = requests.Session()
+        retry = Retry(connect=3, backoff_factor=0.5)
+        adapter = HTTPAdapter(max_retries=retry)
+        session.mount('http://', adapter)
+        session.mount('https://', adapter)
+        try:
+            if type == self.operation_post:
+                # Peticion por el metodo POST
+                code_success = FEIGN['response']['success']['post']['code']
+                response = session.post(endpoint, json= data, verify= False)        
+            elif type == self.operation_put:
+                # Peticion por el metodo PUT
+                code_success = FEIGN['response']['success']['put']['code']
+                response = session.put(endpoint, json= data, verify= False)
+            elif type == self.operation_delete:
+                # Peticion por el metodo DELETE
+                code_success = FEIGN['response']['success']['delete']['code']
+                response = session.delete(endpoint, json= data, verify=False)
+            else:
+                # Peticion por el metodo GET
+                code_success = FEIGN['response']['success']['get']['code']
+                response = session.get(endpoint, json= data, verify= False)
+        except requests.exceptions.ConnectionError:
+            raise get_exception_http(RESPONSE_GENERIC['system']['feign']['error']['connection'])
+        except requests.Timeout:
+            raise get_exception_http(RESPONSE_GENERIC['system']['feign']['error']['timeout'])
+        except:
+            raise get_exception_http(RESPONSE_GENERIC['system']['feign']['error']['default'])      
+        # Se valida la respuesta del servicio
         self.is_response(response, code_success, error)
         return response    
 

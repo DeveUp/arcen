@@ -14,6 +14,11 @@ UTIL = {
         "date": [
             '%Y-%m-%d',
             '%Y-%m-%d %H:%M'
+        ],
+        "response": [
+            "code",
+            "msg",
+            "operation"
         ]
     }
 }
@@ -236,6 +241,22 @@ RESPONSE_GENERIC = {
                 "default": {
                     "code": RESPONSE_GENERIC_CODE['error']['find'],
                     "msg": "Oh no! Lamentamos que no estemos para ti."
+                }
+            }
+        },
+        "feign":{
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['request'],
+                    "msg": "Oh no! No eres tu somos nosotros hemos tenido un problema."
+                },
+                "connection": {
+                    "code": RESPONSE_GENERIC_CODE['error']['request'],
+                    "msg": "Oh no! Nuestra conexion esta inestable, esperamos estar pronto para ti."
+                },
+                "timeout":{
+                    "code": RESPONSE_GENERIC_CODE['error']['request'],
+                    "msg": "Oh no! Se ha agotado el tiempo."
                 }
             }
         }

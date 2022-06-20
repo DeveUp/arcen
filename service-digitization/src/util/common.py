@@ -7,6 +7,7 @@
     @author-modification -  Sergio Stives Barrios Buitrago
 """
 import os
+import json
 
 from datetime import datetime
 from fastapi import HTTPException
@@ -77,6 +78,28 @@ def get_validate_field(data:str, key:str, default = None):
     return field
 
 ##########################################################
+# CONVERT
+##########################################################
+
+# @method - Convierte un string a string buffer
+# @parameter - data - Representa el string
+# @return - String Buffer
+def convert_json(data)-> str:
+    if data == None:
+        return "None"
+    element = data
+    if type(data) != 'dict':
+        element = dict(data)
+    try:
+        data = json.dumps(element)
+    except:
+        data = str(element)
+    finally:
+        if data == None:
+            data = "None"
+    return data
+
+##########################################################
 # EXCEPTION 
 ##########################################################
 
@@ -103,8 +126,6 @@ def get_exception_http_build(code:str, message:str) -> HTTPException:
 def find_env(name:str):
     try:
         value = os.environ[name]
-        print(value)
     except:
         get_exception_http(RESPONSE_GENERIC['system']['env']['error']['default'])
     return value
-    
