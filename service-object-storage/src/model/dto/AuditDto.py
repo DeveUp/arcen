@@ -1,6 +1,6 @@
 """
-    @name - ObjectDto
-    @description - Dto objecto - Peticion
+    @name - AuditDto
+    @description - Dto auditoria
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -9,6 +9,8 @@
 """
 from pydantic import BaseModel
 
-class ObjectDto(BaseModel):
-    id_type_object: int
-    id_sub_object: int
+class AuditDto(BaseModel):
+    service: str
+    operation: str
+    id_user: str
+    response: str
