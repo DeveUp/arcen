@@ -194,7 +194,7 @@ RESPONSE_GENERIC = {
             "error": {
                 "default": {
                     "code": RESPONSE_GENERIC_CODE['error']['save'],
-                    "msg": "Ouch! No pudismos registrar %s. Vuelva a intentar mas tarde!"
+                    "msg": "Ouch! No pudimos registrar %s. Vuelva a intentar mas tarde!"
                 }
             }
         }
@@ -209,7 +209,7 @@ RESPONSE_GENERIC = {
             "error": {
                 "default": {
                     "code": RESPONSE_GENERIC_CODE['error']['update'],
-                    "msg": "Ouch! No pudismos actualizar %s. Vuelva a intentar mas tarde!"
+                    "msg": "Ouch! No pudimos actualizar %s. Vuelva a intentar mas tarde!"
                 }
             }
         }
@@ -224,11 +224,11 @@ RESPONSE_GENERIC = {
             "error": {
                 "default": {
                     "code": RESPONSE_GENERIC_CODE['error']['delete'],
-                    "msg": "Ouch! No pudismos eliminar %s. Vuelva a intentar mas tarde!"
+                    "msg": "Ouch! No pudimos eliminar %s. Vuelva a intentar mas tarde!"
                 },
                 "dependence": {
                     "code": RESPONSE_GENERIC_CODE['error']['delete'],
-                    "msg": "Ouch! No pudismos eliminar %s. Tiene dependencia %s."
+                    "msg": "Ouch! No pudimos eliminar %s. Tiene dependencia %s."
                 }
             }
         }
@@ -392,7 +392,7 @@ RESPONSE = {
                 "error": {
                     "default": {
                         "code": RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['code'],
-                        "msg":  RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['msg']%("el objecto", "")
+                        "msg":  RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['msg']%("el objecto")
                     }
                 }
             }

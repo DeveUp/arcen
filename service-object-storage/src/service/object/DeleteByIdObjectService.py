@@ -16,6 +16,7 @@ from src.feign.AuditFeign import AuditFeign
 
 from src.persistence.repository.object.FindByIdObjectRepository import FindByIdObjectRepository
 from src.persistence.repository.object.DeleteByIdObjectRepository import DeleteByIdObjectRepository
+from src.persistence.schema.ObjectSchema import ObjectSchema
 
 from src.util.constant import DATABASE
 from src.util.constant import FEIGN 
@@ -30,6 +31,7 @@ class DeleteByIdObjectService(IService):
     def __init__(self, db: Session):
         self.find_by_id = FindByIdObjectRepository(db)
         self.repository = DeleteByIdObjectRepository(db)
+        self.schema:ObjectSchema = ObjectSchema()
         # Comunicacion con el servicio auditoria
         self.feign_audit = AuditFeign("FEIGN_ARCEN")
         # Servicio y operacion actual
@@ -41,9 +43,9 @@ class DeleteByIdObjectService(IService):
     # @parameter - data - Json con el pk del objecto a eliminar
     # @return - Void
     def execute(self, data:dict): 
-        element = self.find_by_id_object(data)
+        object = self.find_by_id_object(data)
         data = dict({
-            DATABASE['table']['object']['name']: element
+            DATABASE['table']['object']['name']: object
         })
         try:
             element = self.repository.execute(data)
@@ -55,17 +57,22 @@ class DeleteByIdObjectService(IService):
                 feign_audit_build_error(error_http.status_code, error_http.detail)
             )
         except:
-            feign_audit_save_error(
-                self.feign_audit,
-                self.current_service,
-                self.current_operation,
-                RESPONSE['object']['delete']['delete_by_id']['error']['default']
-            )
+            element = False
+        finally:
+            if element == False:
+                feign_audit_save_error(
+                    self.feign_audit,
+                    self.current_service,
+                    self.current_operation,
+                    RESPONSE['object']['delete']['delete_by_id']['error']['default']
+                )
+            else:
+                object = self.schema.response(object)   
         feign_audit_save(
             self.feign_audit,
             self.current_service,
             self.current_operation,
-            element
+            object
         )
         return element
     
@@ -82,4 +89,14 @@ class DeleteByIdObjectService(IService):
                 self.current_operation,
                 feign_audit_build_error(error_http.status_code, error_http.detail)
             )
+        except:
+            element = None
+        finally:
+            if element == None:
+                feign_audit_save_error(
+                    self.feign_audit,
+                    self.current_service,
+                    self.current_operation,
+                    RESPONSE['object']['get']['find_by_id']['error']['default']
+                )
         return element

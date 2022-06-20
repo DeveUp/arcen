@@ -9,9 +9,9 @@
 """
 from src.model.entity.Object import Object
 from src.model.dto.ObjectDto import ObjectDto
+from src.model.response.ObjectResponse import ObjectResponse
 
 from src.util.constant import DATABASE
-from src.util.common import get_validate_field
 
 class ObjectSchema:
 
@@ -33,17 +33,17 @@ class ObjectSchema:
             return object
         return object
     
-    # @method - Convierte un objeto a una entidad
+    # @method - Convierte un objeto a una respuesta
     # @parameter - object - Representa objecto a convertir
-    # @return - Object
-    def other(self, object) -> Object:
+    # @return - ObjectResponse
+    def response(self, object) -> ObjectResponse:
         if object == None: 
             return object
-        entity = Object(
-            id = get_validate_field(object, self.id),
-            id_type_object = get_validate_field(object, self.id_type_object),
-            id_sub_object = get_validate_field(object, self.id_sub_object),
-            date = get_validate_field(object, self.date)
+        entity = ObjectResponse(
+            id = object.id,
+            id_type_object = object.id_type_object,
+            id_sub_object = object.id_sub_object,
+            date = str(object.date)
         )
         return entity
 
@@ -62,8 +62,8 @@ class ObjectSchema:
         if object == None: 
             return object
         return ObjectDto(
-            id_type_object = get_validate_field(object, self.id_type_object),
-            id_sub_object = get_validate_field(object, self.id_sub_object)
+            id_type_object = object.id_type_object,
+            id_sub_object = object.id_sub_object
         )
 
     # @method - Convierte un objeto a un diccionario
@@ -74,11 +74,11 @@ class ObjectSchema:
         if object == None: 
             return object
         data = {
-            self.id: get_validate_field(object, self.id),
-            self.id_type_object: get_validate_field(object, self.id_type_object),
-            self.id_sub_object: get_validate_field(object, self.id_sub_object),
-            self.date: get_validate_field(object, self.date)
+            self.id: object.id,
+            self.id_type_object: object.id_type_object,
+            self.id_sub_object: object.id_sub_object,
+            self.date: str(object.date)
         }
         if create != None:
-            data[self.date]= create
+            data[self.date]= str(create)
         return data

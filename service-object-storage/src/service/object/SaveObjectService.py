@@ -41,7 +41,7 @@ class SaveObjectService(IService):
     def execute(self, data:dict):
         try:
             element = self.repository.execute(data)
-            element = self.schema.entity(element)
+            element = self.schema.response(element)
         except HTTPException as error_http:
             feign_audit_save_error(
                 self.feign_audit,
