@@ -1,18 +1,33 @@
+"""
+    @description - Esquema permite realizar conversiones con el documento
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Sergio Stives Barrios Buitrago
+    @modification-date - 2022-06-18
+    @author-modification -  Sergio Stives Barrios Buitrago
+"""
 from src.model.entity.Document import Document
 from src.model.request.DocumentRequest import DocumentRequest
-from src.util.constant import COLUMN_DOCUMENT_DATE, COLUMN_DOCUMENT_PATH_DOCUMENT_LOCAL, COLUMN_DOCUMENT_BASE64, COLUMN_DOCUMENT_NAME, COLUMN_DOCUMENT_ID, COLUMN_DOCUMENT_ID_DOCUEMNT_LOCATION
+from src.util.constant import DATABASE
 from src.util.common import get_validate_field
 
 class DocumentSchema:
 
+    # @Method - Contructor 
+    # @Return - Void
     def __init__(self):
-        self.id:str = COLUMN_DOCUMENT_ID
-        self.id_document_location:str = COLUMN_DOCUMENT_ID_DOCUEMNT_LOCATION
-        self.name:str = COLUMN_DOCUMENT_NAME
-        self.document:str = COLUMN_DOCUMENT_BASE64
-        self.path_document_local = COLUMN_DOCUMENT_PATH_DOCUMENT_LOCAL
-        self.date:str = COLUMN_DOCUMENT_DATE
+        self.table = DATABASE['table']['document']
+        self.id:str = self.table['pk']
+        self.table = self.table['column']
+        self.id_document_location:str = self.table[1]
+        self.name:str =self.table[2]
+        self.document:str = self.table[3]
+        self.path_document_local = self.table[4]
+        self.date:str = self.table[5]
 
+    # @Method - Convierte un objeto a una entidad
+    # @Parameter - object - Representa objecto a convertir
+    # @Return - Document
     def entity(self, object, id:str=None) -> Document:
         if object == None: 
             return object
@@ -28,11 +43,17 @@ class DocumentSchema:
         )
         return entity
     
+    # @Method - Convierte un objeto a una lista
+    # @Parameter - objects - Representa los objectos a convertir
+    # @Return - list
     def list(self, objects) -> list:
         if objects == None: 
             return objects
         return [self.entity(object) for object in objects]
     
+    # @Method - Convierte un objeto a un request
+    # @Parameter - object - Representa los objecto a convertir
+    # @Return - DocumentRequest
     def request(self, object) -> DocumentRequest:
         if object == None: 
             return object
@@ -44,16 +65,20 @@ class DocumentSchema:
             date= get_validate_field(object, self.date)
         )
 
+    # @Method - Convierte un objeto a un diccionario
+    # @Parameter - object - Representa los objecto a convertir
+    # @Parameter - create (Optional) - Representa la fecha creacion
+    # @Return - dict
     def dict(self, object, create= None) -> dict:
         if object == None: 
             return object
         data = {
-            COLUMN_DOCUMENT_ID: str(get_validate_field(object, self.id, "")),
-            COLUMN_DOCUMENT_ID_DOCUEMNT_LOCATION: get_validate_field(object, self.id_document_location), 
-            COLUMN_DOCUMENT_NAME: get_validate_field(object, self.name), 
-            COLUMN_DOCUMENT_BASE64: get_validate_field(object, self.document), 
-            COLUMN_DOCUMENT_PATH_DOCUMENT_LOCAL: get_validate_field(object, self.path_document_local), 
-            COLUMN_DOCUMENT_DATE: get_validate_field(object, self.date),
+            self.id: str(get_validate_field(object, self.id, "")),
+            self.id_document_location: get_validate_field(object, self.id_document_location), 
+            self.name: get_validate_field(object, self.name), 
+            self.document: get_validate_field(object, self.document), 
+            self.path_document_local: get_validate_field(object, self.path_document_local), 
+            self.date: get_validate_field(object, self.date),
         }
         if create != None:
             data[self.date]= create
