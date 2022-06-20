@@ -29,7 +29,16 @@ class UpdateObjectRepository(IRepository):
     def execute(self, data:dict):
         id = data[DATABASE['table']['object']['pk']]
         element = data[DATABASE['table']['object']['name']]
-        element = self.db.query(Object).get(id)
+        element = self.diff(element, self.db.query(Object).get(id))
         self.db.commit()
         self.db.refresh(element)
+        return element
+
+    # @method - Actualiza la diferencia entre dos objectos
+    # @parameter - element_new - Json con el objecto nuevo
+    # @parameter - element - Json con la informacion bd
+    # @return - Object
+    def diff(self, element_new, element:Object):
+        element.id_sub_object = element_new.id_sub_object
+        element.id_type_object = element_new.id_type_object
         return element

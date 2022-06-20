@@ -9,9 +9,9 @@
 """
 from src.model.entity.SubObject import SubObject
 from src.model.dto.SubObjectDto import SubObjectDto
+from src.model.response.SubObjectResponse import SubObjectResponse
 
 from src.util.constant import DATABASE
-from src.util.common import get_validate_field
 
 class SubObjectSchema:
 
@@ -33,17 +33,17 @@ class SubObjectSchema:
             return object
         return object
         
-    # @method - Convierte un objeto a una entidad
+    # @method - Convierte un objeto a una respuesta
     # @parameter - object - Representa objecto a convertir
-    # @return - SubObject
-    def other(self, object) -> SubObject:
+    # @return - SubObjectResponse
+    def response(self, object) -> SubObjectResponse:
         if object == None: 
             return object
-        entity = SubObject(
-            id = get_validate_field(object, self.id),
-            box = get_validate_field(object, self.box),
-            number = get_validate_field(object, self.number),
-            date = get_validate_field(object, self.date)
+        entity = SubObjectResponse(
+            id = object.id,
+            box = object.box,
+            number = object.number,
+            date = str(object.date)
         )
         return entity
 
@@ -62,8 +62,8 @@ class SubObjectSchema:
         if object == None: 
             return object
         return SubObjectDto(
-            box = get_validate_field(object, self.box),
-            number = get_validate_field(object, self.number)
+            box = object.box,
+            number = object.number
         )
 
     # @method - Convierte un objeto a un diccionario
@@ -74,11 +74,11 @@ class SubObjectSchema:
         if object == None: 
             return object
         data = {
-            self.id: get_validate_field(object, self.id),
-            self.box: get_validate_field(object, self.box),
-            self.number: get_validate_field(object, self.number),
-            self.date: get_validate_field(object, self.date)
+            self.id: object.id,
+            self.box: object.box,
+            self.number: object.number,
+            self.date: str(object.date)
         }
         if create != None:
-            data[self.date]= create
+            data[self.date]= str(create)
         return data

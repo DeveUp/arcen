@@ -11,7 +11,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from src.model.dto.ObjectDto import ObjectDto as DtoArcen
-from src.model.entity.Object import Object as EntityArcen
+from src.model.response.ObjectResponse import ObjectResponse as ResponseArcen
 
 from src.service.object.SaveObjectService import SaveObjectService as ServiceArcen
 from src.persistence.database.table.ObjectTable import ObjectTable as TableArcen
@@ -25,7 +25,7 @@ table = TableArcen()
 
 endpoint = ENDPOINT['path']+ENDPOINT['service']['object']['path']+ENDPOINT['operation']['post']['save']
 status = RESPONSE['object']['post']['save']['success']['default']['code']
-response = EntityArcen
+response = ResponseArcen
 info_data = DATABASE['table']['object']['name']
 
 # @Rest - Registra un objecto

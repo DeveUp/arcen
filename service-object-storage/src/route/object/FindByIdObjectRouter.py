@@ -10,7 +10,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from src.model.entity.Object import Object as EntityArcen
+from src.model.response.ObjectResponse import ObjectResponse as ResponseArcen
 
 from src.service.object.FindByIdObjectService import FindByIdObjectService as ServiceArcen
 
@@ -24,7 +24,7 @@ router_find_by_id_object = APIRouter()
 table = TableArcen()
 
 endpoint = ENDPOINT['path']+ENDPOINT['service']['object']['path']+ENDPOINT['operation']['get']['find_by_id']
-response = EntityArcen
+response = ResponseArcen
 status = RESPONSE['object']['get']['find_by_id']['success']['default']['code']
 info_data = DATABASE['table']['object']['column'][0]
 
@@ -33,8 +33,8 @@ info_data = DATABASE['table']['object']['column'][0]
 # @Parameter - response_model (Optional) - Representa el objecto de respuesta
 # @Parameter - status_code (Optional) - Representa el codigo de respuesta
 # @Return - Response<Object>
-@router_find_by_id_object.get(endpoint, response_model = response, status_code= status)
-async def find_by_id(id:str, db: Session = Depends(table.execute)):
+@router_find_by_id_object.get(endpoint, response_model=response, status_code= status)
+async def find_by_id(id:str, db:Session=Depends(table.execute)):
     data = dict({info_data:id})
     service = ServiceArcen(db)
     return service.execute(data)
