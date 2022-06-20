@@ -61,7 +61,7 @@ services:
       - arcen-mongodb
     restart: always
     ports: 
-      - "8001:8181"
+      - "8001:8001"
     networks:
       nginx_net:
         aliases: 
@@ -76,7 +76,8 @@ services:
       - MONGODB_DB=arcen_audit
       - MONGODB_HOST=arcen-postgresql-host
       - MONGODB_PORT=27017
-      - ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
+      - FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
+      - FEIGN_ARCEN_SAVE=/
     depends_on:
       - arcen-mongodb
       - arcen-service-audit

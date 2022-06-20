@@ -14,6 +14,11 @@ UTIL = {
         "date": [
             '%Y-%m-%d',
             '%Y-%m-%d %H:%M'
+        ],
+        "response": [
+            "code",
+            "msg",
+            "operation"
         ]
     }
 }
@@ -143,33 +148,6 @@ RESPONSE_GENERIC_CODE = {
     }
 }
 
-# @json - Comunicacion con otros microservicios
-# @content - service.operation - Operaciones expone feign
-FEIGN = {
-    "operation":[
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-    ],
-    "response":{
-        "success":{
-            "get":{
-                "code": RESPONSE_GENERIC_CODE['success']['find']
-            },
-            "post":{
-                "code": RESPONSE_GENERIC_CODE['success']['save']
-            },
-            "put":{
-                "code": RESPONSE_GENERIC_CODE['success']['update']
-            },
-            "delete":{
-                "code": RESPONSE_GENERIC_CODE['success']['delete']
-            }
-        }
-    }
-}
-
 # @json - Repsuestas genericas
 # @content - get 
 # @content - post 
@@ -265,10 +243,68 @@ RESPONSE_GENERIC = {
                     "msg": "Oh no! Lamentamos que no estemos para ti."
                 }
             }
+        },
+        "feign":{
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['request'],
+                    "msg": "Oh no! No eres tu somos nosotros hemos tenido un problema."
+                },
+                "connection": {
+                    "code": RESPONSE_GENERIC_CODE['error']['request'],
+                    "msg": "Oh no! Nuestra conexion esta inestable, esperamos estar pronto para ti."
+                },
+                "timeout":{
+                    "code": RESPONSE_GENERIC_CODE['error']['request'],
+                    "msg": "Oh no! Se ha agotado el tiempo."
+                }
+            }
         }
     }
 }
 
+# @json - Comunicacion con otros microservicios
+# @content - service.operation - Operaciones expone feign
+FEIGN = {
+    "operation":[
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+    ],
+    "response":{
+        "success":{
+            "get":{
+                "code": RESPONSE_GENERIC_CODE['success']['find']
+            },
+            "post":{
+                "code": RESPONSE_GENERIC_CODE['success']['save']
+            },
+            "put":{
+                "code": RESPONSE_GENERIC_CODE['success']['update']
+            },
+            "delete":{
+                "code": RESPONSE_GENERIC_CODE['success']['delete']
+            }
+        }
+    },
+    "microservice": {
+        "audit": {
+            "service": {
+                "audit": {
+                    "response":{
+                        "error":{
+                            "default": {
+                                "code": RESPONSE_GENERIC_CODE['error']['save'],
+                                "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("la auditoria")
+                            } 
+                        }
+                    }
+                }
+            }  
+        }
+    }
+}
 
 # @json - Respuestas servicios del microservicio de digitalizacion
 # @Content - documento - Respuesta documento
