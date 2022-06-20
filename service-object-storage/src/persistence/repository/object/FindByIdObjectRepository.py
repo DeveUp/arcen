@@ -27,7 +27,6 @@ class FindByIdObjectRepository(IRepository):
     # @parameter - data - Json con el pk del objecto
     # @return - Any
     def execute(self, data:dict):
-        id = data[DATABASE['table']['object']['pk']]
-        element = self.db.query(Object).filter(Object.id == id).first()
-        return element
+        id = int(data[DATABASE['table']['object']['pk']])
+        return self.db.query(Object).filter(Object.id == id).first()
        

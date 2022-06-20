@@ -11,7 +11,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from src.model.dto.ObjectDto import ObjectDto as DtoArcen
-from src.model.entity.Object import Object as EntityArcen
+from src.model.response.ObjectResponse import ObjectResponse as ResponseEntity
 
 from src.service.object.UpdateObjectService import UpdateObjectService as ServiceArcen
 from src.persistence.database.table.ObjectTable import ObjectTable as TableArcen
@@ -25,7 +25,7 @@ table = TableArcen()
 
 endpoint = ENDPOINT['path']+ENDPOINT['service']['object']['path']+ENDPOINT['operation']['put']['update']
 status = RESPONSE['object']['put']['update']['success']['default']['code']
-response = EntityArcen
+response = ResponseEntity
 info_data = DATABASE['table']['object']['name']
 info_data_pk = DATABASE['table']['object']['pk']
 
@@ -34,7 +34,7 @@ info_data_pk = DATABASE['table']['object']['pk']
 # @Parameter - response_model (Optional) - Representa el objecto de respuesta
 # @Parameter - status_code (Optional) - Representa el codigo de respuesta
 # @Return - Response<Object>
-@router_update_object.put(endpoint, response_model = response, status_code= status)
+@router_update_object.put(endpoint, response_model=response,status_code= status)
 async def update(id: str, block: DtoArcen, db: Session = Depends(table.execute)):
     data = dict({
         info_data_pk: id, 

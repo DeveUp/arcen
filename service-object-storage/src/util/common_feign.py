@@ -15,10 +15,8 @@ from src.util.common import get_exception_http
 # @return - Audit
 def feign_audit_save(feign_audit:AuditFeign, service, operation, response):
     response = convert_json(response)
-    print("Consultando variable entorno")
     env = find_env("FEIGN_ARCEN_SAVE")
     audit = feign_audit.build(service, operation, response)
-    print(audit)
     return feign_audit.save(env, audit)
     
 # @method - Registra la auditoria con error

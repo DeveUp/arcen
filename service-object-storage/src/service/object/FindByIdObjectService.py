@@ -32,7 +32,7 @@ class FindByIdObjectService(IService):
     def execute(self, data:dict): 
         try:
             element = self.repository.execute(data)
-            element = self.schema.entity(element)
+            element = self.schema.response(element)
         except:
             element= None
         finally:

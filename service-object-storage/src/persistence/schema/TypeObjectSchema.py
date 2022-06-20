@@ -9,9 +9,9 @@
 """
 from src.model.entity.TypeObject import TypeObject
 from src.model.dto.TypeObjectDto import TypeObjectDto
+from src.model.response.TypeObjectResponse import TypeObjectResponse
 
 from src.util.constant import DATABASE
-from src.util.common import get_validate_field
 
 class TypeObjectSchema:
 
@@ -35,19 +35,19 @@ class TypeObjectSchema:
             return object
         return object
 
-    # @method - Convierte un objeto a una entidad
+    # @method - Convierte un objeto a una respuesta
     # @parameter - object - Representa objecto a convertir
     # @return - TypeObject  
-    def other(self, object) -> TypeObject:
+    def response(self, object) -> TypeObjectResponse:
         if object == None: 
             return object
         entity = TypeObject(
-            id = get_validate_field(object, self.id),
-            name = get_validate_field(object, self.name),
-            height = get_validate_field(object, self.height),
-            width = get_validate_field(object, self.width),
-            depth = get_validate_field(object, self.depth),
-            date = get_validate_field(object, self.date)
+            id = object.id,
+            name = object.name,
+            height = object.height,
+            width = object.width,
+            depth = object.depth,
+            date = object.date
         )
         return entity
 
@@ -66,10 +66,10 @@ class TypeObjectSchema:
         if object == None: 
             return object
         return TypeObjectDto(
-            name = get_validate_field(object, self.name),
-            height = get_validate_field(object, self.height),
-            width = get_validate_field(object, self.width),
-            depth = get_validate_field(object, self.depth)
+            name = object.name,
+            height = object.height,
+            width = object.width,
+            depth = object.depth
         )
 
     # @method - Convierte un objeto a un diccionario
@@ -80,13 +80,13 @@ class TypeObjectSchema:
         if object == None: 
             return object
         data = {
-            self.id: get_validate_field(object, self.id),
-            self.name: get_validate_field(object, self.name),
-            self.height: get_validate_field(object, self.height),
-            self.width: get_validate_field(object, self.width),
-            self.depth: get_validate_field(object, self.depth),
-            self.date: get_validate_field(object, self.date)
+            self.id: object.id,
+            self.name: object.name,
+            self.height: object.height,
+            self.width: object.width,
+            self.depth: object.depth,
+            self.date: str(object.date)
         }
         if create != None:
-            data[self.date]= create
+            data[self.date]= str(create)
         return data
