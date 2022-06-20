@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-#from src.feign.AuditFeign import AuditFeign
+from src.feign.AuditFeign import AuditFeign
 from src.service.IService import IService
 from src.persistence.repository.TypeShelf.SaveTypeShelfRepository import SaveTypeShelfRepository as SaveRepository
 from src.persistence.schema.TypeShelfSchema import TypeShelfSchema as SchemaEntity
@@ -13,17 +13,17 @@ class SaveTypeShelfService(IService):
     def __init__(self, db: Session):
         self.repository = SaveRepository(db)
         self.schema = SchemaEntity()
-        #self.feign = AuditFeign()
+        self.feign = AuditFeign()
 
     def execute(self, data:dict):
         try:
             print(data)
             element = self.repository.execute(data)
-            element = self.schema.entity(element)
+            element = self.schema.response(element)
         except:
             element= None
         finally:
-            #self.feign.save(self.feign.build(AUDIT_TYPE_SHELF_SERVICE,AUDIT_GENERIC_OPERATION_SAVE, get_response_audit(element)))
+            self.feign.save(self.feign.build(AUDIT_TYPE_SHELF_SERVICE,AUDIT_GENERIC_OPERATION_SAVE, get_response_audit(element)))
             if element == None:
                 raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE,RESPONSE_MSG_TYPE_SHELF_SAVE_ERROR_SAVE)
         return element

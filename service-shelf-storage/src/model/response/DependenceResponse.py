@@ -1,4 +1,3 @@
-from unicodedata import name
 from pydantic import BaseModel
 
 class DependenceResponse(BaseModel):
