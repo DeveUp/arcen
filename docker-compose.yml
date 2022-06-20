@@ -89,47 +89,47 @@ services:
           - arcen-service-box-storage-host        
 
   # DIGITIZATION
-  arcen-service-digitization:
-    build: ./service-digitization
-    container_name: arcen-service-digitization
-    environment:
-      - MONGODB_CONNSTRING=mongodb://arcen:arcen@arcen-mongodb:27017/
-      - MONGODB_DB=arcen_audit
-      - MONGODB_HOST=arcen-postgresql-host
-      - MONGODB_PORT=27017
-      - FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
-      - FEIGN_ARCEN_SAVE=/
-    depends_on:
-      - arcen-mongodb
-      - arcen-service-audit
-    restart: always
-    ports: 
-      - "8003:8003"
-    networks:
-      nginx_net:
-        aliases: 
-          - arcen-service-digitization-host
+  ####arcen-service-digitization:
+    ####build: ./service-digitization
+    ####container_name: arcen-service-digitization
+    ####environment:
+      ####- MONGODB_CONNSTRING=mongodb://arcen:arcen@arcen-mongodb:27017/
+      ####- MONGODB_DB=arcen_audit
+      ####- MONGODB_HOST=arcen-postgresql-host
+      ####- MONGODB_PORT=27017
+      ####- FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
+      ####- FEIGN_ARCEN_SAVE=/
+    ####depends_on:
+      ####- arcen-mongodb
+      ####- arcen-service-audit
+    ####restart: always
+    ####ports: 
+      ####- "8003:8003"
+    ####networks:
+      ####nginx_net:
+        ####aliases: 
+          ####- arcen-service-digitization-host
   
   # FURNITURE STORAGE
-  arcen-service-furniture-storage:
-    build: ./service-furniture-storage
-    container_name: arcen-service-furniture-storage
-    environment:
-      - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-      - POSTGRESQL_DB=arcen
-      - POSTGRESQL_HOST=arcen-postgresql-host
-      - POSTGRESQL_PORT=5432
-      - ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
-    depends_on:
-      - arcen-postgresql
-      - arcen-service-audit
-    restart: always
-    ports: 
-      - "8004:8004"
-    networks:
-      nginx_net:
-        aliases: 
-          - arcen-service-furniture-storage-host
+  ####arcen-service-furniture-storage:
+    ####build: ./service-furniture-storage
+    ####container_name: arcen-service-furniture-storage
+    ####environment:
+      ####- POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
+      ####- POSTGRESQL_DB=arcen
+      ####- POSTGRESQL_HOST=arcen-postgresql-host
+      ####- POSTGRESQL_PORT=5432
+      ####- ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
+    ####depends_on:
+      ####- arcen-postgresql
+      ####- arcen-service-audit
+    ####restart: always
+    ####ports: 
+      ####- "8004:8004"
+    ####networks:
+      ####nginx_net:
+        ####aliases: 
+          ####- arcen-service-furniture-storage-host
 
   # OBJECT STORAGE
   arcen-service-object-storage:

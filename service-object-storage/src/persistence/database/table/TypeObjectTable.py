@@ -1,6 +1,6 @@
 """
     @name - ObjectTable
-    @description - Conexion a la tabla tipo objecto
+    @description - Conexion a la tabla tipo objeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -19,7 +19,7 @@ class TypeObjectTable(ITable):
         Base.metadata.create_all(bind=engine)
 
     # @override
-    # @method - Realiza la conexion con la tabla tipo objecto
+    # @method - Realiza la conexion con la tabla tipo objeto
     # @return - TypeObjectTable
     def execute(self):
         try:

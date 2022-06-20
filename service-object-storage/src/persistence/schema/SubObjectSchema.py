@@ -18,7 +18,7 @@ class SubObjectSchema:
     # @method - Contructor 
     # @return - Void
     def __init__(self):
-        self.table = DATABASE['table']['object']
+        self.table = DATABASE['table']['subobject']
         self.id:int = self.table['pk']
         self.table = self.table['column']
         self.box:str = self.table[1]

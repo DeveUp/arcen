@@ -18,7 +18,7 @@ class TypeObjectSchema:
     # @method - Contructor 
     # @return - Void
     def __init__(self):
-        self.table = DATABASE['table']['object']
+        self.table = DATABASE['table']['type_object']
         self.id:int = self.table['pk']
         self.table = self.table['column']
         self.name:str = self.table[1]
@@ -37,17 +37,17 @@ class TypeObjectSchema:
 
     # @method - Convierte un objeto a una respuesta
     # @parameter - object - Representa objecto a convertir
-    # @return - TypeObject  
+    # @return - TypeObjectResponse  
     def response(self, object) -> TypeObjectResponse:
         if object == None: 
             return object
-        entity = TypeObject(
+        entity = TypeObjectResponse(
             id = object.id,
             name = object.name,
             height = object.height,
             width = object.width,
             depth = object.depth,
-            date = object.date
+            date = str(object.date)
         )
         return entity
 

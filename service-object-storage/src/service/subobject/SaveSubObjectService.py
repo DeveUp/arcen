@@ -1,6 +1,6 @@
 """
-    @name - SaveTypeObjectService
-    @description - Servicio para registrar un tipo de objeto
+    @name - SaveSubObjectService
+    @description - Servicio para registrar un subobjeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -14,31 +14,30 @@ from src.service.IService import IService
 
 from src.feign.AuditFeign import AuditFeign
 
-from src.persistence.repository.type_object.SaveTypeObjectRepository import SaveTypeObjectRepository
-from src.persistence.schema.TypeObjectSchema import TypeObjectSchema
+from src.persistence.repository.subobject.SaveSubObjectRepository import SaveSubObjectRepository
+from src.persistence.schema.SubObjectSchema import SubObjectSchema
 
 from src.util.constant import RESPONSE
 from src.util.constant import FEIGN
 from src.util.common_feign import feign_audit_save, feign_audit_save_error, feign_audit_build_error
 
-
-class SaveTypeObjectService(IService):
+class SaveSubObjectService(IService):
 
     # @method - Constructor 
     # @return - Void
     def __init__(self, db: Session):
-        self.repository = SaveTypeObjectRepository(db)
-        self.schema:TypeObjectSchema = TypeObjectSchema()
+        self.repository = SaveSubObjectRepository(db)
+        self.schema:SubObjectSchema = SubObjectSchema()
         # Comunicacion con el servicio auditoria
         self.feign_audit = AuditFeign("FEIGN_ARCEN")
         # Servicio y operacion actual
-        self.current_service = FEIGN['type']['service']['type_object']
+        self.current_service = FEIGN['type']['service']['subobject']
         self.current_operation = FEIGN['type']['generic']['post']['save']
 
     # @override
-    # @method - Registra un tipo de objeto
-    # @parameter - data - Json con el tipo de objeto a registrar
-    # @return - TypeObject
+    # @method - Registra un subobjeto
+    # @parameter - data - Json con el subobjeto a registrar
+    # @return - SubObject
     def execute(self, data:dict):
         try:
             element = self.repository.execute(data)
@@ -55,7 +54,7 @@ class SaveTypeObjectService(IService):
                 self.feign_audit,
                 self.current_service,
                 self.current_operation,
-                RESPONSE['type_object']['post']['save']['error']['default']
+                RESPONSE['subobject']['post']['save']['error']['default']
             )
         feign_audit_save(
             self.feign_audit,

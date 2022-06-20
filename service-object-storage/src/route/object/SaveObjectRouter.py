@@ -1,6 +1,6 @@
 """
     @name - SaveObjectRouter
-    @description - Punto de entrada servicio objecto operacion registrar un objecto
+    @description - Punto de entrada servicio objeto operacion registrar un objeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -28,13 +28,15 @@ status = RESPONSE['object']['post']['save']['success']['default']['code']
 response = ResponseArcen
 info_data = DATABASE['table']['object']['name']
 
-# @Rest - Registra un objecto
+# @Rest - Registra un objeto
 # @Parameter - endpoint - Representa el punto de entrada
-# @Parameter - response_model (Optional) - Representa el objecto de respuesta
+# @Parameter - response_model (Optional) - Representa el objeto de respuesta
 # @Parameter - status_code (Optional) - Representa el codigo de respuesta
-# @Return - Response<Object>
+# @Return - Response<ObjectResponse>
 @router_save_object.post(endpoint, response_model = response, status_code= status)
 async def save(block: DtoArcen, db: Session = Depends(table.execute)):
-    data = dict({info_data: block})
+    data = dict({
+        info_data: block
+    })
     service = ServiceArcen(db)
     return service.execute(data)

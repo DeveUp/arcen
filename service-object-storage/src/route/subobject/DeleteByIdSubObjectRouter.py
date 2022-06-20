@@ -1,6 +1,6 @@
 """
-    @name - DeleteByIdObjectRouter
-    @description - Punto de entrada servicio objeto operacion eliminar objeto por el pk
+    @name - DeleteByIdSubObjectRouter
+    @description - Punto de entrada servicio subobjeto operacion eliminar un subobjeto por el pk
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -10,27 +10,27 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from src.service.object.DeleteByIdObjectService import DeleteByIdObjectService as ServiceArcen
+from src.service.subobject.DeleteByIdSubObjectService import DeleteByIdSubObjectService as ServiceArcen
 
-from src.persistence.database.table.ObjectTable import ObjectTable as TableArcen
+from src.persistence.database.table.SubObjectTable import SubObjectTable as TableArcen
 
 from src.util.constant import ENDPOINT
 from src.util.constant import DATABASE
 from src.util.constant import RESPONSE
 
-router_detele_by_id_object = APIRouter()
+router_detele_by_id_subobject = APIRouter()
 table = TableArcen()
 
-endpoint = ENDPOINT['path']+ENDPOINT['service']['object']['path']+ENDPOINT['operation']['delete']['delete_by_id']
-status = RESPONSE['object']['delete']['delete_by_id']['success']['default']['code']
-info_data = DATABASE['table']['object']['column'][0]
+endpoint = ENDPOINT['path']+ENDPOINT['service']['subobject']['path']+ENDPOINT['operation']['delete']['delete_by_id']
+status = RESPONSE['subobject']['delete']['delete_by_id']['success']['default']['code']
+info_data = DATABASE['table']['subobject']['column'][0]
 
-# @Rest - Elimina un objeto por su pk
+# @Rest - Elimina un subobjeto por su pk
 # @Parameter - endpoint - Representa el punto de entrada
 # @Parameter - response_model (Optional) - Representa el objeto de respuesta
 # @Parameter - status_code (Optional) - Representa el codigo de respuesta
 # @Return - Response<Void>
-@router_detele_by_id_object.delete(endpoint, status_code= status)
+@router_detele_by_id_subobject.delete(endpoint, status_code= status)
 async def delete_by_id(id: str, db: Session = Depends(table.execute)):
     data = dict({info_data:id})
     service = ServiceArcen(db)

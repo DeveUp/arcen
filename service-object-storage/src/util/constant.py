@@ -1,6 +1,6 @@
 """
     @name - constant
-    @description - Constantes para el microservicio objecto
+    @description - Constantes para el microservicio objeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -20,11 +20,11 @@ UTIL = {
     }
 }
 
-# @json - Puntos de entradas a los servicios (Objecto)
+# @json - Puntos de entradas a los servicios (Objeto)
 # @content - path - Entrada principal
-# @content - service.object - Entrada objecto
-# @content - service.subobject - Entrada subobjecto
-# @content - service.type_object - Entrada tipo objecto
+# @content - service.object - Entrada objeto
+# @content - service.subobject - Entrada subobjeto
+# @content - service.type_object - Entrada tipo objeto
 ENDPOINT = {
     "path": "/api",
     "service": {
@@ -57,10 +57,10 @@ ENDPOINT = {
     }
 }
 
-# @json - Base de datos del microservicio objecto
-# @content - table.object - Tabla objecto
-# @content - table.subobject - Tabla subobjecto
-# @content - table.type_object - Tabla tipo objecto
+# @json - Base de datos del microservicio objeto
+# @content - table.object - Tabla objeto
+# @content - table.subobject - Tabla subobjeto
+# @content - table.type_object - Tabla tipo objeto
 DATABASE= {
     "table":{
         "object":{
@@ -311,7 +311,9 @@ FEIGN = {
             
         },
         "service": {
-            "object":  "OBJECT"
+            "object":  "OBJECT",
+            "type_object": "TYPE_OBJECT",
+            "subobject": "SUBOBJECT"
         }
     },
     "microservice": {
@@ -332,8 +334,8 @@ FEIGN = {
     }
 }
 
-# @json - Respuestas servicios del microservicio de objecto
-# @Content - object - Respuesta objecto
+# @json - Respuestas servicios del microservicio de objeto
+# @Content - object - Respuesta objeto
 RESPONSE = {
     "object":{
         "get": {
@@ -346,7 +348,7 @@ RESPONSE = {
                 "error": {
                     "default": {
                         "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
-                        "msg":  RESPONSE_GENERIC['get']['find_by_id']['error']['default']['msg']%("del objecto")
+                        "msg":  RESPONSE_GENERIC['get']['find_by_id']['error']['default']['msg']%("del objeto")
                     }
                 }
             },
@@ -362,7 +364,7 @@ RESPONSE = {
                 "error": {
                     "default": {
                         "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
-                        "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("el objecto")
+                        "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("el objeto")
                     }
                 }
             }
@@ -377,7 +379,7 @@ RESPONSE = {
                 "error": {
                     "default": {
                         "code": RESPONSE_GENERIC['put']['update']['error']['default']['code'],
-                        "msg":  RESPONSE_GENERIC['put']['update']['error']['default']['msg']%("el objecto")
+                        "msg":  RESPONSE_GENERIC['put']['update']['error']['default']['msg']%("el objeto")
                     }
                 }
             }
@@ -392,63 +394,136 @@ RESPONSE = {
                 "error": {
                     "default": {
                         "code": RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['code'],
-                        "msg":  RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['msg']%("el objecto")
+                        "msg":  RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['msg']%("el objeto")
+                    }
+                }
+            }
+        }   
+    },
+    "subobject":{
+        "get": {
+            "find_by_id":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['get']['find_by_id']['error']['default']['msg']%("del subobjeto")
+                    }
+                }
+            },
+            "find_all": RESPONSE_GENERIC['get']['find_all']
+        },  
+        "post":{
+            "save":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("el subobjeto")
+                    }
+                }
+            }
+        },
+        "put":{
+            "update":{
+                 "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['put']['update']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['put']['update']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['put']['update']['error']['default']['msg']%("el subobjeto")
+                    }
+                }
+            }
+        },
+        "delete":{
+            "delete_by_id":{
+                 "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['delete']['delete_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['msg']%("el subobjeto")
+                    }
+                }
+            }
+        }   
+    },
+    "type_object":{
+        "get": {
+            "find_by_id":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['get']['find_by_id']['error']['default']['msg']%("del tipo de objeto")
+                    }
+                }
+            },
+            "find_all": RESPONSE_GENERIC['get']['find_all']
+        },  
+        "post":{
+            "save":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("el tipo de objeto")
+                    }
+                }
+            }
+        },
+        "put":{
+            "update":{
+                 "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['put']['update']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['put']['update']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['put']['update']['error']['default']['msg']%("el tipo de objeto")
+                    }
+                }
+            }
+        },
+        "delete":{
+            "delete_by_id":{
+                 "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['delete']['delete_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['msg']%("el tipo de objeto")
                     }
                 }
             }
         }   
     }
 }
-
-
-
-
-# ENDPOINT
-ENDPOINT_APP = "/api"
-ENDPOINT_APP_OBJECT = "/object"
-ENDPOINT_APP_SUB_OBJECT = "/sub-object"
-ENDPOINT_APP_TYPE_OBJECT = "/type-object"
-
-ENDPOINT_GENERIC_FIND_BY_ID = "/{id}"
-ENDPOINT_GENERIC_FIND_ALL = "/"
-ENDPOINT_GENERIC_SAVE = "/"
-ENDPOINT_GENERIC_UPDATE= "/{id}"
-ENDPOINT_GENERIC_DELETE_BY_ID = "/{id}"
-
-# DATABASE VARS
-DATABASE_POSTGRESQL_USER = "arcen";
-DATABASE_POSTGRESQL_PASSWORD = "arcen";
-DATABASE_POSTGRESQL_HOST = "localhost";
-DATABASE_POSTGRESQL_PORT = "";
-DATABASE_POSTGRESQL_DATABASE = "arcen_object";
-
-# DATABASE CONNECT
-DATABASE_POSTGRESQL_URL = "postgresql://arcen:arcen@arcen-postgresql:5432/arcen"
-
-# DATABASE TABLE
-DATABASE_POSTGRESQL_TABLE_OBJECT = "object"
-DATABASE_POSTGRESQL_TABLE_SUB_OBJECT= "sub_object"
-DATABASE_POSTGRESQL_TABLE_TYPE_OBJECT = "type_object"
-
-# COLUMNA OBJECT
-COLUMN_OBJECT = "object"
-COLUMN_OBJECT_ID = "id"
-COLUMN_OBJECT_ID_TYPE_OBJECT = "id_type_object"
-COLUMN_OBJECT_ID_SUB_OBJECT = "id_sub_object"
-COLUMN_OBJECT_CREATION_DATE = "date"
-
-# COLUMNA SUB_OBJECT
-COLUMN_SUB_OBJECT = "sub_object"
-COLUMN_SUB_OBJECT_ID = "id"
-COLUMN_SUB_OBJECT_NUMBER = "number"
-COLUMN_SUB_OBJECT_BOX = "box"
-COLUMN_SUB_OBJECT_CREATION_DATE = "date"
-
-# COLUMNA TYPE_OBJECT
-COLUMN_TYPE_OBJECT = "type_object"
-COLUMN_TYPE_OBJECT_ID = "id"
-COLUMN_TYPE_OBJECT_NAME = "name"
-COLUMN_TYPE_OBJECT_HEIGHT = "height"
-COLUMN_TYPE_OBJECT_WIDTH = "width"
-COLUMN_TYPE_OBJECT_DEPTH = "depth"
-COLUMN_TYPE_OBJECT_CREATION_DATE = "date"
