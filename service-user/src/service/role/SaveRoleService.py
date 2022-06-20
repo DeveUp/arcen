@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-#from src.feign.AuditFeign import AuditFeign
+from src.feign.AuditFeign import AuditFeign
 from src.service.IService import IService
 from src.persistence.repository.role.SaveRoleRepository import SaveRoleRepository
 from src.persistence.schema.RoleSchema import RoleSchema
@@ -13,7 +13,7 @@ class SaveRoleService(IService):
     def __init__(self, db: Session):
         self.repository = SaveRoleRepository(db)
         self.schema = RoleSchema()
-        #self.feign = AuditFeign()
+        self.feign = AuditFeign()
 
     def execute(self, data:dict):
         try:
@@ -22,7 +22,7 @@ class SaveRoleService(IService):
         except:
             element = None
         finally:
-            #self.feign.save(self.feign.build(AUDIT_ROLE_SERVICE, AUDIT_GENERIC_OPERATION_SAVE, get_response_audit(element)))
+            self.feign.save(self.feign.build(AUDIT_ROLE_SERVICE, AUDIT_GENERIC_OPERATION_SAVE, get_response_audit(element)))
             if element == None:
                 raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESPONSE_MSG_ROLE_SAVE_ERROR_SAVE)
         return element

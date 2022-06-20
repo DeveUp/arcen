@@ -61,8 +61,11 @@ FEIGN_TYPE_PUT = "PUT"
 FEIGN_TYPE_DELETE = "DELETE"
 
 FEIGN_ENDPOINT = "endpoint"
-FEIGN_ENDPOINT_AUDIT = "http://127.0.0.1:82/api/audit"
+FEIGN_ENDPOINT_AUDIT = "http://arcen-service-audit:8001/api/audit"
 FEIGN_ENDPOINT_AUDIT_SAVE = "/"
+
+FEIGN_ENDPOINT_DEPENDENCE = "http://arcen-service-shelf-storage:8008/api/dependence"
+FEIGN_ENDPOINT_DEPENDENCE_SAVE = "/"
 
 # RESPONSE STATUS
 RESPONSE_STATUS_CODE_GET = 200

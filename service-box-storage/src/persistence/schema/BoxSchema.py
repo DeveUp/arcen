@@ -25,11 +25,11 @@ class BoxSchema:
         if object == None: 
             return object
         return BoxResponse(
-            COLUMN_BOX_ID = object.id,
-            COLUMN_BOX_ID_TRAY = object.id_tray,
-            COLUMN_BOX_ID_TYPE_BOX = object.id_type_box,
-            COLUMN_BOX_NUMBER_BOX = object.number_box,
-            COLUMN_BOX_CREATION_DATE = object.date
+            id = object.id,
+            id_tray = object.id_tray,
+            id_type_box = object.id_type_box,
+            number_box = object.number_box,
+            date = str(object.date)
         )
 
     def dict(self, object, create= None) -> dict:

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-#from src.feign.AuditFeign import AuditFeign
+from src.feign.AuditFeign import AuditFeign
 from src.service.IService import IService
 from src.persistence.repository.TypeShelf.UpdateTypeShelfRepository import UpdateTypeShelfRepository
 from src.persistence.schema.TypeShelfSchema import TypeShelfSchema
@@ -13,16 +13,16 @@ class UpdateTypeShelfService(IService):
     def __init__(self, db: Session):
         self.repository = UpdateTypeShelfRepository(db)
         self.schema = TypeShelfSchema()
-        #self.feing = AuditFeign()
+        self.feing = AuditFeign()
 
     def execute(self, data:dict):
         try:
             element = self.repository.execute(data)
-            element = self.schema.entity(element)
+            element = self.schema.response(element)
         except:
             element= None
         finally:
-            #self.feing.save(self.feing.build(AUDIT_TYPE_SHELF_SERVICE,AUDIT_GENERIC_OPERATION_UPDATE,get_response_audit(data)))
+            self.feing.save(self.feing.build(AUDIT_TYPE_SHELF_SERVICE,AUDIT_GENERIC_OPERATION_UPDATE,get_response_audit(data)))
             if element==None:
                 raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTENT,RESPONSE_MSG_TYPE_SHELF_FIND_BY_ID_NOT_CONTENT)
         return element
