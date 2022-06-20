@@ -82,7 +82,7 @@ services:
       - arcen-service-audit
     restart: always
     ports: 
-      - "8002:8182"
+      - "8002:8002"
     networks:
       nginx_net:
         aliases: 
@@ -168,7 +168,7 @@ services:
       - arcen-service-audit
     restart: always
     ports: 
-      - "8008:8188"
+      - "8008:8008"
     networks:
       nginx_net:
         aliases: 
