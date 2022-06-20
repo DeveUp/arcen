@@ -1,54 +1,84 @@
+"""
+    @name - SubObjectSchema
+    @description - Convertidor a diferentes tipos subobjecto
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Sergio Stives Barrios Buitrago
+    @modification-date - 2022-06-20
+    @author-modification -  Sergio Stives Barrios Buitrago
+"""
 from src.model.entity.SubObject import SubObject
 from src.model.dto.SubObjectDto import SubObjectDto
-from src.util.constant import COLUMN_SUB_OBJECT_ID, COLUMN_SUB_OBJECT_BOX, COLUMN_SUB_OBJECT_NUMBER, COLUMN_SUB_OBJECT_CREATION_DATE
+
+from src.util.constant import DATABASE
 from src.util.common import get_validate_field
 
 class SubObjectSchema:
 
+    # @method - Contructor 
+    # @return - Void
     def __init__(self):
-        self.id:int = COLUMN_SUB_OBJECT_ID
-        self.box:str = COLUMN_SUB_OBJECT_BOX
-        self.number:int = COLUMN_SUB_OBJECT_NUMBER
-        self.creation_date:str = COLUMN_SUB_OBJECT_CREATION_DATE
+        self.table = DATABASE['table']['object']
+        self.id:int = self.table['pk']
+        self.table = self.table['column']
+        self.box:str = self.table[1]
+        self.number:int = self.table[2]
+        self.date:str = self.table[3]
 
+    # @method - Convierte un objeto a una entidad
+    # @parameter - object - Representa objecto a convertir
+    # @return - SubObject
     def entity(self, object) -> SubObject:
         if object == None: 
             return object
         return object
         
+    # @method - Convierte un objeto a una entidad
+    # @parameter - object - Representa objecto a convertir
+    # @return - SubObject
     def other(self, object) -> SubObject:
         if object == None: 
             return object
         entity = SubObject(
-            COLUMN_SUB_OBJECT_ID = get_validate_field(object, self.id),
-            COLUMN_SUB_OBJECT_BOX = get_validate_field(object, self.box),
-            COLUMN_SUB_OBJECT_NUMBER = get_validate_field(object, self.number),
-            COLUMN_SUB_OBJECT_CREATION_DATE = get_validate_field(object, self.creation_date)
+            id = get_validate_field(object, self.id),
+            box = get_validate_field(object, self.box),
+            number = get_validate_field(object, self.number),
+            date = get_validate_field(object, self.date)
         )
         return entity
 
+    # @method - Convierte un objeto a una lista
+    # @parameter - objects - Representa los objectos a convertir
+    # @return - list
     def list(self, objects) -> list:
         if objects == None: 
             return objects
         return [self.entity(object) for object in objects]
     
+    # @method - Convierte un objeto a un dto
+    # @parameter - object - Representa los objecto a convertir
+    # @return - SubObjectDto
     def dto(self, object) -> SubObjectDto:
         if object == None: 
             return object
         return SubObjectDto(
-            COLUMN_SUB_OBJECT_BOX = get_validate_field(object, self.box),
-            COLUMN_SUB_OBJECT_NUMBER = get_validate_field(object, self.number)
+            box = get_validate_field(object, self.box),
+            number = get_validate_field(object, self.number)
         )
 
+    # @method - Convierte un objeto a un diccionario
+    # @parameter - object - Representa los objecto a convertir
+    # @parameter - create (Optional) - Representa la fecha creacion
+    # @return - dict
     def dict(self, object, create= None) -> dict:
         if object == None: 
             return object
         data = {
-            COLUMN_SUB_OBJECT_ID: get_validate_field(object, self.id),
-            COLUMN_SUB_OBJECT_BOX: get_validate_field(object, self.box),
-            COLUMN_SUB_OBJECT_NUMBER: get_validate_field(object, self.number),
-            COLUMN_SUB_OBJECT_CREATION_DATE: get_validate_field(object, self.creation_date)
+            self.id: get_validate_field(object, self.id),
+            self.box: get_validate_field(object, self.box),
+            self.number: get_validate_field(object, self.number),
+            self.date: get_validate_field(object, self.date)
         }
         if create != None:
-            data[self.creation_date]= create
+            data[self.date]= create
         return data
