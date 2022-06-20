@@ -35,6 +35,8 @@ info_data = DATABASE['table']['object']['column'][0]
 # @Return - Response<Object>
 @router_find_by_id_object.get(endpoint, response_model=response, status_code= status)
 async def find_by_id(id:str, db:Session=Depends(table.execute)):
-    data = dict({info_data:id})
+    data = dict({
+        info_data:id
+    })
     service = ServiceArcen(db)
     return service.execute(data)

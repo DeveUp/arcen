@@ -311,7 +311,9 @@ FEIGN = {
             
         },
         "service": {
-            "object":  "OBJECT"
+            "object":  "OBJECT",
+            "type_object": "TYPE_OBJECT",
+            "subobject": "SUBOBJECT"
         }
     },
     "microservice": {
@@ -393,6 +395,69 @@ RESPONSE = {
                     "default": {
                         "code": RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['code'],
                         "msg":  RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['msg']%("el objecto")
+                    }
+                }
+            }
+        }   
+    },
+    "type_object":{
+        "get": {
+            "find_by_id":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['get']['find_by_id']['error']['default']['msg']%("del tipo de objecto")
+                    }
+                }
+            },
+            "find_all": RESPONSE_GENERIC['get']['find_all']
+        },  
+        "post":{
+            "save":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("el tipo de objecto")
+                    }
+                }
+            }
+        },
+        "put":{
+            "update":{
+                 "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['put']['update']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['put']['update']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['put']['update']['error']['default']['msg']%("el tipo de objecto")
+                    }
+                }
+            }
+        },
+        "delete":{
+            "delete_by_id":{
+                 "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['delete']['delete_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['msg']%("el tipo de objecto")
                     }
                 }
             }

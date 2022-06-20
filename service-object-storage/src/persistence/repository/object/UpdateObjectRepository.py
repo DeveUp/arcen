@@ -25,7 +25,7 @@ class UpdateObjectRepository(IRepository):
     # @override
     # @method - Actualiza un objecto por su pk
     # @parameter - data - Json con el pk del objecto y el objecto a actualizar
-    # @return - Boolean
+    # @return - Object
     def execute(self, data:dict):
         id = data[DATABASE['table']['object']['pk']]
         element = data[DATABASE['table']['object']['name']]

@@ -23,7 +23,6 @@ from src.util.constant import FEIGN
 from src.util.constant import RESPONSE
 from src.util.common_feign import feign_audit_save, feign_audit_save_error, feign_audit_build_error
 
-
 class DeleteByIdObjectService(IService):
 
     # @method - Constructor 

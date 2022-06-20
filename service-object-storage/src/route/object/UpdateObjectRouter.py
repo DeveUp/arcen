@@ -11,7 +11,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from src.model.dto.ObjectDto import ObjectDto as DtoArcen
-from src.model.response.ObjectResponse import ObjectResponse as ResponseEntity
+from src.model.response.ObjectResponse import ObjectResponse as ResponseArcen
 
 from src.service.object.UpdateObjectService import UpdateObjectService as ServiceArcen
 from src.persistence.database.table.ObjectTable import ObjectTable as TableArcen
@@ -25,7 +25,7 @@ table = TableArcen()
 
 endpoint = ENDPOINT['path']+ENDPOINT['service']['object']['path']+ENDPOINT['operation']['put']['update']
 status = RESPONSE['object']['put']['update']['success']['default']['code']
-response = ResponseEntity
+response = ResponseArcen
 info_data = DATABASE['table']['object']['name']
 info_data_pk = DATABASE['table']['object']['pk']
 

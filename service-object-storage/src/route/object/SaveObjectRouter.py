@@ -35,6 +35,8 @@ info_data = DATABASE['table']['object']['name']
 # @Return - Response<Object>
 @router_save_object.post(endpoint, response_model = response, status_code= status)
 async def save(block: DtoArcen, db: Session = Depends(table.execute)):
-    data = dict({info_data: block})
+    data = dict({
+        info_data: block
+    })
     service = ServiceArcen(db)
     return service.execute(data)
