@@ -1,171 +1,346 @@
-# FORMAT
-FORMAT_DATE = '%Y-%m-%d %H:%M'
+"""
+    @description - Constantes para el microservicio digitalizacion
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Sergio Stives Barrios Buitrago
+    @modification-date - 2022-06-18
+    @author-modification -  Sergio Stives Barrios Buitrago
+"""
 
-# ENDPOINT
-ENDPOINT_APP = "/api"
-ENDPOINT_APP_DOCUMENT = "/document"
-ENDPOINT_APP_DOCUMENT_LOCATION = "/document-location"
-ENDPOINT_APP_DOCUMENT_VERSION = "/document-version"
-ENDPOINT_APP_INVOICE = "/invoice"
-ENDPOINT_APP_INVOICE_STATUS = "/invoice-status"
+# @JSON - Utilidades
+# @Content - format - Representa formatos a utilizar
+UTIL = {
+    "format":{
+        "date": [
+            '%Y-%m-%d',
+            '%Y-%m-%d %H:%M'
+        ],
+        "response": [
+            "code",
+            "msg",
+            "operation"
+        ]
+    }
+}
 
-ENDPOINT_GENERIC_FIND_BY_ID = "/{id}"
-ENDPOINT_GENERIC_FIND_ALL = "/"
-ENDPOINT_GENERIC_SAVE = "/"
-ENDPOINT_GENERIC_UPDATE= "/{id}"
-ENDPOINT_GENERIC_DELETE_BY_ID = "/{id}"
+# @json - Puntos de entradas a los servicios (Digitalizacion)
+# @content - path - Entrada principal
+# @content - service.document - Entrada documento
+# @content - service.document_location - Entrada ubicacion documento
+# @content - service.document_version - Entrada version documento
+# @content - service.invoice - Entrada folio
+# @content - service.invoice_status - Entrada estado folio
+ENDPOINT = {
+    "path": "/api",
+    "service": {
+        "document": {
+           "path": "/document",
+        },
+        "document_location": {
+            "path": "/document-location"
+        },
+        "document_version": {
+           "path": "/document-version" 
+        },
+        "invoice": {
+           "path": "/invoice" 
+        },
+        "invoice_status": {
+           "path": "/invoice-status" 
+        }
+    },
+    "operation":{
+        "get":{
+            "find_by_id": "/{id}",
+            "find_by_name": "/find-by-name/{name}",
+            "find_all": "/",
+            "find_by_range_date_all":  "/all/find/range/date/{start}/{end}"
+        },
+        "post":{
+            "save": "/"
+        }
+    }
+}
 
-# DATABASE
-DATABASE_MONGODB_USER = "arcen:arcen";
-DATABASE_MONGODB_CLUSTER = "@cluster0.qahfe.mongodb.net";
-DATABASE_MONGODB_URL = "mongodb+srv://"+DATABASE_MONGODB_USER+DATABASE_MONGODB_CLUSTER+"/";
-DATABASE_MONGODB_DB = "arcen_digitization";
-DATABASE_MONGODB_TABLE = "digitization";
-DATABASE_MONGODB = DATABASE_MONGODB_URL +DATABASE_MONGODB_DB;
+# @json - Base de datos del microservicio digitalizacion
+# @content - table.document - Tabla documento
+# @content - table.document_location - Tabla ubicacion documento
+# @content - table.document_version - Tabla version documento
+# @content - table.invoice - Tabla folio
+# @content - table.invoice_status - Tabla estado folio
+DATABASE= {
+    "table":{
+        "document":{
+            "name": "document",
+            "pk": "_id",
+            "column": [
+                "id",
+                "id_document_location",
+                "name",
+                "document",
+                "path_document",
+                "date"
+            ]
+        },
+        "document_location":{
+            "name": "document-location",
+            "pk": "_id",
+            "column": [
+                "id",
+                "name",
+                "id_object",
+                "id_invoice",
+                "date"
+            ]
+        },
+        "document_version":{
+            "name": "document-version",
+            "pk": "_id",
+            "column": [
+                "id",
+                "id_document_location",
+                "version",
+                "date"
+            ]
+        },
+        "invoice":{
+            "name": "invoice",
+            "pk": "_id",
+            "column": [
+                "id",
+                "name",
+                "index_number",
+                "id_invoice_statu",
+                "security_level",
+                "date"
+            ]
+        },
+        "invoice_status":{
+            "name": "invoice-status",
+            "pk": "_id",
+            "column": [
+                "id",
+                "name",
+                "date"
+            ]
+        }
+    }
+} 
 
-# DATABASE TABLE
-DATABASE_MONGODB_TABLE_DOCUMENT = "document"
-DATABASE_MONGODB_TABLE_DOCUMENT_VERSION = "document_version"
-DATABASE_MONGODB_TABLE_DOCUMENT_LOCATION = "document_location"
-DATABASE_MONGODB_TABLE_INVOICE = "invoice"
-DATABASE_MONGODB_TABLE_INVOICE_STATUS = "invoice_status"
+# @json - Codigos repsuesta generico
+# @content - success - Codigos exitosos
+# @content - error - Codigos de error
+RESPONSE_GENERIC_CODE = {
+    "success": {
+        "find": 200,
+        "save": 201,
+        "update": 202,
+        "delete": 204
+    },
+    "error": {
+        "format": 422,
+        "delete": 418,
+        "save": 423,
+        "find": 424,
+        "update": 425,
+        "request": 426,
+        "persistence": 427
+    }
+}
 
-# COLUMNA TABLE DOCUMENT
-COLUMN_DOCUMENT = DATABASE_MONGODB_TABLE_DOCUMENT
-COLUMN_DOCUMENT_ID = "_id"
-COLUMN_DOCUMENT_ID_TWO = "id"
-COLUMN_DOCUMENT_ID_DOCUEMNT_LOCATION = "id_document_location"
-COLUMN_DOCUMENT_NAME = "name"
-COLUMN_DOCUMENT_BASE64 = "document"
-COLUMN_DOCUMENT_PATH_DOCUMENT_LOCAL = "path_document"
-COLUMN_DOCUMENT_DATE = "date"
+# @json - Repsuestas genericas
+# @content - get 
+# @content - post 
+RESPONSE_GENERIC = {
+    "get":{
+        "find_by_id":{
+            "success": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['success']['find']
+                }
+            },
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['find'],
+                    "msg": "¡Ups! verifique el id %s, no encontramos ningun resultado."
+                }
+            }
+        },
+        "find_by_name":{
+            "success": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['success']['find']
+                }
+            },
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['find'],
+                    "msg": "¡Ups! verifique el nombre %s, no encontramos ningun resultado."
+                },
+                "exist": {
+                    "code": RESPONSE_GENERIC_CODE['error']['request'],
+                    "msg": "¡Ups! verifique el nombre %s, encontramos almenos un resultado."
+                }
+            }
+        },
+        "find_all":{
+            "response": list,
+            "success": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['success']['find']
+                } 
+            },
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['find'],
+                    "msg": "¡Och! no encontramos ningun%s resultado."
+                }
+            }
+        },
+        "find_by_range_date_all": {
+            "response": list,
+            "success": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['success']['find']
+                }
+            },
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['format'],
+                    "msg": "¡Ups! verifique las fechas no nos cuadra."
+                }
+            }
+        }
+    },
+    "post": {
+        "save": {
+            "success": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['success']['save']
+                }
+            },
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['save'],
+                    "msg": "Ouch! No pudismos registrar %s. Vuelva a intentar mas tarde!"
+                }
+            }
+        }
+    },
+    "system": {
+        "persistence": {
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['persistence'],
+                    "msg": "No eres tu, somos nosotros. Hemos tenido un problema interno!"
+                }
+            }
+        },
+        "env": {
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['find'],
+                    "msg": "Oh no! Lamentamos que no estemos para ti."
+                }
+            }
+        },
+        "feign":{
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['request'],
+                    "msg": "Oh no! No eres tu somos nosotros hemos tenido un problema."
+                },
+                "connection": {
+                    "code": RESPONSE_GENERIC_CODE['error']['request'],
+                    "msg": "Oh no! Nuestra conexion esta inestable, esperamos estar pronto para ti."
+                },
+                "timeout":{
+                    "code": RESPONSE_GENERIC_CODE['error']['request'],
+                    "msg": "Oh no! Se ha agotado el tiempo."
+                }
+            }
+        }
+    }
+}
 
-# COLUMNA TABLE DOCUMENT LOCATION
-COLUMN_DOCUMENT_LOCATION = DATABASE_MONGODB_TABLE_DOCUMENT_LOCATION
-COLUMN_DOCUMENT_LOCATION_ID = "_id"
-COLUMN_DOCUMENT_LOCATION_ID_TWO = "id"
-COLUMN_DOCUMENT_LOCATION_NAME = "name"
-COLUMN_DOCUMENT_LOCATION_ID_OBJECT = "id_object"
-COLUMN_DOCUMENT_LOCATION_ID_INVOICE = "id_invoice"
-COLUMN_DOCUMENT_LOCATION_DATE = "date"
+# @json - Comunicacion con otros microservicios
+# @content - service.operation - Operaciones expone feign
+FEIGN = {
+    "operation":[
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+    ],
+    "response":{
+        "success":{
+            "get":{
+                "code": RESPONSE_GENERIC_CODE['success']['find']
+            },
+            "post":{
+                "code": RESPONSE_GENERIC_CODE['success']['save']
+            },
+            "put":{
+                "code": RESPONSE_GENERIC_CODE['success']['update']
+            },
+            "delete":{
+                "code": RESPONSE_GENERIC_CODE['success']['delete']
+            }
+        }
+    },
+    "microservice": {
+        "audit": {
+            "service": {
+                "audit": {
+                    "response":{
+                        "error":{
+                            "default": {
+                                "code": RESPONSE_GENERIC_CODE['error']['save'],
+                                "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("la auditoria")
+                            } 
+                        }
+                    }
+                }
+            }  
+        }
+    }
+}
 
-# COLUMNA TABLE DOCUMENT VERSION
-COLUMN_DOCUMENT_VERSION = DATABASE_MONGODB_TABLE_DOCUMENT_VERSION
-COLUMN_DOCUMENT_VERSION_ID = "_id"
-COLUMN_DOCUMENT_VERSION_ID_TWO = "id"
-COLUMN_DOCUMENT_VERSION_ID_DOCUMENT_LOCATION = "id_document_location"
-COLUMN_DOCUMENT_VERSION_VERSION = "version"
-COLUMN_DOCUMENT_VERSION_DATE = "date"
-
-# COLUMNA TABLE INVOICE
-COLUMN_INVOICE = DATABASE_MONGODB_TABLE_INVOICE
-COLUMN_INVOICE_ID = "_id"
-COLUMN_INVOICE_ID_TWO = "id"
-COLUMN_INVOICE_NAME = "name"
-COLUMN_INVOICE_INDEX_NUMBER = "index_number"
-COLUMN_INVOICE_ID_INVOICE_STATU = "id_invoice_statu"
-COLUMN_INVOICE_SECURITY_LEVEL = "security_level"
-COLUMN_INVOICE_DATE = "date"
-
-# COLUMNA TABLE INVOICE STATUS
-COLUMN_INVOICE_STATUS = DATABASE_MONGODB_TABLE_INVOICE_STATUS
-COLUMN_INVOICE_STATUS_ID = "_id"
-COLUMN_INVOICE_STATUS_ID_TWO = "id"
-COLUMN_INVOICE_STATUS_NAME = "name"
-COLUMN_INVOICE_STATUS_DATE = "date"
-
-# FEIGN
-FEIGN_TYPE_POST = "POST"
-FEIGN_TYPE_GET = "GET"
-FEIGN_TYPE_PUT = "PUT"
-FEIGN_TYPE_DELETE = "DELETE"
-
-FEIGN_ENDPOINT = "endpoint"
-FEIGN_ENDPOINT_AUDIT = "http://127.0.0.1:81/api/audit"
-FEIGN_ENDPOINT_AUDIT_SAVE = "/"
-
-# RESPONSE STATUS
-RESPONSE_STATUS_CODE_GET = 200
-RESPONSE_STATUS_CODE_POST = 201
-RESPONSE_STATUS_CODE_PUT = 202
-RESPONSE_STATUS_CODE_DELETE = 204
-
-RESPONSE_STATUS_CODE_GENERIC_FIND_ALL = RESPONSE_STATUS_CODE_GET
-RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID = RESPONSE_STATUS_CODE_GET
-RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTENT = 424
-RESPONSE_STATUS_CODE_GENERIC_DELETE_BY_ID = RESPONSE_STATUS_CODE_DELETE
-RESPONSE_STATUS_CODE_GENERIC_DELETE_BY_ID_NOT_CONTENT = 418
-RESPONSE_STATUS_CODE_GENERIC_SAVE = RESPONSE_STATUS_CODE_POST
-RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE = 423
-RESPONSE_STATUS_CODE_GENERIC_UPDATE = RESPONSE_STATUS_CODE_PUT
-RESPONSE_STATUS_CODE_GENERIC_UPDATE_NOT_CONTENT = 424
-RESPONSE_STATUS_CODE_GENERIC_PERSISTENCE_ERROR = 427
-
-RESPONSE_STATUS_CODE_AUDIT_ERROR_SAVE = 423
-
-# RESPONSE MSG
-RESPONSE_MSG_GENERIC_PERSISTENCE_ERROR = "Se ha presentado un error. No eres tu, somos nosotros!"
-
-RESPONSE_MSG_DOCUMENT_FIND_BY_ID_NOT_CONTENT =  "¡Ups! verifique el id del documento, no encontramos ningun resultado."
-RESPONSE_MSG_DOCUMENT_SAVE_ERROR_SAVE = "¡Ups! no hemos podido guardar el documento."
-
-RESPONSE_MSG_DOCUMENT_LOCATION_FIND_BY_ID_NOT_CONTENT =  "¡Ups! verifique el id de la ubicacion del documento, no encontramos ningun resultado."
-RESPONSE_MSG_DOCUMENT_LOCATION_SAVE_ERROR_SAVE = "¡Ups! no hemos podido guardar la ubicacion del documento."
-
-RESPONSE_MSG_DOCUMENT_VERSION_FIND_BY_ID_NOT_CONTENT =  "¡Ups! verifique el id de la version del documento, no encontramos ningun resultado."
-RESPONSE_MSG_DOCUMENT_VERSION_SAVE_ERROR_SAVE = "¡Ups! no hemos podido guardar la version del documento."
-
-RESPONSE_MSG_INVOICE_FIND_BY_ID_NOT_CONTENT =  "¡Ups! verifique el id del folio, no encontramos ningun resultado."
-RESPONSE_MSG_INVOICE_SAVE_ERROR_SAVE = "¡Ups! no hemos podido guardar el folio."
-
-RESPONSE_MSG_INVOICE_STATU_FIND_BY_ID_NOT_CONTENT =  "¡Ups! verifique el id del estado del folio, no encontramos ningun resultado."
-RESPONSE_MSG_INVOICE_STATU_SAVE_ERROR_SAVE = "¡Ups! no hemos podido guardar el estado del folio."
-
-
-# RESPONSE MODEL
-RESPONSE_MODEL_DOCUMENT_FIND_ALL = list
-RESPONSE_MODEL_DOCUMENT_DELETE_BY_ID = bool
-
-RESPONSE_MODEL_DOCUMENT_VERSION_FIND_ALL = list
-RESPONSE_MODEL_DOCUMENT_VERSION_DELETE_BY_ID = bool
-
-RESPONSE_MODEL_DOCUMENT_LOCATION_FIND_ALL = list
-RESPONSE_MODEL_DOCUMENT_LOCATION_DELETE_BY_ID = bool
-
-RESPONSE_MODEL_INVOICE_FIND_ALL = list
-RESPONSE_MODEL_INVOICE_DELETE_BY_ID = bool
-
-RESPONSE_MODEL_INVOICE_STATUS_FIND_ALL = list
-RESPONSE_MODEL_INVOICE_STATUS_DELETE_BY_ID = bool
-
-# AUDIT
-AUDIT_DOCUMENT_SERVICE = "DOCUMENT"
-AUDIT_DOCUMENT_OPERATION_SAVE = "SAVE"
-AUDIT_DOCUMENT_OPERATION_UPDATE = "UPDATE"
-AUDIT_DICUMENT_OPERATION_DELETE_BY_ID = "DELETE_BY_ID"
-
-AUDIT_DOCUMENT_LOCATION_SERVICE = "DOCUMENT_LOCATION"
-AUDIT_DOCUMENT_LOCATION_OPERATION_SAVE = "SAVE"
-AUDIT_DOCUMENT_LOCATION_OPERATION_UPDATE = "UPDATE"
-AUDIT_DICUMENT_LOCATION_OPERATION_DELETE_BY_ID = "DELETE_BY_ID"
-
-AUDIT_DOCUMENT_VERSION_SERVICE = "DOCUMENT_VERSION"
-AUDIT_DOCUMENT_VERSION_OPERATION_SAVE = "SAVE"
-AUDIT_DOCUMENT_VERSION_OPERATION_UPDATE = "UPDATE"
-AUDIT_DICUMENT_VERSION_OPERATION_DELETE_BY_ID = "DELETE_BY_ID"
-
-AUDIT_INVOICE_SERVICE = "INVOICE"
-AUDIT_INVOICE_OPERATION_SAVE = "SAVE"
-AUDIT_INVOICE_OPERATION_UPDATE = "UPDATE"
-AUDIT_INVOICE_OPERATION_DELETE_BY_ID = "DELETE_BY_ID"
-
-AUDIT_INVOICE_STATU_SERVICE = "INVOICE_STATUS"
-AUDIT_INVOICE_STATUS_OPERATION_SAVE = "SAVE"
-AUDIT_INVOICE_STATU_OPERATION_UPDATE = "UPDATE"
-AUDIT_INVOICE_STATU_OPERATION_DELETE_BY_ID = "DELETE_BY_ID"
-
-# DATA
-DATA_REMOVE = "isRemove"
-DATA_REMOVE_VALUE_DEFAULT = False
-DATA_COMMON_ERROR_CODE = "code"
-DATA_COMMON_ERROR_MSG = "message"
+# @json - Respuestas servicios del microservicio de digitalizacion
+# @Content - documento - Respuesta documento
+RESPONSE = {
+    "document":{
+        "get": {
+            "find_by_id":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['get']['find_by_id']['error']['default']['msg']%("del documento")
+                    }
+                }
+            },
+            "find_all": RESPONSE_GENERIC['get']['find_all'],
+            "find_by_range_date_all": RESPONSE_GENERIC['get']['find_by_range_date_all']
+        },  
+        "post":{
+            "save":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("el documento")
+                    }
+                }
+            }
+        }    
+    }
+}

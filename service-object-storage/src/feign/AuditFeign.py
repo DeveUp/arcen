@@ -1,5 +1,6 @@
 """
-    @description - Feign Audit - Comunicacion el microservicio auditoria servicio auditoria.
+    @name - AuditFeign
+    @description - Comunicacion con el microservicio auditoria servicio auditoria.
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -7,10 +8,10 @@
     @author-modification -  Sergio Stives Barrios Buitrago
 """
 from src.feign.Feign import Feign
-
+ 
 from src.model.dto.AuditDto import AuditDto
-
-from src.util.constant import FEIGN
+ 
+from src.util.constant import FEIGN 
 from src.util.common import find_env
 
 class AuditFeign:

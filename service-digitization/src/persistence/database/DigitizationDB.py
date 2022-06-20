@@ -1,38 +1,72 @@
+"""
+    @description - Conexion a la base de datos
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Sergio Stives Barrios Buitrago
+    @modification-date - 2022-06-18
+    @author-modification -  Sergio Stives Barrios Buitrago
+"""
 from pymongo import MongoClient
 
-from src.util.constant import DATABASE_MONGODB, DATABASE_MONGODB_TABLE, DATABASE_MONGODB_DB
-from src.util.common import get_http_exception
-from src.util.constant import  DATABASE_MONGODB_TABLE_INVOICE_STATUS, DATABASE_MONGODB_TABLE_DOCUMENT_LOCATION
-from src.util.constant import DATABASE_MONGODB_TABLE_INVOICE, DATABASE_MONGODB_TABLE_DOCUMENT_VERSION
-from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_PERSISTENCE_ERROR, RESPONSE_MSG_GENERIC_PERSISTENCE_ERROR
+from src.util.constant import DATABASE
+from src.util.constant import RESPONSE_GENERIC
+from src.util.common import get_exception_http, find_env
 
 class DigitizationDB: 
 
+    # @Method - Contructor 
+    # @Return - Void
     def __init__(self):
-        self.separator:str = "_"
+        self.connstring = find_env('MONGODB_CONNSTRING')
+        self.db = find_env('MONGODB_DB')
 
-    def get_db(self, db:str, table):
+    # @Method - Realiza conexion con la base de datos
+    # @Parameter - table - Representa la tabla
+    # @Parameter - connstring (Optional) - Representa la conexion base de datos
+    # @Parameter - db (Optional) - Representa la base de datos
+    # @Return - Table
+    def get_db(self, table:str, connstring:str=None, db:str=None):
+        if connstring == None:
+            connstring = self.connstring
+        if db == None:
+            db = self.db
         try:
-            client = MongoClient(db)  
-        except: 
+            client = MongoClient(connstring) 
+            database = client[db] 
+        except:
             client = None
+            database = None
         finally:
-            if client == None:
-                raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_PERSISTENCE_ERROR, RESPONSE_MSG_GENERIC_PERSISTENCE_ERROR)
-        database_audit = client[DATABASE_MONGODB_DB]
-        return database_audit[table]
+            if client == None or database == None:
+                raise get_exception_http(RESPONSE_GENERIC['system']['persistence']['error']['default'])     
+        return database[table]
 
+    # @Method - Realiza conexion con la base de datos y tabla documento
+    # @Parameter - table - Representa la tabla documento
+    # @Return - Table
     def get_db_document(self):
-        return self.get_db(DATABASE_MONGODB, DATABASE_MONGODB_TABLE)
+        return self.get_db(table=DATABASE['table']['document']['name'])
 
+    # @Method - Realiza conexion con la base de datos y tabla ubicacion documento
+    # @Parameter - table - Representa la tabla ubicacion documento
+    # @Return - Table
     def get_db_document_location(self):
-        return self.get_db(DATABASE_MONGODB, DATABASE_MONGODB_TABLE_DOCUMENT_LOCATION)
+        return self.get_db(table=DATABASE['table']['document_location']['name'])
     
+    # @Method - Realiza conexion con la base de datos y tabla version documento
+    # @Parameter - table - Representa la tabla version documento
+    # @Return - Table
     def get_db_document_version(self):
-        return self.get_db(DATABASE_MONGODB, DATABASE_MONGODB_TABLE_DOCUMENT_VERSION)
+        return self.get_db(table=DATABASE['table']['document_version']['name'])
 
+    # @Method - Realiza conexion con la base de datos y tabla folio
+    # @Parameter - table - Representa la tabla folio
+    # @Return - Table
     def get_db_invoice(self):
-        return self.get_db(DATABASE_MONGODB, DATABASE_MONGODB_TABLE_INVOICE)
+        return self.get_db(table=DATABASE['table']['invoice']['name'])
     
+    # @Method - Realiza conexion con la base de datos y tabla estado folio
+    # @Parameter - table - Representa la tabla folio
+    # @Return - Table
     def get_db_invoice_status(self):
-        return self.get_db(DATABASE_MONGODB, DATABASE_MONGODB_TABLE_INVOICE_STATUS)
+        return self.get_db(table=DATABASE['table']['invoice_status']['name'])

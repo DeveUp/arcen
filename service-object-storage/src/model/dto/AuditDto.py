@@ -1,16 +1,16 @@
 """
-    @description - Peticion folio
+    @name - AuditDto
+    @description - Dto auditoria
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
-    @modification-date - 2022-06-18
+    @modification-date - 2022-06-20
     @author-modification -  Sergio Stives Barrios Buitrago
 """
 from pydantic import BaseModel
 
-class InvoiceRequest(BaseModel):
-    name: str
-    index_number: int
-    id_invoice_statu: str
-    security_level: int
-    date:str
+class AuditDto(BaseModel):
+    service: str
+    operation: str
+    id_user: str
+    response: str

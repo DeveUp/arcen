@@ -1,5 +1,6 @@
 """
-    @description - Feign - Comunicacion con otros servicios o microservicios.
+    @name - Feign
+    @description - Comunicacion con otros servicios o microservicios.
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago

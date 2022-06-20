@@ -23,5 +23,7 @@ class FindByIdAuditRepository(IRepository):
     # @Return - Collection
     def execute(self, data:dict):
         id = ObjectId(data[self.data['column'][0]])
-        return self.collection.find_one({self.data['pk']:id})
+        return self.collection.find_one({
+            self.data['pk']:id
+        })
        
