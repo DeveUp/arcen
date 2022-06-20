@@ -57,8 +57,11 @@ FEIGN_TYPE_PUT = "PUT"
 FEIGN_TYPE_DELETE = "DELETE"
 
 FEIGN_ENDPOINT = "endpoint"
-FEIGN_ENDPOINT_AUDIT = "http://127.0.0.1:82/api/audit"
+FEIGN_ENDPOINT_AUDIT = "http://arcen-service-audit:8001/api/audit"
 FEIGN_ENDPOINT_AUDIT_SAVE = "/"
+
+FEIGN_ENDPOINT_FURNITURE = "http://arcen-service-furniture-storage:8004/api/furniture"
+FEIGN_ENDPOINT_FURNITURE_SAVE = "/"
 
 # RESPONSE STATUS
 RESPONSE_STATUS_CODE_GET = 200
@@ -95,6 +98,8 @@ RESPONSE_STATUS_CODE_AUDIT_ERROR_SAVE = 423
 # RESPONSE MSG
 RESPONSE_MSG_AUDIT_ERROR_SAVE = "Ups hemos tenido un problema interno! vuelva a intentar mas tarde."
 
+RESPONSE_MSG_FURNITURE_ERROR_SAVE = "No se encontro ningun mueble con el id suministrado."
+
 
 RESPONSE_MSG_GENERIC_DATE_ERROR_FORMAT = "Por favor verificar las fechas no son validas."
 
@@ -125,4 +130,4 @@ AUDIT_GENERIC_OPERATION_DELETE_BY_ID = "DELETE_BY_ID"
 DATA_REMOVE = "isRemove"
 DATA_REMOVE_VALUE_DEFAULT = False
 
-FURNITURE_SERVICE_HOST_URL = 'http://127.0.0.5:8004/api/furniture/'
+FURNITURE_SERVICE_HOST_URL = 'http://arcen-service-furniture-storage:8004/api/furniture/'
