@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from src.service.IService import IService
-#from src.feign.AuditFeign import AuditFeign
+from src.feign.AuditFeign import AuditFeign
 from src.persistence.repository.Box.SaveBoxRepository import SaveBoxRepository as SaveRepository
 from src.service.type_box.FindByIdTypeBoxService import FindByIdTypeBoxService as FindByEntity1
 from src.service.tray.FindByIdTrayService import FindByIdTrayService as FindByEntity2
@@ -19,7 +19,7 @@ class SaveBoxService(IService):
         self.repositoryTypeShelf = FindByEntity1(db);
         self.repositoryDependence = FindByEntity2(db);
         self.schema = BoxSchema()
-        #self.feign = AuditFeign()
+        self.feign = AuditFeign()
 
     def execute(self, data:dict):
         box = data.get("box")
@@ -33,11 +33,11 @@ class SaveBoxService(IService):
             raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTENT,RESPONSE_MSG_TRAY_FIND_BY_ID_NOT_CONTENT)
         try:
             element = self.repository.execute(data)
-            element = self.schema.entity(element)
+            element = self.schema.response(element)
         except:
             element= None
         finally:
-            #self.feign.save(self.feign.build(AUDIT_BOX_SERVICE, AUDIT_GENERIC_OPERATION_SAVE, get_response_audit(element)))
+            self.feign.save(self.feign.build(AUDIT_BOX_SERVICE, AUDIT_GENERIC_OPERATION_SAVE, get_response_audit(element)))
             if element == None:
                 raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE,RESPONSE_MSG_BOX_SAVE_ERROR_SAVE)
         return element

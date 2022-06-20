@@ -35,7 +35,7 @@ class UserSchema:
             email = object.email,
             status = object.status,
             date = object.date,
-            session_started = object.session_started, 
+            session_started = str(object.session_started), 
         )
 
     def dict(self, object, create= None) -> dict:

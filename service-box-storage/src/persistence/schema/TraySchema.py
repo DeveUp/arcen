@@ -26,12 +26,12 @@ class TraySchema:
         if object == None: 
             return object
         return TrayResponse(
-            COLUMN_TRAY_ID = object.id,
-            COLUMN_TRAY_ID_SHELF = object.id_shelf,
-            COLUMN_TRAY_DEPTH = object.depth,
-            COLUMN_TRAY_HEIGHT = object.height,
-            COLUMN_TRAY_WIDTH = object.width,
-            COLUMN_BOX_CREATION_DATE = object.date
+            id = object.id,
+            id_shelf = object.id_shelf,
+            depth = object.depth,
+            height = object.height,
+            width = object.width,
+            date = str(object.date)
         )
 
     def dict(self, object, create= None) -> dict:

@@ -26,12 +26,12 @@ class TypeBoxSchema:
         if object == None: 
             return object
         return TypeBoxResponse(
-            COLUMN_TYPE_BOX_ID = object.id,
-            COLUMN_TYPE_BOX_NUMBER_TYPE_BOXF = object.number_type_box,
-            COLUMN_TYPE_BOX_DEPTH = object.depth,
-            COLUMN_TYPE_BOX_HEIGHT = object.height,
-            COLUMN_TYPE_BOX_WIDTH = object.width,
-            COLUMN_BOX_CREATION_DATE = object.date
+            id = object.id,
+            number_type_box = object.number_type_box,
+            depth = object.depth,
+            height = object.height,
+            width = object.width,
+            date = object.date
         )
 
     def dict(self, object, create= None) -> dict:
