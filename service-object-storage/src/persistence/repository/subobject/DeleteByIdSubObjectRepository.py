@@ -1,6 +1,6 @@
 """
-    @name - SaveObjectRepository
-    @description - Repositorio para registrar un objeto
+    @name - DeleteByIdSubObjectRepository
+    @description - Repositorio para eliminar un subobjeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -9,13 +9,11 @@
 """
 from sqlalchemy.orm import Session
 
-from src.model.entity.Object import Object
-
 from src.persistence.repository.IRepository import IRepository
 
 from src.util.constant import DATABASE
 
-class SaveObjectRepository(IRepository):
+class DeleteByIdSubObjectRepository(IRepository):
 
     # @method - Constructor 
     # @return - Void
@@ -23,12 +21,11 @@ class SaveObjectRepository(IRepository):
         self.db = db
 
     # @override
-    # @method - Registra un objeto
-    # @parameter - data - Json con el objeto a registrar
-    # @return - Object
+    # @method - Elimina un subobjeto por su pk
+    # @parameter - data - Json con el pk del objeto
+    # @return - Boolean
     def execute(self, data:dict):
-        element = Object(**dict(data[DATABASE['table']['object']['name']]))
-        self.db.add(element)
+        element = data[DATABASE['table']['subobject']['name']]
+        self.db.delete(element)
         self.db.commit()
-        self.db.refresh(element)
-        return element
+        return True

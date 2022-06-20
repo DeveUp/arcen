@@ -1,6 +1,6 @@
 """
     @name - SubObjectTable
-    @description - Conexion a la tabla subobjecto
+    @description - Conexion a la tabla subobjeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -19,7 +19,7 @@ class SubObjectTable(ITable):
         Base.metadata.create_all(bind=engine)
 
     # @override
-    # @method - Realiza la conexion con la tabla subobjecto
+    # @method - Realiza la conexion con la tabla subobjeto
     # @return - SubObjectTable
     def execute(self):
         try:

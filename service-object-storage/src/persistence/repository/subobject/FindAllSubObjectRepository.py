@@ -1,6 +1,6 @@
 """
-    @name - FindAllObjectRepository
-    @description - Repositorio para consultar todos los objetos
+    @name - FindAllSubObjectRepository
+    @description - Repositorio para consultar todos los subobjetos
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -9,11 +9,11 @@
 """
 from sqlalchemy.orm import Session
 
-from src.model.entity.Object import Object
+from src.model.entity.SubObject import SubObject
 
 from src.persistence.repository.IRepository import IRepository
 
-class FindAllObjectRepository(IRepository):
+class FindAllSubObjectRepository(IRepository):
 
     # @method - Constructor 
     # @return - Void
@@ -21,8 +21,8 @@ class FindAllObjectRepository(IRepository):
         self.db = db
 
     # @override
-    # @method - Todos los objetos
+    # @method - Todos los subobjetos
     # @parameter - data - No aplica
     # @return - list
     def execute(self, data:dict):
-        return self.db.query(Object).all()
+        return self.db.query(SubObject).all()

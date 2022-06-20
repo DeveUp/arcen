@@ -1,6 +1,6 @@
 """
     @name - FindByIdObjectRepository
-    @description - Repositorio para consultar un objecto por su pk
+    @description - Repositorio para consultar un objeto por su pk
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -23,8 +23,8 @@ class FindByIdObjectRepository(IRepository):
         self.db = db
 
     # @override
-    # @method - Consulta un objecto por su pk
-    # @parameter - data - Json con el pk del objecto
+    # @method - Consulta un objeto por su pk
+    # @parameter - data - Json con el pk del objeto
     # @return - Any
     def execute(self, data:dict):
         id = int(data[DATABASE['table']['object']['pk']])

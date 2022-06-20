@@ -1,6 +1,6 @@
 """
     @name - FindAllObjectService
-    @description - Servicio para consultar todos los objectos
+    @description - Servicio para consultar todos los objetos
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -23,7 +23,7 @@ class FindAllObjectService(IService):
         self.schema:ObjectSchema = ObjectSchema()
 
     # @override
-    # @method - Consulta todos los objectos
+    # @method - Consulta todos los objetos
     # @parameter - data - No aplica
     # @return - list
     def execute(self, data:dict):
