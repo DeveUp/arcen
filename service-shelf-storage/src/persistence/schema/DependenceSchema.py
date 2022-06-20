@@ -25,9 +25,9 @@ class DependenceSchema:
         if object == None: 
             return object
         return DependenceResponse(
-            COLUMN_DEPENDENCE_ID = object.id,
-            COLUMN_DEPENDENCE_NAME = object.name,
-            COLUMN_DEPENDENCE_CODE = object.code
+            id = object.id,
+            name = object.name,
+            code = object.code
         )
 
     def dict(self, object, create= None) -> dict:

@@ -168,7 +168,7 @@ services:
       - arcen-service-audit
     restart: always
     ports: 
-      - "8007:8007"
+      - "8008:8008"
     networks:
       nginx_net:
         aliases: 

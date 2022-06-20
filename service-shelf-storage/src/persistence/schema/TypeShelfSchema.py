@@ -28,12 +28,12 @@ class TypeShelfSchema:
         if object == None: 
             return object
         return TypeShelfResponse(
-            COLUMN_TYPE_SHELF_ID = object.id,
-            COLUMN_TYPE_SHELF_NUMBER_TYPE_SHELF = object.number_type_shelf,
-            COLUMN_TYPE_SHELF_DEPTH = object.depth,
-            COLUMN_TYPE_SHELF_HEIGHT = object.height,
-            COLUMN_TYPE_SHELF_WIDTH = object.width,
-            COLUMN_TYPE_SHELF_CREATION_DATE = object.date
+            id = object.id,
+            number_type_shelf = object.number_type_shelf,
+            depth = object.depth,
+            height = object.height,
+            width = object.width,
+            date = str(object.date)
         )
 
     def dict(self, object, create= None) -> dict:

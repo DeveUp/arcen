@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-#from src.feign.AuditFeign import AuditFeign
+from src.feign.AuditFeign import AuditFeign
 from src.service.IService import IService
 from src.persistence.repository.Box.UpdateBoxRepository import UpdateBoxRepository
 from src.service.type_box.FindByIdTypeBoxService import FindByIdTypeBoxService as FindByEntity1
@@ -17,7 +17,7 @@ class UpdateBoxService(IService):
         self.repositoryTypeBox = FindByEntity1(db);
         self.repositoryTray = FindByEntity2(db);
         self.schema = BoxSchema()
-        #self.feing = AuditFeign()
+        self.feing = AuditFeign()
 
     def execute(self, data:dict):
         box = data.get("box")
@@ -35,7 +35,7 @@ class UpdateBoxService(IService):
         except:
             element= None
         finally:
-            #self.feing.save(self.feing.build(AUDIT_BOX_SERVICE,AUDIT_GENERIC_OPERATION_UPDATE,get_response_audit(data)))
+            self.feing.save(self.feing.build(AUDIT_BOX_SERVICE,AUDIT_GENERIC_OPERATION_UPDATE,get_response_audit(data)))
             if element==None:
                 raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTENT,RESPONSE_MSG_BOX_FIND_BY_ID_NOT_CONTENT)
         return element

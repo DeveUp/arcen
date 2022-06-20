@@ -25,7 +25,7 @@ class RoleSchema:
         return RoleResponse(
             id = object.id, 
             name = object.name, 
-            date = object.date,
+            date = str(object.date),
         )
 
     def dict(self, object, create= None) -> dict:
