@@ -104,7 +104,7 @@ services:
       - arcen-service-audit
     restart: always
     ports: 
-      - "8003:8183"
+      - "8003:8003"
     networks:
       nginx_net:
         aliases: 
@@ -146,13 +146,13 @@ services:
       - arcen-service-audit
     restart: always
     ports: 
-      - "8006:8186"
+      - "8005:8005"
     networks:
       nginx_net:
         aliases: 
-          - arcen-service-object-storage-host
+          - arcen-service-object-storage-host   
   
-      # OBJECT SHELF
+  # SHELF STORAGE
   arcen-service-shelf-storage:
     build: ./service-shelf-storage
     container_name: arcen-service-shelf-storage
@@ -189,7 +189,7 @@ services:
       - arcen-service-audit
     restart: always
     ports: 
-      - "8009:8189"
+      - "8009:8009"
     networks:
       nginx_net:
         aliases: 
