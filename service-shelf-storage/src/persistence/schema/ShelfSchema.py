@@ -26,12 +26,12 @@ class ShelfSchema:
         if object == None: 
             return object
         return ShelfResponse(
-            COLUMN_SHELF_ID = object.id,
-            COLUMN_SHELF_ID_DEPENDENCE = object.id_dependence,
-            COLUMN_SHELF_ID_TYPE_SHELF = object.id_type_shelf,
-            COLUMN_SHELF_ID_FURNITURE = object.id_furniture,
-            COLUMN_SHELF_NUMBER_SHELF = object.number_shelf,
-            COLUMN_SHELF_CREATION_DATE = object.date
+            id = object.id,
+            id_dependence = object.id_dependence,
+            id_type_shelf = object.id_type_shelf,
+            id_furniture = object.id_furniture,
+            number_shelf = object.number_shelf,
+            date =str( object.date)
         )
 
     def dict(self, object, create= None) -> dict:
