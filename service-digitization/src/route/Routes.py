@@ -11,7 +11,7 @@ from fastapi import FastAPI
 # ROUTES DOCUMENT
 from src.route.document.FindAllDocumentRouter import router_find_all_document
 # from src.route.document.FindByIdDocumentRouter import router_find_by_id_document
-# from src.route.document.SaveDocumentRouter import router_save_document
+from src.route.document.SaveDocumentRouter import router_save_document
 
 # ROUTES DOCUMENT LOCATION
 # from src.route.document_location.FindAllDocumentLocationRouter import router_find_all_document_location
@@ -45,7 +45,7 @@ routes = FastAPI()
 """
 routes.include_router(router_find_all_document)
 # routes.include_router(router_find_by_id_document)
-# routes.include_router(router_save_document)
+routes.include_router(router_save_document)
 
 """
     @description - Puntos de entradas servicio ubicacion del documento
