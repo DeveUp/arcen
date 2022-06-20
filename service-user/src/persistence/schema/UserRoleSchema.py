@@ -31,8 +31,8 @@ class UserRoleSchema:
             id_role = object.id_role,
             id_user = object.id_user,
             id_dependence = object.id_dependence,
-            date_creation = object.date_creation,
-            date_end = object.date_end,
+            date_creation = str(object.date_creation),
+            date_end = str(object.date_end),
             status = object.status, 
         )
 
