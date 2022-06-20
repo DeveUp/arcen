@@ -61,7 +61,7 @@ services:
       - arcen-mongodb
     restart: always
     ports: 
-      - "8001:8181"
+      - "8001:8001"
     networks:
       nginx_net:
         aliases: 
@@ -124,7 +124,7 @@ services:
       - arcen-service-audit
     restart: always
     ports: 
-      - "8004:8184"
+      - "8004:8004"
     networks:
       nginx_net:
         aliases: 

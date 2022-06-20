@@ -1,5 +1,5 @@
 import os
-import request
+import requests
 
 from src.util.common import get_http_exception
 from src.util.constant import FEIGN_ENDPOINT
@@ -28,7 +28,7 @@ class Feign:
         code_success = RESPONSE_STATUS_CODE_GET
         if type == FEIGN_TYPE_GET:
             code_success = RESPONSE_STATUS_CODE_GET
-            response = requests.get(endpoint, json= data)
+            response = requests.get(endpoint+str(data))
         if type == FEIGN_TYPE_POST:
             code_success = RESPONSE_STATUS_CODE_POST
             response = requests.post(endpoint, json= data)        
