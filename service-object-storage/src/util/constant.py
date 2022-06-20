@@ -8,6 +8,55 @@
     @author-modification -  Sergio Stives Barrios Buitrago
 """
 
+# @JSON - Utilidades
+# @Content - format - Representa formatos a utilizar
+UTIL = {
+    "format":{
+        "response": [
+            "code",
+            "msg",
+            "operation"
+        ]
+    }
+}
+
+# @json - Puntos de entradas a los servicios (Objecto)
+# @content - path - Entrada principal
+# @content - service.object - Entrada objecto
+# @content - service.subobject - Entrada subobjecto
+# @content - service.type_object - Entrada tipo objecto
+ENDPOINT = {
+    "path": "/api",
+    "service": {
+        "object": {
+           "path": "/object",
+        },
+        "subobject": {
+            "path": "/subobject"
+        },
+        "type_object": {
+           "path": "/type-object" 
+        }
+    },
+    "operation":{
+        "get":{
+            "find_by_id": "/{id}",
+            "find_by_name": "/find-by-name/{name}",
+            "find_all": "/",
+            "find_by_range_date_all":  "/all/find/range/date/{start}/{end}"
+        },
+        "post":{
+            "save": "/"
+        },
+        "put":{
+            "update": "/{id}"
+        },
+        "delete":{
+            "delete_by_id": "/{id}"
+        }
+    }
+}
+
 # @json - Base de datos del microservicio objecto
 # @content - table.object - Tabla objecto
 # @content - table.subobject - Tabla subobjecto
@@ -16,7 +65,7 @@ DATABASE= {
     "table":{
         "object":{
             "name": "object",
-            "pk": "_id",
+            "pk": "id",
             "column": [
                 "id",
                 "id_type_object",
@@ -26,7 +75,7 @@ DATABASE= {
         },
         "subobject":{
             "name": "object-subobject",
-            "pk": "_id",
+            "pk": "id",
             "column": [
                 "id",
                 "number",
@@ -36,7 +85,7 @@ DATABASE= {
         },
         "type_object":{
             "name": "type-object",
-            "pk": "_id",
+            "pk": "id",
             "column": [
                 "id",
                 "name",
@@ -150,6 +199,40 @@ RESPONSE_GENERIC = {
             }
         }
     },
+    "put":{
+        "update": {
+            "success": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['success']['update']
+                }
+            },
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['update'],
+                    "msg": "Ouch! No pudismos actualizar %s. Vuelva a intentar mas tarde!"
+                }
+            }
+        }
+    },
+    "delete":{
+        "delete_by_id": {
+            "success": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['success']['delete']
+                }
+            },
+            "error": {
+                "default": {
+                    "code": RESPONSE_GENERIC_CODE['error']['delete'],
+                    "msg": "Ouch! No pudismos eliminar %s. Vuelva a intentar mas tarde!"
+                },
+                "dependence": {
+                    "code": RESPONSE_GENERIC_CODE['error']['delete'],
+                    "msg": "Ouch! No pudismos eliminar %s. Tiene dependencia %s."
+                }
+            }
+        }
+    },
     "system": {
         "persistence": {
             "error": {
@@ -211,6 +294,26 @@ FEIGN = {
             }
         }
     },
+    "type":{
+        "generic": {
+            "get": {
+                "find_by_id": "FIND_BY_ID"
+            },
+            "post":{
+                "save": "SAVE",
+            },
+            "put": {
+                "update": "UPDATE"
+            },
+            "delete":{
+                "delete_by_id": "DELETE_BY_ID"
+            }
+            
+        },
+        "service": {
+            "object":  "OBJECT"
+        }
+    },
     "microservice": {
         "audit": {
             "service": {
@@ -226,6 +329,74 @@ FEIGN = {
                 }
             }  
         }
+    }
+}
+
+# @json - Respuestas servicios del microservicio de objecto
+# @Content - object - Respuesta objecto
+RESPONSE = {
+    "object":{
+        "get": {
+            "find_by_id":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['get']['find_by_id']['error']['default']['msg']%("del objecto")
+                    }
+                }
+            },
+            "find_all": RESPONSE_GENERIC['get']['find_all']
+        },  
+        "post":{
+            "save":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("el objecto")
+                    }
+                }
+            }
+        },
+        "put":{
+            "update":{
+                 "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['put']['update']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['put']['update']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['put']['update']['error']['default']['msg']%("el objecto")
+                    }
+                }
+            }
+        },
+        "delete":{
+            "delete_by_id":{
+                 "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['delete']['delete_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['msg']%("el objecto", "")
+                    }
+                }
+            }
+        }   
     }
 }
 

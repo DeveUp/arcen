@@ -1,16 +1,40 @@
+"""
+    @name - SaveObjectRouter
+    @description - Punto de entrada servicio objecto operacion registrar un objecto
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Sergio Stives Barrios Buitrago
+    @modification-date - 2022-06-20
+    @author-modification -  Sergio Stives Barrios Buitrago
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from src.model.dto.ObjectDto import ObjectDto as DtoArcen
+from src.model.entity.Object import Object as EntityArcen
+
 from src.service.object.SaveObjectService import SaveObjectService as ServiceArcen
 from src.persistence.database.table.ObjectTable import ObjectTable as TableArcen
-from src.util.constant import COLUMN_OBJECT, ENDPOINT_APP, ENDPOINT_APP_OBJECT, ENDPOINT_GENERIC_SAVE
+
+from src.util.constant import ENDPOINT
+from src.util.constant import RESPONSE
+from src.util.constant import DATABASE
 
 router_save_object = APIRouter()
 table = TableArcen()
 
-@router_save_object.post(ENDPOINT_APP+ENDPOINT_APP_OBJECT+ENDPOINT_GENERIC_SAVE)
+endpoint = ENDPOINT['path']+ENDPOINT['service']['object']['path']+ENDPOINT['operation']['post']['save']
+status = RESPONSE['object']['post']['save']['success']['default']['code']
+response = EntityArcen
+info_data = DATABASE['table']['object']['name']
+
+# @Rest - Registra un objecto
+# @Parameter - endpoint - Representa el punto de entrada
+# @Parameter - response_model (Optional) - Representa el objecto de respuesta
+# @Parameter - status_code (Optional) - Representa el codigo de respuesta
+# @Return - Response<Object>
+@router_save_object.post(endpoint, response_model = response, status_code= status)
 async def save(block: DtoArcen, db: Session = Depends(table.execute)):
-    data = dict({COLUMN_OBJECT: block})
+    data = dict({info_data: block})
     service = ServiceArcen(db)
     return service.execute(data)
