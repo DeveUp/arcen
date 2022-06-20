@@ -1,6 +1,6 @@
 """
     @name - DeleteByIdObjectRepository
-    @description - Repositorio para eliminar un objecto
+    @description - Repositorio para eliminar un objeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago

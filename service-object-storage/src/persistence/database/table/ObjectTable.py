@@ -1,6 +1,6 @@
 """
     @name - ObjectTable
-    @description - Conexion a la tabla objecto
+    @description - Conexion a la tabla objeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -19,7 +19,7 @@ class ObjectTable(ITable):
         Base.metadata.create_all(bind=engine)
 
     # @override
-    # @method - Realiza la conexion con la tabla objecto
+    # @method - Realiza la conexion con la tabla objeto
     # @return - ObjectTable
     def execute(self):
         try:

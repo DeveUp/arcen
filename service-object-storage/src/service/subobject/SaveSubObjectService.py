@@ -1,6 +1,6 @@
 """
-    @name - SaveObjectService
-    @description - Servicio para registrar un objeto
+    @name - SaveSubObjectService
+    @description - Servicio para registrar un subobjeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -14,30 +14,30 @@ from src.service.IService import IService
 
 from src.feign.AuditFeign import AuditFeign
 
-from src.persistence.repository.object.SaveObjectRepository import SaveObjectRepository
-from src.persistence.schema.ObjectSchema import ObjectSchema
+from src.persistence.repository.subobject.SaveSubObjectRepository import SaveSubObjectRepository
+from src.persistence.schema.SubObjectSchema import SubObjectSchema
 
 from src.util.constant import RESPONSE
 from src.util.constant import FEIGN
 from src.util.common_feign import feign_audit_save, feign_audit_save_error, feign_audit_build_error
 
-class SaveObjectService(IService):
+class SaveSubObjectService(IService):
 
     # @method - Constructor 
     # @return - Void
     def __init__(self, db: Session):
-        self.repository = SaveObjectRepository(db)
-        self.schema:ObjectSchema = ObjectSchema()
+        self.repository = SaveSubObjectRepository(db)
+        self.schema:SubObjectSchema = SubObjectSchema()
         # Comunicacion con el servicio auditoria
         self.feign_audit = AuditFeign("FEIGN_ARCEN")
         # Servicio y operacion actual
-        self.current_service = FEIGN['type']['service']['object']
+        self.current_service = FEIGN['type']['service']['subobject']
         self.current_operation = FEIGN['type']['generic']['post']['save']
 
     # @override
-    # @method - Registra un objeto
-    # @parameter - data - Json con el objeto a registrar
-    # @return - Object
+    # @method - Registra un subobjeto
+    # @parameter - data - Json con el subobjeto a registrar
+    # @return - SubObject
     def execute(self, data:dict):
         try:
             element = self.repository.execute(data)
@@ -54,7 +54,7 @@ class SaveObjectService(IService):
                 self.feign_audit,
                 self.current_service,
                 self.current_operation,
-                RESPONSE['object']['post']['save']['error']['default']
+                RESPONSE['subobject']['post']['save']['error']['default']
             )
         feign_audit_save(
             self.feign_audit,

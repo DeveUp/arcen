@@ -1,6 +1,6 @@
 """
-    @name - UpdateObjectRepository
-    @description - Repositorio para actualizar un objeto por su pk
+    @name - UpdateSubObjectRepository
+    @description - Repositorio para actualizar un subobjeto por su pk
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -9,13 +9,13 @@
 """
 from sqlalchemy.orm import Session
 
-from src.model.entity.Object import Object
+from src.model.entity.SubObject import SubObject
 
 from src.persistence.repository.IRepository import IRepository
 
 from src.util.constant import DATABASE
 
-class UpdateObjectRepository(IRepository):
+class UpdateSubObjectRepository(IRepository):
 
     # @method - Constructor 
     # @return - Void
@@ -23,13 +23,13 @@ class UpdateObjectRepository(IRepository):
         self.db = db
 
     # @override
-    # @method - Actualiza un objeto por su pk
-    # @parameter - data - Json con el pk del objeto y el objeto a actualizar
-    # @return - Object
+    # @method - Actualiza un subobjeto por su pk
+    # @parameter - data - Json con el pk del subobjeto y el subobjeto a actualizar
+    # @return - SubObject
     def execute(self, data:dict):
-        id = data[DATABASE['table']['object']['pk']]
-        element = data[DATABASE['table']['object']['name']]
-        element = self.diff(element, self.db.query(Object).get(id))
+        id = data[DATABASE['table']['subobject']['pk']]
+        element = data[DATABASE['table']['subobject']['name']]
+        element = self.diff(element, self.db.query(SubObject).get(id))
         self.db.commit()
         self.db.refresh(element)
         return element
@@ -38,7 +38,7 @@ class UpdateObjectRepository(IRepository):
     # @parameter - element_new - Json con el objecto nuevo
     # @parameter - element - Json con la informacion bd
     # @return - Object
-    def diff(self, element_new, element:Object):
-        element.id_sub_object = element_new.id_sub_object
-        element.id_type_object = element_new.id_type_object
+    def diff(self, element_new, element:SubObject):
+        element.number = element_new.number
+        element.box = element_new.box
         return element

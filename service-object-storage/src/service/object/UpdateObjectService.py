@@ -1,6 +1,6 @@
 """
     @name - UpdateObjectService
-    @description - Servicio para actualizar un objecto por su pk
+    @description - Servicio para actualizar un objeto por su pk
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -21,7 +21,6 @@ from src.util.constant import RESPONSE
 from src.util.constant import FEIGN
 from src.util.common_feign import feign_audit_save, feign_audit_save_error, feign_audit_build_error
 
-
 class UpdateObjectService(IService):
 
     # @method - Constructor 
@@ -36,8 +35,8 @@ class UpdateObjectService(IService):
         self.current_operation = FEIGN['type']['generic']['put']['update']
 
     # @override
-    # @method - Actualizar un objecto por su pk
-    # @parameter - data - Json con el objecto a registrar
+    # @method - Actualizar un objeto por su pk
+    # @parameter - data - Json con el objeto a actualizar
     # @return - Object
     def execute(self, data:dict):
         try:
