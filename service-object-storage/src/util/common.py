@@ -36,6 +36,28 @@ def get_validate_field(data:str, key:str, default = None):
     return field
 
 ##########################################################
+# CONVERT
+##########################################################
+
+# @method - Convierte un string a string buffer
+# @parameter - data - Representa el string
+# @return - String Buffer
+def convert_json(data)-> str:
+    if data == None:
+        return "None"
+    element = data
+    if type(data) != 'dict':
+        element = dict(data)
+    try:
+        data = json.dumps(element)
+    except:
+        data = str(element)
+    finally:
+        if data == None:
+            data = "None"
+    return data
+    
+##########################################################
 # EXCEPTION 
 ##########################################################
 
