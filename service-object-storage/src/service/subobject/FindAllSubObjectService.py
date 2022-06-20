@@ -1,6 +1,6 @@
 """
-    @name - FindAllTypeObjectService
-    @description - Servicio para consultar todos los tipos de objetos
+    @name - FindAllSubObjectService
+    @description - Servicio para consultar todos los subobjetos
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -11,19 +11,19 @@ from sqlalchemy.orm import Session
 
 from src.service.IService import IService
 
-from src.persistence.repository.type_object.FindAllTypeObjectRepository import FindAllTypeObjectRepository
-from src.persistence.schema.TypeObjectSchema import TypeObjectSchema
+from src.persistence.repository.subobject.FindAllSubObjectRepository import FindAllSubObjectRepository
+from src.persistence.schema.SubObjectSchema import SubObjectSchema
 
-class FindAllTypeObjectService(IService):
+class FindAllSubObjectService(IService):
 
     # @method - Constructor 
     # @return - Void
     def __init__(self, db:Session):
-        self.repository = FindAllTypeObjectRepository(db)
-        self.schema:TypeObjectSchema = TypeObjectSchema()
+        self.repository = FindAllSubObjectRepository(db)
+        self.schema:SubObjectSchema = SubObjectSchema()
 
     # @override
-    # @method - Consulta todos los tipos de objetos
+    # @method - Consulta todos los subobjetos
     # @parameter - data - No aplica
     # @return - list
     def execute(self, data:dict):

@@ -1,6 +1,6 @@
 """
     @name - DeleteByIdObjectService
-    @description - Servicio para eliminar un objecto
+    @description - Servicio para eliminar un objeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -38,8 +38,8 @@ class DeleteByIdObjectService(IService):
         self.current_operation = FEIGN['type']['generic']['delete']['delete_by_id']
 
     # @override
-    # @method - Elimina un objecto por su pk
-    # @parameter - data - Json con el pk del objecto a eliminar
+    # @method - Elimina un objeto por su pk
+    # @parameter - data - Json con el pk del objeto a eliminar
     # @return - Void
     def execute(self, data:dict): 
         object = self.find_by_id_object(data)
@@ -75,8 +75,8 @@ class DeleteByIdObjectService(IService):
         )
         return element
     
-    # @method - Consulta un objecto por su pk
-    # @parameter - data - Json con el pk del objecto
+    # @method - Consulta un objeto por su pk
+    # @parameter - data - Json con el pk del objeto
     # @return - Object
     def find_by_id_object(self, data): 
         try:

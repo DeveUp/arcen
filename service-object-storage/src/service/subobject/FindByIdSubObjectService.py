@@ -1,6 +1,6 @@
 """
-    @name - FindByIdObjectService
-    @description - Servicio para consultar un objeto por su pk
+    @name - FindByIdSubObjectService
+    @description - Servicio para consultar un subobjeto por su pk
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -11,24 +11,24 @@ from sqlalchemy.orm import Session
 
 from src.service.IService import IService
 
-from src.persistence.repository.object.FindByIdObjectRepository import FindByIdObjectRepository
-from src.persistence.schema.ObjectSchema import ObjectSchema
+from src.persistence.repository.subobject.FindByIdSubObjectRepository import FindByIdSubObjectRepository
+from src.persistence.schema.SubObjectSchema import SubObjectSchema
 
 from src.util.constant import RESPONSE
 from src.util.common import get_exception_http
 
-class FindByIdObjectService(IService):
+class FindByIdSubObjectService(IService):
 
     # @method - Constructor 
     # @return - Void
     def __init__(self, db: Session):
-        self.repository = FindByIdObjectRepository(db)
-        self.schema:ObjectSchema = ObjectSchema()
+        self.repository = FindByIdSubObjectRepository(db)
+        self.schema:SubObjectSchema = SubObjectSchema()
 
     # @override
-    # @method - Consulta un objeto por su pk
+    # @method - Consulta un subobjeto por su pk
     # @parameter - data - No aplica
-    # @return - Object
+    # @return - SubObject
     def execute(self, data:dict): 
         try:
             element = self.repository.execute(data)
@@ -37,5 +37,5 @@ class FindByIdObjectService(IService):
             element= None
         finally:
             if element == None:
-                raise get_exception_http(RESPONSE['object']['get']['find_by_id']['error']['default'])
+                raise get_exception_http(RESPONSE['subobject']['get']['find_by_id']['error']['default'])
         return element

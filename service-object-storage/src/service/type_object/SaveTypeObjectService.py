@@ -1,6 +1,6 @@
 """
     @name - SaveTypeObjectService
-    @description - Servicio para registrar un tipo de objecto
+    @description - Servicio para registrar un tipo de objeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -36,8 +36,8 @@ class SaveTypeObjectService(IService):
         self.current_operation = FEIGN['type']['generic']['post']['save']
 
     # @override
-    # @method - Registra un tipo de objecto
-    # @parameter - data - Json con el tipo de objecto a registrar
+    # @method - Registra un tipo de objeto
+    # @parameter - data - Json con el tipo de objeto a registrar
     # @return - TypeObject
     def execute(self, data:dict):
         try:

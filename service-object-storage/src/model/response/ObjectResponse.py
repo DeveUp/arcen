@@ -1,6 +1,6 @@
 """
     @name - ObjectResponse
-    @description - Respuesta objecto
+    @description - Respuesta objeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago

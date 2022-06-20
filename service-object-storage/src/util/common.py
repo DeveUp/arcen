@@ -1,6 +1,6 @@
 """
     @name - common
-    @description - Funciones comunes del microservicio objecto
+    @description - Funciones comunes del microservicio objeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -19,7 +19,7 @@ from src.util.constant import RESPONSE_GENERIC
 # VALIDATOR
 ##########################################################
 
-# @method - Valida que un objecto tenga una clave
+# @method - Valida que un objeto tenga una clave
 # @parameter - data - Representa el objeto
 # @parameter - key - Representa la clave
 # @parameter - default - Representa el valor por defecto si no existe la clave

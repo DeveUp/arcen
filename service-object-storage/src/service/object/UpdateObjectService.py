@@ -1,6 +1,6 @@
 """
     @name - UpdateObjectService
-    @description - Servicio para actualizar un objecto por su pk
+    @description - Servicio para actualizar un objeto por su pk
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -35,8 +35,8 @@ class UpdateObjectService(IService):
         self.current_operation = FEIGN['type']['generic']['put']['update']
 
     # @override
-    # @method - Actualizar un objecto por su pk
-    # @parameter - data - Json con el objecto a actualizar
+    # @method - Actualizar un objeto por su pk
+    # @parameter - data - Json con el objeto a actualizar
     # @return - Object
     def execute(self, data:dict):
         try:

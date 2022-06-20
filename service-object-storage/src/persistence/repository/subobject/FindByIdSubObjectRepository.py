@@ -1,6 +1,6 @@
 """
-    @name - FindByIdObjectRepository
-    @description - Repositorio para consultar un objeto por su pk
+    @name - FindByIdSubObjectRepository
+    @description - Repositorio para consultar un subobjeto por su pk
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -9,13 +9,13 @@
 """
 from sqlalchemy.orm import Session
 
-from src.model.entity.Object import Object
+from src.model.entity.SubObject import SubObject
 
 from src.persistence.repository.IRepository import IRepository
 
 from src.util.constant import DATABASE
 
-class FindByIdObjectRepository(IRepository):
+class FindByIdSubObjectRepository(IRepository):
 
     # @method - Constructor 
     # @return - Void
@@ -23,10 +23,10 @@ class FindByIdObjectRepository(IRepository):
         self.db = db
 
     # @override
-    # @method - Consulta un objeto por su pk
-    # @parameter - data - Json con el pk del objeto
+    # @method - Consulta un subobjeto por su pk
+    # @parameter - data - Json con el pk del subobjeto
     # @return - Any
     def execute(self, data:dict):
-        id = int(data[DATABASE['table']['object']['pk']])
-        return self.db.query(Object).filter(Object.id == id).first()
+        id = int(data[DATABASE['table']['subobject']['pk']])
+        return self.db.query(SubObject).filter(SubObject.id == id).first()
        

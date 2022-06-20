@@ -1,6 +1,6 @@
 """
     @name - UpdateTypeObjectRouter
-    @description - Punto de entrada servicio tipo de objecto operacion actualizar un tipo de objecto por su pk
+    @description - Punto de entrada servicio tipo de objeto operacion actualizar un tipo de objeto por su pk
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -29,9 +29,9 @@ response = ResponseArcen
 info_data = DATABASE['table']['type_object']['name']
 info_data_pk = DATABASE['table']['type_object']['pk']
 
-# @Rest - Actualiza un tipo de objecto por su pk
+# @Rest - Actualiza un tipo de objeto por su pk
 # @Parameter - endpoint - Representa el punto de entrada
-# @Parameter - response_model (Optional) - Representa el objecto de respuesta
+# @Parameter - response_model (Optional) - Representa el objeto de respuesta
 # @Parameter - status_code (Optional) - Representa el codigo de respuesta
 # @Return - Response<TypeObject>
 @router_update_type_object.put(endpoint, response_model=response,status_code= status)

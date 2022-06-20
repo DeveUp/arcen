@@ -1,6 +1,6 @@
 """
     @name - TypeObjectDto
-    @description - Dto tipo objecto - Peticion
+    @description - Dto tipo objeto - Peticion
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago

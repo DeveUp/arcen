@@ -1,6 +1,6 @@
 """
     @name - FindByIdTypeObjectService
-    @description - Servicio para consultar un tipo de objecto por su pk
+    @description - Servicio para consultar un tipo de objeto por su pk
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -26,7 +26,7 @@ class FindByIdTypeObjectService(IService):
         self.schema:TypeObjectSchema = TypeObjectSchema()
 
     # @override
-    # @method - Consulta un tipo de objecto por su pk
+    # @method - Consulta un tipo de objeto por su pk
     # @parameter - data - No aplica
     # @return - Object
     def execute(self, data:dict): 

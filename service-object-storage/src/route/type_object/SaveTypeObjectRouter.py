@@ -1,6 +1,6 @@
 """
     @name - SaveTypeObjectRouter
-    @description - Punto de entrada servicio tipo de objecto operacion registrar un tipo de objecto
+    @description - Punto de entrada servicio tipo de objeto operacion registrar un tipo de objeto
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -28,9 +28,9 @@ status = RESPONSE['type_object']['post']['save']['success']['default']['code']
 response = ResponseArcen
 info_data = DATABASE['table']['type_object']['name']
 
-# @Rest - Registra un tipo de objecto
+# @Rest - Registra un tipo de objeto
 # @Parameter - endpoint - Representa el punto de entrada
-# @Parameter - response_model (Optional) - Representa el objecto de respuesta
+# @Parameter - response_model (Optional) - Representa el objeto de respuesta
 # @Parameter - status_code (Optional) - Representa el codigo de respuesta
 # @Return - Response<TypeObject>
 @router_save_type_object.post(endpoint, response_model = response, status_code= status)

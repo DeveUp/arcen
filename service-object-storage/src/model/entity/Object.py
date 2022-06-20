@@ -1,6 +1,6 @@
 """
     @name - Object
-    @description - Entidad objecto
+    @description - Entidad obje<to
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago

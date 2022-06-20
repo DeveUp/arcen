@@ -1,6 +1,6 @@
 """
     @name - UpdateTypeObjectService
-    @description - Servicio para actualizar un tipo de objecto por su pk
+    @description - Servicio para actualizar un tipo de objeto por su pk
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -35,8 +35,8 @@ class UpdateTypeObjectService(IService):
         self.current_operation = FEIGN['type']['generic']['put']['update']
 
     # @override
-    # @method - Actualizar un tipo de objecto por su pk
-    # @parameter - data - Json con el tipo de objecto a actualizar
+    # @method - Actualizar un tipo de objeto por su pk
+    # @parameter - data - Json con el tipo de objeto a actualizar
     # @return - TypeObject
     def execute(self, data:dict):
         try:

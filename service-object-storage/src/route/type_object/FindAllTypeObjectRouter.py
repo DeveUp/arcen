@@ -1,6 +1,6 @@
 """
     @name - FindAllTypeObjectRouter
-    @description - Punto de entrada servicio tipo de objecto operacion consultar todos los tipos de objectos
+    @description - Punto de entrada servicio tipo de objeto operacion consultar todos los tipos de objetos
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -23,9 +23,9 @@ endpoint = ENDPOINT['path']+ENDPOINT['service']['type_object']['path']+ENDPOINT[
 response = RESPONSE['type_object']['get']['find_all']['response']
 status = RESPONSE['type_object']['get']['find_all']['success']['default']['code']
 
-# @Rest - Consulta todos los tipos de objectos
+# @Rest - Consulta todos los tipos de objetos
 # @Parameter - endpoint - Representa el punto de entrada
-# @Parameter - response_model (Optional) - Representa el objecto de respuesta
+# @Parameter - response_model (Optional) - Representa el objeto de respuesta
 # @Parameter - status_code (Optional) - Representa el codigo de respuesta
 # @Return - Response<list>
 @router_find_all_type_object.get(endpoint, response_model = response, status_code= status)
