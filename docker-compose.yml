@@ -125,7 +125,7 @@ services:
       - arcen-service-audit
     restart: always
     ports: 
-      - "8004:8184"
+      - "8004:8004"
     networks:
       nginx_net:
         aliases: 
