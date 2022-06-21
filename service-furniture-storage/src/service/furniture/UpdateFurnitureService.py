@@ -23,7 +23,6 @@ from src.util.constant import DATABASE
 from src.util.constant import FEIGN
 from src.util.common_feign import feign_audit_save, feign_audit_save_error, feign_audit_build_error
 
-
 class UpdateFurnitureService(IService):
 
     # @method - Constructor 
@@ -48,7 +47,6 @@ class UpdateFurnitureService(IService):
             DATABASE['table']['block']['pk']: str(data[DATABASE['table']['furniture']['name']].id_block)
         }))
         # Se registra el mueble
-       # Se registra el mueble
         try:
             element = self.repository.execute(data)
             element = self.schema.response(element)

@@ -1,6 +1,6 @@
 """
     @name - FindByIdBlockService
-    @description - Servicio para consultar un bloque por su pk
+    @description - Servicio para consultar un mueble por su pk
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago

@@ -40,7 +40,7 @@ class SaveFurnitureService(IService):
     # @override
     # @method - Registra un mueble
     # @parameter - data - Json con el mueble a registrar
-    # @return - Block
+    # @return - Furniture
     def execute(self, data:dict):
         # Consulta que exista un bloque con ese pk
         self.find_by_id_block.execute(dict({

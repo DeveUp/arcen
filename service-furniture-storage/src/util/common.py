@@ -86,28 +86,3 @@ def find_env(name:str):
     except:
         get_exception_http(RESPONSE_GENERIC['system']['env']['error']['default'])
     return value
-
-
-
-
-
-
-    
-def get_http_exception(code:str, message:str) -> HTTPException:
-    return HTTPException(status_code=code, detail=message)
-
-def get_response_audit(data)-> str:
-    if data == None:
-        return "None"
-    element = data
-    if type(data) != 'dict':
-        element = dict(data)
-    try:
-        data = json.dumps(element)
-    except:
-        data = str(element)
-    finally:
-        if data == None:
-            data = "None"
-    return data
-    

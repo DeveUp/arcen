@@ -56,39 +56,39 @@ services:
       - "8001:8001"
 
   # BOX
-  arcen-service-box-storage:
-    build: ./service-box-storage
-    container_name: arcen-service-box-storage
-    environment:
-      - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-      - POSTGRESQL_DB=arcen
-      - POSTGRESQL_HOST=arcen-postgresql-host
-      - POSTGRESQL_PORT=5432
-      - ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
-    depends_on:
-      - arcen-postgresql
-      - arcen-service-audit
-    restart: always
-    ports: 
-      - "8002:8002"   
+  ##1##arcen-service-box-storage:
+    ##1##build: ./service-box-storage
+    ##1##container_name: arcen-service-box-storage
+    ##1##environment:
+      ##1##- POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
+      ##1##- POSTGRESQL_DB=arcen
+      ##1##- POSTGRESQL_HOST=arcen-postgresql-host
+      ##1##- POSTGRESQL_PORT=5432
+      ##1##- ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
+    ##1##depends_on:
+      ##1##- arcen-postgresql
+      ##1##- arcen-service-audit
+    ##1##restart: always
+    ##1##ports: 
+      ##1##- "8002:8002"   
 
   # DIGITIZATION
-  arcen-service-digitization:
-    build: ./service-digitization
-    container_name: arcen-service-digitization
-    environment:
-      - MONGODB_CONNSTRING=mongodb://arcen:arcen@arcen-mongodb:27017/
-      - MONGODB_DB=arcen_audit
-      - MONGODB_HOST=arcen-postgresql-host
-      - MONGODB_PORT=27017
-      - FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
-      - FEIGN_ARCEN_SAVE=/
-    depends_on:
-      - arcen-mongodb
-      - arcen-service-audit
-    restart: always
-    ports: 
-      - "8003:8003"
+  ##2##arcen-service-digitization:
+    ##2##build: ./service-digitization
+    ##2##container_name: arcen-service-digitization
+    ##2##environment:
+      ##2##- MONGODB_CONNSTRING=mongodb://arcen:arcen@arcen-mongodb:27017/
+      ##2##- MONGODB_DB=arcen_audit
+      ##2##- MONGODB_HOST=arcen-postgresql-host
+      ##2##- MONGODB_PORT=27017
+      ##2##- FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
+      ##2##- FEIGN_ARCEN_SAVE=/
+    ##2##depends_on:
+      ##2##- arcen-mongodb
+      ##2##- arcen-service-audit
+    ##2##restart: always
+    ##2##ports: 
+      ##2##- "8003:8003"
   
   # FURNITURE STORAGE
   arcen-service-furniture-storage:
@@ -108,57 +108,57 @@ services:
       - "8004:8004"
 
   # OBJECT STORAGE
-  arcen-service-object-storage:
-    build: ./service-object-storage
-    container_name: arcen-service-object-storage
-    environment:
-      - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-      - POSTGRESQL_DB=arcen
-      - POSTGRESQL_HOST=arcen-postgresql-host
-      - POSTGRESQL_PORT=5432
-      - FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
-      - FEIGN_ARCEN_SAVE=/
-    depends_on:
-      - arcen-postgresql
-      - arcen-service-audit
-    restart: always
-    ports: 
-      - "8005:8005"
+  ##3##arcen-service-object-storage:
+    ##3##abuild: ./service-object-storage
+    ##3##acontainer_name: arcen-service-object-storage
+    ##3##aenvironment:
+      ##3##a- POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
+      ##3##a- POSTGRESQL_DB=arcen
+      ##3##a- POSTGRESQL_HOST=arcen-postgresql-host
+      ##3##a- POSTGRESQL_PORT=5432
+      ##3##a- FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
+      ##3##a- FEIGN_ARCEN_SAVE=/
+    ##3##adepends_on:
+      ##3##a- arcen-postgresql
+      ##3##a- arcen-service-audit
+    ##3##arestart: always
+    ##3##aports: 
+      ##3##a- "8005:8005"
  
   # SHELF STORAGE
-  arcen-service-shelf-storage:
-    build: ./service-shelf-storage
-    container_name: arcen-service-shelf-storage
-    environment:
-      - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-      - POSTGRESQL_DB=arcen
-      - POSTGRESQL_HOST=arcen-postgresql-host
-      - POSTGRESQL_PORT=5432
-      - ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
-      - FURNITURE_SERVICE_HOST_URL=http://arcen-service-furniture-storage:8004/api/furniture
-    depends_on:
-      - arcen-postgresql
-      - arcen-service-audit
-    restart: always
-    ports: 
+  ##4##aarcen-service-shelf-storage:
+    ##4##build: ./service-shelf-storage
+    ##4##container_name: arcen-service-shelf-storage
+    ##4##environment:
+      ##4##- POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
+      ##4##- POSTGRESQL_DB=arcen
+      ##4##- POSTGRESQL_HOST=arcen-postgresql-host
+      ##4##- POSTGRESQL_PORT=5432
+      ##4##- ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
+      ##4##- FURNITURE_SERVICE_HOST_URL=http://arcen-service-furniture-storage:8004/api/furniture
+    ##4##depends_on:
+      ##4##- arcen-postgresql
+      ##4##- arcen-service-audit
+    ##4##restart: always
+    ##4##ports: 
       - "8008:8008"
 
   # USER
-  arcen-service-user:
-    build: ./service-user
-    container_name: arcen-service-user
-    environment:
-      - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-      - POSTGRESQL_DB=arcen
-      - POSTGRESQL_HOST=arcen-postgresql-host
-      - POSTGRESQL_PORT=5432
-      - ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
-    depends_on:
-      - arcen-postgresql
-      - arcen-service-audit
-    restart: always
-    ports: 
-      - "8009:8009"
+  ##5##arcen-service-user:
+    ##5##build: ./service-user
+    ##5##container_name: arcen-service-user
+    ##5##environment:
+      ##5##- POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
+      ##5##- POSTGRESQL_DB=arcen
+      ##5##- POSTGRESQL_HOST=arcen-postgresql-host
+      ##5##- POSTGRESQL_PORT=5432
+      ##5##- ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
+    ##5##depends_on:
+      ##5##- arcen-postgresql
+      ##5##- arcen-service-audit
+    ##5##restart: always
+    ##5##ports: 
+      ##5##- "8009:8009"
 
   # NGINX
   arcen-nginx-reverse-proxy:
