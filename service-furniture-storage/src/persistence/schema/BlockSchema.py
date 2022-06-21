@@ -1,26 +1,40 @@
+"""
+    @name - BlockSchema
+    @description - Convertidor a diferentes tipos bloques
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Sergio Stives Barrios Buitrago
+    @modification-date - 2022-06-20
+    @author-modification -  Sergio Stives Barrios Buitrago
+"""
 from src.model.entity.Block import Block
 from src.model.response.BlockResponse import BlockResponse
-from src.util.constant import COLUMN_BLOCK_ID, COLUMN_BLOCK_LETTER, COLUMN_BLOCK_FLAT, COLUMN_BLOCK_CREATION_DATE
-from src.util.common import get_validate_field
+
+from src.util.constant import DATABASE
 
 class BlockSchema:
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self):
-        self.id = COLUMN_BLOCK_ID
-        self.letter = COLUMN_BLOCK_LETTER
-        self.flat = COLUMN_BLOCK_FLAT
-        self.creation_date = COLUMN_BLOCK_CREATION_DATE
+        self.table = DATABASE['table']['block']
+        self.id:int = self.table['pk']
+        self.table = self.table['column']
+        self.letter = self.table[1]
+        self.flat = self.table[2]
+        self.date = self.table[3]
 
+    # @method - Convierte un objeto a una entidad
+    # @parameter - object - Representa objecto a convertir
+    # @return - Block
     def entity(self, object) -> Block:
         if object == None: 
             return object
         return object
-        
-    def list(self, objects) -> list:
-        if objects == None: 
-            return objects
-        return [self.entity(object) for object in objects]
-    
+
+    # @method - Convierte un objeto a una respuesta
+    # @parameter - object - Representa objecto a convertir
+    # @return - BlockResponse
     def response(self, object) -> BlockResponse:
         if object == None: 
             return object
@@ -28,18 +42,30 @@ class BlockSchema:
             id = object.id,
             letter= object.letter,
             flat= object.flat,
-            date= object.date,
+            date= str(object.date),
         )
 
+    # @method - Convierte un objeto a una lista
+    # @parameter - objects - Representa los objectos a convertir
+    # @return - list   
+    def list(self, objects) -> list:
+        if objects == None: 
+            return objects
+        return [self.entity(object) for object in objects]
+
+    # @method - Convierte un objeto a un diccionario
+    # @parameter - object - Representa los objecto a convertir
+    # @parameter - create (Optional) - Representa la fecha creacion
+    # @return - dict
     def dict(self, object, create= None) -> dict:
         if object == None: 
             return object
         data = {
-            COLUMN_BLOCK_ID: object.id,
-            COLUMN_BLOCK_LETTER: object.letter, 
-            COLUMN_BLOCK_FLAT: object.flat, 
-            COLUMN_BLOCK_CREATION_DATE: object.creation_date,
+            self.id: object.id,
+            self.letter: object.letter, 
+            self.flat: object.flat, 
+            self.date: str(object.date),
         }
         if create != None:
-            data[self.creation_date]= create
+            data[self.date]= str(create)
         return data

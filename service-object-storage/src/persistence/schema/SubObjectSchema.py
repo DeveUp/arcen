@@ -15,7 +15,7 @@ from src.util.constant import DATABASE
 
 class SubObjectSchema:
 
-    # @method - Contructor 
+    # @method - Constructor 
     # @return - Void
     def __init__(self):
         self.table = DATABASE['table']['subobject']
