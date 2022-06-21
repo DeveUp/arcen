@@ -95,11 +95,12 @@ services:
     build: ./service-furniture-storage
     container_name: arcen-service-furniture-storage
     environment:
-      - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-      - POSTGRESQL_DB=arcen
-      - POSTGRESQL_HOST=arcen-postgresql-host
-      - POSTGRESQL_PORT=5432
-      - ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
+        - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
+        - POSTGRESQL_DB=arcen
+        - POSTGRESQL_HOST=arcen-postgresql-host
+        - POSTGRESQL_PORT=5432
+        - FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
+        - FEIGN_ARCEN_SAVE=/
     depends_on:
       - arcen-postgresql
       - arcen-service-audit
@@ -141,7 +142,7 @@ services:
       ##4##- arcen-service-audit
     ##4##restart: always
     ##4##ports: 
-      - "8008:8008"
+      ##4##- "8008:8008"
 
   # USER
   ##5##arcen-service-user:
@@ -161,23 +162,23 @@ services:
       ##5##- "8009:8009"
 
   # NGINX
-  arcen-nginx-reverse-proxy:
-    image: nginx:latest
-    container_name: arcen-nginx
-    ports:
-      - 8080:8080
-    volumes:
-      - ./nginx/nginx_config.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - arcen-mongodb
-      - arcen-postgresql
-      - arcen-service-audit
-      - arcen-service-box-storage
-      - arcen-service-digitization
-      - arcen-service-furniture-storage
-      - arcen-service-object-storage
-      - arcen-service-shelf-storage
-      - arcen-service-user
+  ##6##arcen-nginx-reverse-proxy:
+    ##6##image: nginx:latest
+    ##6##container_name: arcen-nginx
+    ##6##ports:
+      ##6##- 8080:8080
+    ##6##volumes:
+      ##6##- ./nginx/nginx_config.conf:/etc/nginx/conf.d/default.conf
+    ##6##depends_on:
+      ##6##- arcen-mongodb
+      ##6##- arcen-postgresql
+      ##6##- arcen-service-audit
+      ##6##- arcen-service-box-storage
+      ##6##- arcen-service-digitization
+      ##6##- arcen-service-furniture-storage
+      ##6##- arcen-service-object-storage
+      ##6##- arcen-service-shelf-storage
+      ##6##- arcen-service-user
 
 ######################################
 # VOLUMEN

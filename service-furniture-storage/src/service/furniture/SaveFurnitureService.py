@@ -10,10 +10,13 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
+from src.model.entity.Furniture import Furniture
+
 from src.feign.AuditFeign import AuditFeign
 
 from src.service.IService import IService
-from src.service.block.FindByIdBlockService import FindByIdBlockRepository
+from src.service.block.FindByIdBlockService import FindByIdBlockService
+from src.service.type_furniture.FindByIdTypeFurnitureService import FindByIdTypeFurnitureService
 
 from src.persistence.repository.furniture.SaveFurnitureRepository import SaveFurnitureRepository
 from src.persistence.schema.FurnitureSchema import FurnitureSchema
@@ -29,7 +32,8 @@ class SaveFurnitureService(IService):
     # @return - Void
     def __init__(self, db: Session):
         self.repository = SaveFurnitureRepository(db)
-        self.find_by_id_block = FindByIdBlockRepository(db)
+        self.find_by_id_block = FindByIdBlockService(db)
+        self.find_by_id_type_furniture = FindByIdTypeFurnitureService(db)
         self.schema = FurnitureSchema()
         # Comunicacion con el servicio auditoria
         self.feign_audit = AuditFeign("FEIGN_ARCEN")
@@ -42,12 +46,8 @@ class SaveFurnitureService(IService):
     # @parameter - data - Json con el mueble a registrar
     # @return - Furniture
     def execute(self, data:dict):
-        # Consulta que exista un bloque con ese pk
-        self.find_by_id_block.execute(dict({
-            DATABASE['table']['block']['pk']: str(data[DATABASE['table']['furniture']['name']].id_block)
-        }))
-        # Se registra el mueble
         try:
+            self.dependence(data)
             element = self.repository.execute(data)
             element = self.schema.response(element)
         except HTTPException as error_http:
@@ -62,7 +62,7 @@ class SaveFurnitureService(IService):
                 self.feign_audit,
                 self.current_service,
                 self.current_operation,
-                RESPONSE['funiture']['post']['save']['error']['default']
+                RESPONSE['furniture']['post']['save']['error']['default']
             )
         feign_audit_save(
             self.feign_audit,
@@ -71,3 +71,18 @@ class SaveFurnitureService(IService):
             element
         )
         return element
+
+    # @method - Verifica la depedencia del objecto
+    # @parameter - data - Json con el mueble a validar
+    # @return - list
+    def dependence(self, data):
+        furniture:Furniture = Furniture(**dict(data[DATABASE['table']['furniture']['name']]))
+        # Consulta que exista un bloque con ese pk
+        block = self.find_by_id_block.execute(dict({
+            DATABASE['table']['block']['pk']: str(furniture.id_block)
+        }))
+        # Consulta que exista un tipo de mueble con ese pk
+        type_furniture = self.find_by_id_type_furniture.execute(dict({
+            DATABASE['table']['type_furniture']['pk']: str(furniture.id_type_furniture)
+        }))
+        return [block, type_furniture]
