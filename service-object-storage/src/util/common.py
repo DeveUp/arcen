@@ -10,7 +10,6 @@
 import os
 import json
 
-from datetime import datetime
 from fastapi import HTTPException
 
 from src.util.constant import RESPONSE_GENERIC

@@ -23,7 +23,6 @@ services:
     ports:
       - '27017:27017'
 
-
   # POSTGRESQL
   arcen-postgresql:
     image: postgres:alpine
@@ -36,7 +35,6 @@ services:
       - '5432:5432'
     volumes: 
       - arcen_db_postgresql:/var/lib/postgresql/data/
-
 
   ######################################
   # MICROSERVICES
@@ -57,7 +55,6 @@ services:
     ports: 
       - "8001:8001"
 
-
   # BOX
   arcen-service-box-storage:
     build: ./service-box-storage
@@ -73,8 +70,7 @@ services:
       - arcen-service-audit
     restart: always
     ports: 
-      - "8002:8002"
-      
+      - "8002:8002"   
 
   # DIGITIZATION
   arcen-service-digitization:
@@ -93,7 +89,6 @@ services:
     restart: always
     ports: 
       - "8003:8003"
-
   
   # FURNITURE STORAGE
   arcen-service-furniture-storage:
@@ -111,7 +106,6 @@ services:
     restart: always
     ports: 
       - "8004:8004"
-
 
   # OBJECT STORAGE
   arcen-service-object-storage:
@@ -131,7 +125,6 @@ services:
     ports: 
       - "8005:8005"
  
-  
   # SHELF STORAGE
   arcen-service-shelf-storage:
     build: ./service-shelf-storage
@@ -150,7 +143,6 @@ services:
     ports: 
       - "8008:8008"
 
-  
   # USER
   arcen-service-user:
     build: ./service-user
@@ -168,13 +160,14 @@ services:
     ports: 
       - "8009:8009"
 
+  # NGINX
   arcen-nginx-reverse-proxy:
     image: nginx:latest
     container_name: arcen-nginx
     ports:
       - 8080:8080
     volumes:
-      - ./nginx_config.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/nginx_config.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - arcen-mongodb
       - arcen-postgresql
@@ -186,8 +179,6 @@ services:
       - arcen-service-shelf-storage
       - arcen-service-user
 
-
-
 ######################################
 # VOLUMEN
 ######################################
@@ -195,9 +186,5 @@ services:
 volumes:
   arcen_db_mongodb: {}
   arcen_db_postgresql: {}
-
-######################################
-# NETWORK
-######################################
 
     
