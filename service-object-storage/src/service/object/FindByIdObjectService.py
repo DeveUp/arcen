@@ -27,7 +27,7 @@ class FindByIdObjectService(IService):
 
     # @override
     # @method - Consulta un objeto por su pk
-    # @parameter - data - No aplica
+    # @parameter - data - Json con el pk del objeto
     # @return - Object
     def execute(self, data:dict): 
         try:

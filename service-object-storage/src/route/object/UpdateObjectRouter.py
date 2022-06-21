@@ -14,6 +14,7 @@ from src.model.dto.ObjectDto import ObjectDto as DtoArcen
 from src.model.response.ObjectResponse import ObjectResponse as ResponseArcen
 
 from src.service.object.UpdateObjectService import UpdateObjectService as ServiceArcen
+
 from src.persistence.database.table.ObjectTable import ObjectTable as TableArcen
 
 from src.util.constant import ENDPOINT
@@ -35,10 +36,10 @@ info_data_pk = DATABASE['table']['object']['pk']
 # @Parameter - status_code (Optional) - Representa el codigo de respuesta
 # @Return - Response<ObjectResponse>
 @router_update_object.put(endpoint, response_model=response,status_code= status)
-async def update(id: str, block: DtoArcen, db: Session = Depends(table.execute)):
+async def update(id: str, element:DtoArcen, db:Session= Depends(table.execute)):
     data = dict({
         info_data_pk: id, 
-        info_data: block
+        info_data: element
     })
     service = ServiceArcen(db)
     return service.execute(data)

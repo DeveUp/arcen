@@ -1,3 +1,12 @@
+"""
+    @name - Routes
+    @description - Puntos de entradas del microservicio mueble
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Sergio Stives Barrios Buitrago
+    @modification-date - 2022-06-20
+    @author-modification -  Sergio Stives Barrios Buitrago
+"""
 from fastapi import FastAPI
 
 # ROUTES BLOCK
@@ -23,19 +32,42 @@ from src.route.type_furniture.FindAllTypeFurnitureRouter import router_find_all_
 
 routes = FastAPI()
 
-# ADD ROUTES
+"""
+    @description - Puntos de entradas servicio bloque
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Sergio Stives Barrios Buitrago
+    @modification-date - 2022-06-20
+    @author-modification -  Sergio Stives Barrios Buitrago
+"""
 routes.include_router(router_detele_by_id_block)
 routes.include_router(router_find_all_block)
 routes.include_router(router_find_by_id_block)
 routes.include_router(router_save_block)
 routes.include_router(router_update_block)
 
+"""
+    @description - Puntos de entradas servicio mueble
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Sergio Stives Barrios Buitrago
+    @modification-date - 2022-06-20
+    @author-modification -  Sergio Stives Barrios Buitrago
+"""
 routes.include_router(router_detele_by_id_furniture)
 routes.include_router(router_find_all_furniture)
 routes.include_router(router_find_by_id_furniture)
 routes.include_router(router_save_furniture)
 routes.include_router(router_update_furniture)
 
+"""
+    @description - Puntos de entradas servicio tipo de mueble
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Sergio Stives Barrios Buitrago
+    @modification-date - 2022-06-20
+    @author-modification -  Sergio Stives Barrios Buitrago
+"""
 routes.include_router(router_detele_by_id_type_furniture)
 routes.include_router(router_find_all_type_furniture)
 routes.include_router(router_find_by_id_type_furniture)
