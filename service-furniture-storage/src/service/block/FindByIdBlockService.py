@@ -1,17 +1,34 @@
+"""
+    @name - FindByIdBlockService
+    @description - Servicio para consultar un bloque por su pk
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Sergio Stives Barrios Buitrago
+    @modification-date - 2022-06-20
+    @author-modification -  Sergio Stives Barrios Buitrago
+"""
 from sqlalchemy.orm import Session
 
 from src.service.IService import IService
+
 from src.persistence.repository.block.FindByIdBlockRepository import FindByIdBlockRepository
 from src.persistence.schema.BlockSchema import BlockSchema
-from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTENT, RESPONSE_MSG_BLOCK_FIND_BY_ID_NOT_CONTENT
-from src.util.common import get_http_exception
+
+from src.util.constant import RESPONSE
+from src.util.common import get_exception_http
 
 class FindByIdBlockService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = FindByIdBlockRepository(db)
         self.schema = BlockSchema()
 
+    # @override
+    # @method - Consulta un bloque por su pk
+    # @parameter - data - Json con pk del bloque
+    # @return - Block
     def execute(self, data:dict): 
         try:
             element = self.repository.execute(data)
@@ -19,6 +36,6 @@ class FindByIdBlockService(IService):
         except:
             element= None
         finally:
-            if element == None: 
-                raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTENT, RESPONSE_MSG_BLOCK_FIND_BY_ID_NOT_CONTENT)
+            if element == None:
+                raise get_exception_http(RESPONSE['block']['get']['find_by_id']['error']['default'])
         return element
