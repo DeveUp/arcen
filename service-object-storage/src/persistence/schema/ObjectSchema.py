@@ -15,7 +15,7 @@ from src.util.constant import DATABASE
 
 class ObjectSchema:
 
-    # @method - Contructor 
+    # @method - Constructor 
     # @return - Void
     def __init__(self):
         self.table = DATABASE['table']['object']
