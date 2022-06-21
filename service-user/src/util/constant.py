@@ -2,8 +2,9 @@
 ENDPOINT_APP = "/api"
 ENDPOINT_APP_ROLE = "/role"
 ENDPOINT_APP_USER = "/user"
-ENDPOINT_APP_USER_ROLE = "/user_role"
+ENDPOINT_APP_USER_ROLE = "/user-role"
 ENDPOINT_APP_LOGIN = "/login"
+ENDPOINT_APP_LOGOUT = "/logout"
 
 ENDPOINT_GENERIC_FIND_BY_ID = "/{id}"
 ENDPOINT_GENERIC_FIND_ALL = "/"
@@ -116,6 +117,8 @@ RESPONSE_MSG_USER_ROLE_DELETE_BY_ID_NOT_CONTENT =  "No se logro eliminar el rol 
 RESPONSE_MSG_DEPENDENCE_FIND_BY_ID_NOT_CONTENT = "No se encontro ningun dependencia con el id suministrado."
 
 RESPONSE_MSG_USER_LOGIN_ERROR = "Usuario: Documento,Correo o la Clave son invalidos"
+
+RESPONSE_MSG_USER_LOGOUT_ERROR = "Error, El usuario no esta logueado en el sistema"
 
 # AUDIT
 AUDIT_USER_SERVICE = "USER"

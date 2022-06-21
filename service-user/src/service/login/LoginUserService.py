@@ -1,5 +1,5 @@
-from xml.dom.minidom import Element
 from sqlalchemy.orm import Session
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from src.service.IService import IService
 from src.persistence.repository.user.UpdateUserLoginRepository import UpdateUserLoginRepository
@@ -26,7 +26,8 @@ class LoginUserService(IService):
             COLUMN_USER_ID : elementFind.id,
             COLUMN_USER : elementFind
         }
-        if elementFind.email==user.email and elementFind.password==user.password and elementFind.document==user.document:
+        matched = check_password_hash(elementFind.password, user.password)
+        if elementFind.email==user.email and matched==True and elementFind.document==user.document:
             element = self.repository.execute(data)
         else:
             raise get_http_exception(RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTENT, RESPONSE_MSG_USER_LOGIN_ERROR)
