@@ -26,6 +26,7 @@ from src.route.UserRole.DeleteByIdUserRoleRouter import router_detele_by_id_user
 from src.route.UserRole.UpdateUserRoleRouter import router_update_user_role
 
 from src.route.Login.LoginUserRouter import router_login_user
+from src.route.Login.LogoutUserRouter import router_logout_user
 
 routes = FastAPI()
 
@@ -50,3 +51,4 @@ routes.include_router(router_save_user_role)
 routes.include_router(router_update_user_role)
 
 routes.include_router(router_login_user)
+routes.include_router(router_logout_user)

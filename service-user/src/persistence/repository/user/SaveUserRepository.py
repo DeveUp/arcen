@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from src.model.entity.User import User
 from src.persistence.repository.IRepository import IRepository
@@ -11,6 +12,8 @@ class SaveUserRepository(IRepository):
 
     def execute(self, data:dict):
         element = User(**dict(data[COLUMN_USER]))
+        p = element.password
+        element.password=generate_password_hash(p)
         self.db.add(element)
         self.db.commit()
         self.db.refresh(element)
