@@ -2,7 +2,7 @@
 ENDPOINT_APP = "/api"
 ENDPOINT_APP_ROLE = "/role"
 ENDPOINT_APP_USER = "/user"
-ENDPOINT_APP_USER_ROLE = "/user_role"
+ENDPOINT_APP_USER_ROLE = "/user-role"
 ENDPOINT_APP_LOGIN = "/login"
 ENDPOINT_APP_LOGOUT = "/logout"
 

@@ -1,0 +1,80 @@
+/**********************************************************/
+    Micorservicio Audit Reverse Proxy
+/**********************************************************/
+
+-   http://localhost:8080/api/audit/
+
+-   http://localhost:8080/api/audit-control/
+
+-   http://localhost:8080/api/audit-closure/
+
+
+
+/**********************************************************/
+    Microservicio Box Reverse Proxy
+/**********************************************************/
+
+-   http://localhost:8080/api/box/
+
+-   http://localhost:8080/api/tray/
+
+-   http://localhost:8080/api/type-box/
+
+
+
+/**********************************************************/
+    Microservicio Digitalization Reverse Proxy
+/**********************************************************/
+
+-   http://localhost:8080/api/document/
+
+
+
+/**********************************************************/
+    Microservicio furniture Reverse Proxy
+/**********************************************************/
+
+-   http://localhost:8080/api/block/
+
+-   http://localhost:8080/api/furniture/
+
+-   http://localhost:8080/api/type-furniture/
+
+
+/**********************************************************/
+    Microservicio Object Reverse Proxy
+/**********************************************************/
+
+-   http://localhost:8080/api/type-object/
+
+-   http://localhost:8080/api/object/
+
+-   http://localhost:8080/api/subobject/
+
+
+
+/**********************************************************/
+    Microservicio Shelf Reverse Proxy
+/**********************************************************/
+
+-   http://localhost:8080/api/type-shelf/
+
+-   http://localhost:8080/api/dependence/
+
+-   http://localhost:8080/api/shelf/
+
+
+
+/**********************************************************/
+    Microservicio User Reverse Proxy
+/**********************************************************/
+
+-   http://localhost:8080/api/role/
+
+-   http://localhost:8080/api/user/
+
+-   http://localhost:8080/api/user-role/
+
+-   http://localhost:8080/api/login/
+
+-   http://localhost:8080/api/logout/
