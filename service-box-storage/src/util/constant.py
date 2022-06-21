@@ -1,4 +1,12 @@
-
+"""
+    @name - constant
+    @description - Constantes para el microservicio box
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 # ENDPOINT
 ENDPOINT_APP = "/api"
 ENDPOINT_APP_TRAY = "/tray"

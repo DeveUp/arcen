@@ -1,3 +1,12 @@
+"""
+    @name - UpdateBoxRepository
+    @description - Repositorio para actualizar una box por su pk
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.model.entity.Box import Box as entity
@@ -6,9 +15,15 @@ from src.util.constant import COLUMN_BOX, COLUMN_BOX_ID
 
 class UpdateBoxRepository(IRepository):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db:Session):
         self.db = db
 
+    # @override
+    # @method - Actualiza una box por su pk
+    # @parameter - data - Json con el pk de la box y la box a actualizar
+    # @return - Box
     def execute(self, data:dict):
         id = data[COLUMN_BOX_ID]
         element2 = data[COLUMN_BOX]

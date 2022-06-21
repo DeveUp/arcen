@@ -1,3 +1,12 @@
+"""
+    @name - SaveBoxService
+    @description - Servicio para registrar un box
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.service.IService import IService
@@ -14,6 +23,8 @@ from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESP
 
 class SaveBoxService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = SaveRepository(db)
         self.repositoryTypeShelf = FindByEntity1(db);
@@ -21,6 +32,10 @@ class SaveBoxService(IService):
         self.schema = BoxSchema()
         self.feign = AuditFeign()
 
+    # @override
+    # @method - Registra un box
+    # @parameter - data - Json con el box a registrar
+    # @return - Box
     def execute(self, data:dict):
         box = data.get("box")
         typeBoxId = box.id_type_box

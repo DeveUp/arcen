@@ -1,3 +1,12 @@
+"""
+    @name - DeleteByIdTypeBoxService
+    @description - Servicio para eliminar un type box
+    @version - 1.0.0
+    @creation-date - 2022-06-14 
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 from src.util.common import get_http_exception,get_response_audit
 from src.service.IService import IService
@@ -12,12 +21,18 @@ from src.util.constant import AUDIT_TYPE_BOX_SERVICE, AUDIT_GENERIC_OPERATION_DE
 
 class DeleteByIdTypeBoxService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.find_by_id = FindByRepository(db)
         self.repository = DeleteByIdRepository(db)
         self.feign = AuditFeign()
         self.schema = EntitySchema()
 
+    # @override
+    # @method - Elimina un type box por su pk
+    # @parameter - data - Json con el pk del objeto a eliminar
+    # @return - Void
     def execute(self, data:dict):
         id= data[COLUMN_TYPE_BOX_ID] 
         print(id)
@@ -26,7 +41,6 @@ class DeleteByIdTypeBoxService(IService):
         try:
             id= data[COLUMN_TYPE_BOX_ID] 
             find_by_id = self.find_by_id.execute(data)
-            #data = dict({COLUMN_DEPENDENCE: element})
             data = {
                 COLUMN_TYPE_BOX: find_by_id,
                 COLUMN_TYPE_BOX_ID: id,
