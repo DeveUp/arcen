@@ -28,8 +28,6 @@ UTIL = {
 # @content - service.document - Entrada documento
 # @content - service.document_location - Entrada ubicacion documento
 # @content - service.document_version - Entrada version documento
-# @content - service.invoice - Entrada folio
-# @content - service.invoice_status - Entrada estado folio
 ENDPOINT = {
     "path": "/api",
     "service": {
@@ -41,12 +39,6 @@ ENDPOINT = {
         },
         "document_version": {
            "path": "/document-version" 
-        },
-        "invoice": {
-           "path": "/invoice" 
-        },
-        "invoice_status": {
-           "path": "/invoice-status" 
         }
     },
     "operation":{
@@ -66,8 +58,6 @@ ENDPOINT = {
 # @content - table.document - Tabla documento
 # @content - table.document_location - Tabla ubicacion documento
 # @content - table.document_version - Tabla version documento
-# @content - table.invoice - Tabla folio
-# @content - table.invoice_status - Tabla estado folio
 DATABASE= {
     "table":{
         "document":{
@@ -100,27 +90,6 @@ DATABASE= {
                 "id",
                 "id_document_location",
                 "version",
-                "date"
-            ]
-        },
-        "invoice":{
-            "name": "invoice",
-            "pk": "_id",
-            "column": [
-                "id",
-                "name",
-                "index_number",
-                "id_invoice_statu",
-                "security_level",
-                "date"
-            ]
-        },
-        "invoice_status":{
-            "name": "invoice-status",
-            "pk": "_id",
-            "column": [
-                "id",
-                "name",
                 "date"
             ]
         }

@@ -109,22 +109,22 @@ services:
       - "8004:8004"
 
   # OBJECT STORAGE
-  ##3##arcen-service-object-storage:
-    ##3##abuild: ./service-object-storage
-    ##3##acontainer_name: arcen-service-object-storage
-    ##3##aenvironment:
-      ##3##a- POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-      ##3##a- POSTGRESQL_DB=arcen
-      ##3##a- POSTGRESQL_HOST=arcen-postgresql-host
-      ##3##a- POSTGRESQL_PORT=5432
-      ##3##a- FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
-      ##3##a- FEIGN_ARCEN_SAVE=/
-    ##3##adepends_on:
-      ##3##a- arcen-postgresql
-      ##3##a- arcen-service-audit
-    ##3##arestart: always
-    ##3##aports: 
-      ##3##a- "8005:8005"
+  arcen-service-object-storage:
+    build: ./service-object-storage
+    container_name: arcen-service-object-storage
+    environment:
+      - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
+      - POSTGRESQL_DB=arcen
+      - POSTGRESQL_HOST=arcen-postgresql-host
+      - POSTGRESQL_PORT=5432
+      - FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
+      - FEIGN_ARCEN_SAVE=/
+    depends_on:
+      - arcen-postgresql
+      - arcen-service-audit
+    restart: always
+    ports: 
+      - "8005:8005"
  
   # SHELF STORAGE
   ##4##aarcen-service-shelf-storage:
