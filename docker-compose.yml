@@ -73,113 +73,23 @@ services:
       ##1##- "8002:8002"   
 
   # DIGITIZATION
-  ##2##arcen-service-digitization:
-    ##2##build: ./service-digitization
-    ##2##container_name: arcen-service-digitization
-    ##2##environment:
-      ##2##- MONGODB_CONNSTRING=mongodb://arcen:arcen@arcen-mongodb:27017/
-      ##2##- MONGODB_DB=arcen_audit
-      ##2##- MONGODB_HOST=arcen-postgresql-host
-      ##2##- MONGODB_PORT=27017
-      ##2##- FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
-      ##2##- FEIGN_ARCEN_SAVE=/
-    ##2##depends_on:
-      ##2##- arcen-mongodb
-      ##2##- arcen-service-audit
-    ##2##restart: always
-    ##2##ports: 
-      ##2##- "8003:8003"
-  
-  # FURNITURE STORAGE
-  arcen-service-furniture-storage:
-    build: ./service-furniture-storage
-    container_name: arcen-service-furniture-storage
+  arcen-service-digitization:
+    build: ./service-digitization
+    container_name: arcen-service-digitization
     environment:
-        - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-        - POSTGRESQL_DB=arcen
-        - POSTGRESQL_HOST=arcen-postgresql-host
-        - POSTGRESQL_PORT=5432
-        - FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
-        - FEIGN_ARCEN_SAVE=/
-    depends_on:
-      - arcen-postgresql
-      - arcen-service-audit
-    restart: always
-    ports: 
-      - "8004:8004"
-
-  # OBJECT STORAGE
-  arcen-service-object-storage:
-    build: ./service-object-storage
-    container_name: arcen-service-object-storage
-    environment:
-      - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-      - POSTGRESQL_DB=arcen
-      - POSTGRESQL_HOST=arcen-postgresql-host
-      - POSTGRESQL_PORT=5432
+      - MONGODB_CONNSTRING=mongodb://arcen:arcen@arcen-mongodb:27017/
+      - MONGODB_DB=arcen_audit
+      - MONGODB_HOST=arcen-postgresql-host
+      - MONGODB_PORT=27017
       - FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
       - FEIGN_ARCEN_SAVE=/
     depends_on:
-      - arcen-postgresql
+      - arcen-mongodb
       - arcen-service-audit
     restart: always
     ports: 
-      - "8005:8005"
- 
-  # SHELF STORAGE
-  ##4##aarcen-service-shelf-storage:
-    ##4##build: ./service-shelf-storage
-    ##4##container_name: arcen-service-shelf-storage
-    ##4##environment:
-      ##4##- POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-      ##4##- POSTGRESQL_DB=arcen
-      ##4##- POSTGRESQL_HOST=arcen-postgresql-host
-      ##4##- POSTGRESQL_PORT=5432
-      ##4##- ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
-      ##4##- FURNITURE_SERVICE_HOST_URL=http://arcen-service-furniture-storage:8004/api/furniture
-    ##4##depends_on:
-      ##4##- arcen-postgresql
-      ##4##- arcen-service-audit
-    ##4##restart: always
-    ##4##ports: 
-      ##4##- "8008:8008"
-
-  # USER
-  ##5##arcen-service-user:
-    ##5##build: ./service-user
-    ##5##container_name: arcen-service-user
-    ##5##environment:
-      ##5##- POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-      ##5##- POSTGRESQL_DB=arcen
-      ##5##- POSTGRESQL_HOST=arcen-postgresql-host
-      ##5##- POSTGRESQL_PORT=5432
-      ##5##- ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
-    ##5##depends_on:
-      ##5##- arcen-postgresql
-      ##5##- arcen-service-audit
-    ##5##restart: always
-    ##5##ports: 
-      ##5##- "8009:8009"
-
-  # NGINX
-  ##6##arcen-nginx-reverse-proxy:
-    ##6##image: nginx:latest
-    ##6##container_name: arcen-nginx
-    ##6##ports:
-      ##6##- 8080:8080
-    ##6##volumes:
-      ##6##- ./nginx/nginx_config.conf:/etc/nginx/conf.d/default.conf
-    ##6##depends_on:
-      ##6##- arcen-mongodb
-      ##6##- arcen-postgresql
-      ##6##- arcen-service-audit
-      ##6##- arcen-service-box-storage
-      ##6##- arcen-service-digitization
-      ##6##- arcen-service-furniture-storage
-      ##6##- arcen-service-object-storage
-      ##6##- arcen-service-shelf-storage
-      ##6##- arcen-service-user
-
+      - "8003:8003"
+      
 ######################################
 # VOLUMEN
 ######################################

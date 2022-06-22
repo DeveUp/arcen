@@ -12,6 +12,6 @@ class Document(BaseModel):
     id:str
     id_document_location: str
     name: str
-    document: str
+    document: list
     path_document: str
     date:str

@@ -11,6 +11,6 @@ from pydantic import BaseModel
 class DocumentRequest(BaseModel):
     id_document_location: str
     name: str
-    document: str
+    document: list
     path_document: str
     date:str

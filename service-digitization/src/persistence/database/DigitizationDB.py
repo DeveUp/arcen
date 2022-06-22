@@ -58,15 +58,3 @@ class DigitizationDB:
     # @Return - Table
     def get_db_document_version(self):
         return self.get_db(table=DATABASE['table']['document_version']['name'])
-
-    # @Method - Realiza conexion con la base de datos y tabla folio
-    # @Parameter - table - Representa la tabla folio
-    # @Return - Table
-    def get_db_invoice(self):
-        return self.get_db(table=DATABASE['table']['invoice']['name'])
-    
-    # @Method - Realiza conexion con la base de datos y tabla estado folio
-    # @Parameter - table - Representa la tabla folio
-    # @Return - Table
-    def get_db_invoice_status(self):
-        return self.get_db(table=DATABASE['table']['invoice_status']['name'])
