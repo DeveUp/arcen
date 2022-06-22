@@ -36,6 +36,9 @@ ENDPOINT = {
         },
         "type_furniture": {
            "path": "/type-furniture" 
+        },
+        "building": {
+            "path": "/building"
         }
     },
     "operation":{
@@ -95,6 +98,18 @@ DATABASE= {
                 "depth",
                 "height",
                 "width",
+                "date"
+            ]
+        },
+        "building":{
+            "name": "building",
+            "pk": "id",
+            "column": [
+                "id",
+                "name",
+                "name_area",
+                "cellar",
+                "flat",
                 "date"
             ]
         }

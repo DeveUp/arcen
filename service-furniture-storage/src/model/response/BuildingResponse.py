@@ -1,15 +1,18 @@
 """
-    @description - Dto folio
+    @name - BuildingResponse
+    @description - Respuesta edificio
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
-    @modification-date - 2022-06-18
+    @modification-date - 2022-06-20
     @author-modification -  Sergio Stives Barrios Buitrago
 """
 from pydantic import BaseModel
 
-class InvoiceDto(BaseModel):
+class BuildingResponse(BaseModel):
+    id: int
     name: str
-    index_number: int
-    id_invoice_statu: str
-    security_level: int
+    name_area: str
+    cellar: str
+    flat: str
+    date: str
