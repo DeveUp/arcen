@@ -1,49 +1,51 @@
 """
-    @name - BlockSchema
-    @description - Convertidor a diferentes tipos bloques
+    @name - BuildingSchema
+    @description - Convertidor a diferentes tipos de edificios
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
     @modification-date - 2022-06-20
     @author-modification -  Sergio Stives Barrios Buitrago
 """
-from src.model.entity.Block import Block
-from src.model.response.BlockResponse import BlockResponse
+from src.model.entity.Building import Building
+from src.model.response.BuildingResponse import BuildingResponse
 
 from src.util.constant import DATABASE
 
-class BlockSchema:
+class BuildingSchema:
 
     # @method - Constructor 
     # @return - Void
     def __init__(self):
-        self.table = DATABASE['table']['block']
+        self.table = DATABASE['table']['building']
         self.id:int = self.table['pk']
         self.table = self.table['column']
-        self.letter = self.table[1]
-        self.flat = self.table[2]
-        self.id_building = self.table[3]
-        self.date = self.table[4]
+        self.name = self.table[1]
+        self.name_area = self.table[2]
+        self.cellar = self.table[3]
+        self.flat = self.table[4]
+        self.date = self.table[5]
 
     # @method - Convierte un objeto a una entidad
     # @parameter - object - Representa objecto a convertir
-    # @return - Block
-    def entity(self, object) -> Block:
+    # @return - Building
+    def entity(self, object) -> Building:
         if object == None: 
             return object
         return object
 
     # @method - Convierte un objeto a una respuesta
     # @parameter - object - Representa objecto a convertir
-    # @return - BlockResponse
-    def response(self, object) -> BlockResponse:
+    # @return - BuildingResponse
+    def response(self, object) -> BuildingResponse:
         if object == None: 
             return object
-        return BlockResponse(
-            id = object.id,
-            letter= object.letter,
+        return BuildingResponse(
+            id= object.id,
+            name= object.name,
+            name_area= object.name_area,
+            cellar= object.cellar,
             flat= object.flat,
-            id_building= object.id_building,
             date= str(object.date),
         )
 
@@ -64,9 +66,10 @@ class BlockSchema:
             return object
         data = {
             self.id: object.id,
-            self.letter: object.letter, 
-            self.flat: object.flat, 
-            self.id_building: object.id_building,
+            self.name: object.name, 
+            self.name_area: object.name_area, 
+            self.cellar: object.cellar,
+            self.flat: object.flat,
             self.date: str(object.date),
         }
         if create != None:

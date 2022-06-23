@@ -1,5 +1,5 @@
 """
-    @name - BlockTable
+    @name - BuildingTable
     @description - Conexion a la tabla bloque
     @version - 1.0.0
     @creation-date - 2022-06-14
@@ -11,7 +11,7 @@ from src.model.entity.Building import Base
 from src.persistence.database.ITable import ITable
 from src.persistence.database.database import SessionLocal, engine
 
-class BlockTable(ITable):
+class BuildingTable(ITable):
 
     # @method - Constructor 
     # @return - Void
