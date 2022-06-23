@@ -13,4 +13,5 @@ class BlockResponse(BaseModel):
     id: int
     letter: str
     flat: str
+    id_building:int
     date: str

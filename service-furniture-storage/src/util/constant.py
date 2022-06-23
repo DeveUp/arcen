@@ -73,6 +73,7 @@ DATABASE= {
                 "id",
                 "letter",
                 "flat",
+                "id_building",
                 "date"
             ]
         },
