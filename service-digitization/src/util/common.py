@@ -6,6 +6,8 @@
     @modification-date - 2022-06-18
     @author-modification -  Sergio Stives Barrios Buitrago
 """
+import bson
+import uuid
 import os
 import json
 
@@ -56,6 +58,18 @@ def is_date_time(str_date:str, strict:bool=False, format:str=UTIL['format']['dat
 # @return - String
 def generate_date(format:str=UTIL['format']['date'][1]):
     return str(datetime.today().strftime(format))
+
+# @Method - Genera un id unico
+# @Return - String
+def generate_id(type:int=1):
+    id = None
+    if type == 1:
+        id = str(bson.ObjectId())
+    if type == 2:
+        id = str(uuid.uuid1())
+    if id == None:
+        return generate_id(type)
+    return id
 
 ##########################################################
 # VALIDATOR
