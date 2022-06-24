@@ -37,8 +37,8 @@ services:
     ports:
       - '5432:5432'
     volumes: 
-      #- arcen_db_postgresql:/var/lib/postgresql/data/
-      - ../db-postgresql:/docker-entrypoint-initdb.d/
+      - arcen_db_postgresql:/var/lib/postgresql/data/
+      #- ../db-postgresql:/docker-entrypoint-initdb.d/
 
   ######################################
   # MICROSERVICES
@@ -59,41 +59,26 @@ services:
     ports: 
       - "8001:8001"
 
-  # BOX
-  ##1##arcen-service-box-storage:
-    ##1##build: ./service-box-storage
-    ##1##container_name: arcen-service-box-storage
-    ##1##environment:
-      ##1##- POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-      ##1##- POSTGRESQL_DB=arcen
-      ##1##- POSTGRESQL_HOST=arcen-postgresql-host
-      ##1##- POSTGRESQL_PORT=5432
-      ##1##- ARCEN_ENDPOINT_SERVICE_AUDIT=arcen-service-audit-host
-    ##1##depends_on:
-      ##1##- arcen-postgresql
-      ##1##- arcen-service-audit
-    ##1##restart: always
-    ##1##ports: 
-      ##1##- "8002:8002"   
-      
-  # FURNITURE STORAGE
-  arcen-service-furniture-storage:
-    build: ./service-furniture-storage
-    container_name: arcen-service-furniture-storage
+    # DIGITIZATION
+  arcen-service-digitization:
+    build: ./service-digitization
+    container_name: arcen-service-digitization
     environment:
-        - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
-        - POSTGRESQL_DB=arcen
-        - POSTGRESQL_HOST=arcen-postgresql-host
-        - POSTGRESQL_PORT=5432
-        - FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
-        - FEIGN_ARCEN_SAVE=/
+      - MONGODB_CONNSTRING=mongodb://arcen:arcen@arcen-mongodb:27017/
+      - MONGODB_DB=arcen_audit
+      - MONGODB_HOST=arcen-postgresql-host
+      - MONGODB_PORT=27017
+      - FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
+      - FEIGN_ARCEN_SAVE=/
+      - APP_PATH_TMP_IMAGE_SEPARATOR=/
+      - APP_PATH_TMP_IMAGE=tmp
+      - APP_PATH_PDF=pdf
     depends_on:
-      - arcen-postgresql
+      - arcen-mongodb
       - arcen-service-audit
     restart: always
     ports: 
-      - "8004:8004"
-      
+      - "8003:8003"
 ######################################
 # VOLUMEN
 ######################################
