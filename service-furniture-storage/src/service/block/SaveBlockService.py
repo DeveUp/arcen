@@ -12,13 +12,17 @@ from sqlalchemy.orm import Session
 
 from src.feign.AuditFeign import AuditFeign
 
+from src.model.entity.Block import Block
+
 from src.service.IService import IService
+from src.service.building.FindByIdBuildingService import FindByIdBuildingService
 
 from src.persistence.repository.block.SaveBlockRepository import SaveBlockRepository
 from src.persistence.schema.BlockSchema import BlockSchema
 
 from src.util.constant import RESPONSE
 from src.util.constant import FEIGN
+from src.util.constant import DATABASE
 from src.util.common_feign import feign_audit_save, feign_audit_save_error, feign_audit_build_error
 
 class SaveBlockService(IService):
@@ -27,6 +31,7 @@ class SaveBlockService(IService):
     # @return - Void
     def __init__(self, db: Session):
         self.repository = SaveBlockRepository(db)
+        self.find_by_id_building = FindByIdBuildingService(db)
         self.schema = BlockSchema()
         # Comunicacion con el servicio auditoria
         self.feign_audit = AuditFeign("FEIGN_ARCEN")
@@ -40,6 +45,7 @@ class SaveBlockService(IService):
     # @return - Block
     def execute(self, data:dict):
         try:
+            self.depedencies(data)
             element = self.repository.execute(data)
             element = self.schema.response(element)
         except HTTPException as error_http:
@@ -63,3 +69,13 @@ class SaveBlockService(IService):
             element
         )
         return element
+
+    # @method - Verifica la depedencia del bloque
+    # @parameter - data - Json con el bloque a validar
+    # @return - list
+    def depedencies(self, data):
+        block = Block(**dict(data[DATABASE['table']['block']['name']]))
+        building  = self.find_by_id_building.execute(dict({
+            DATABASE['table']['building']['pk']: str(block.id_building)
+        }))
+        return [building]

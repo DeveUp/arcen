@@ -50,3 +50,11 @@ grant all privileges on all tables in schema public to arcen;
 grant all privileges on all sequences in schema public to arcen;
 
 psql -h localhost -p 5432 postgres
+
+
+
+
+
+
+docker exec -it arcen-postgresql psql -U arcen
+docker exec -it arcen-postgresql dropdb -U arcen arcen

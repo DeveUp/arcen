@@ -8,11 +8,11 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
   \connect $APP_DB_NAME $APP_DB_USER
   BEGIN;
     CREATE TABLE IF NOT EXISTS furniture(
-	  id CHAR(26) NOT NULL CHECK (CHAR_LENGTH(id) = 26) PRIMARY KEY,
-	  id_block INT,
+	    id CHAR(26) NOT NULL CHECK (CHAR_LENGTH(id) = 26) PRIMARY KEY,
+	    id_block INT,
       id_type_furniture INT,
-	  number_furniture INT,
-	  date DATE
+	    number_furniture INT,
+	    date DATE
 	);
   COMMIT;
 EOSQL

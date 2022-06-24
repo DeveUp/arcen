@@ -9,7 +9,7 @@
 """
 from pydantic import BaseModel
 
-class BlockDto(BaseModel):
+class BlockDto(BaseModel): 
     letter: str
     flat: str
-    id_building:int
+    id_building: int

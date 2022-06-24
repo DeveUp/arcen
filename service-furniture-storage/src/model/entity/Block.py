@@ -20,5 +20,5 @@ class Block(Base):
     id = Column(Integer, primary_key=True, index=True)
     letter = Column(String(255))
     flat = Column(String(255))
-    id_building: Column(Integer, index=True)
+    id_building = Column(Integer, index=True)
     date = Column(DateTime, default=datetime.utcnow)

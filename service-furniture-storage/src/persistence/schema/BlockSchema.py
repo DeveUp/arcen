@@ -43,7 +43,7 @@ class BlockSchema:
             id = object.id,
             letter= object.letter,
             flat= object.flat,
-            id_building= object.id_building,
+            id_building= int(object.id_building),
             date= str(object.date),
         )
 
@@ -66,7 +66,7 @@ class BlockSchema:
             self.id: object.id,
             self.letter: object.letter, 
             self.flat: object.flat, 
-            self.id_building: object.id_building,
+            self.id_building: int(object.id_building),
             self.date: str(object.date),
         }
         if create != None:
