@@ -10,6 +10,7 @@ from pydantic import BaseModel
 
 class DocumentLocation(BaseModel):
     id:str
-    name: str
+    serie: str
+    subserie: str
     id_box: str
     date:str

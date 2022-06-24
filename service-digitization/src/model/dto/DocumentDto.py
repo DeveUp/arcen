@@ -11,6 +11,10 @@ from pydantic import BaseModel
 from src.model.dto.DocumentLocationDto import DocumentLocationDto
 
 class DocumentDto(BaseModel):
+    serie: str
+    subserie: str
     document: list
     path_document: str
     document_location:DocumentLocationDto
+    foliation_index: str
+    description: str

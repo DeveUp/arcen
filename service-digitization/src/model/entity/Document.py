@@ -10,8 +10,8 @@ from pydantic import BaseModel
 
 class Document(BaseModel):
     id:str
-    id_document_location: str
-    name: str
     document: list
-    path_document: str
+    id_document_location: str
+    foliation_index: str
+    description: str
     date:str

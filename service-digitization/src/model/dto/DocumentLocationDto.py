@@ -9,5 +9,4 @@
 from pydantic import BaseModel
 
 class DocumentLocationDto(BaseModel):
-    name: str
     id_box: int

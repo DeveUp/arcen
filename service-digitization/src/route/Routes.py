@@ -33,7 +33,7 @@ routes = FastAPI()
     @modification-date - 2022-06-18
     @author-modification -  Sergio Stives Barrios Buitrago
 """
-routes.include_router(router_find_all_document)
+#routes.include_router(router_find_all_document)
 # routes.include_router(router_find_by_id_document)
 routes.include_router(router_save_document)
 
