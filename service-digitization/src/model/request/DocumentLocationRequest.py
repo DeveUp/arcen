@@ -9,6 +9,7 @@
 from pydantic import BaseModel
 
 class DocumentLocationRequest(BaseModel):
-    name: str
-    id_box: int
+    serie: str
+    subserie: str
+    id_box: str
     date:str

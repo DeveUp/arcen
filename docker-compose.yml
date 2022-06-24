@@ -31,10 +31,14 @@ services:
       - POSTGRES_USER=arcen
       - POSTGRES_PASSWORD=arcen
       - POSTGRES_DB=arcen
+      - APP_DB_USER=arcen
+      - APP_DB_PASS=arcen
+      - APP_DB_NAME=arcen
     ports:
       - '5432:5432'
     volumes: 
-      - arcen_db_postgresql:/var/lib/postgresql/data/
+      #- arcen_db_postgresql:/var/lib/postgresql/data/
+      - ../db-postgresql:/docker-entrypoint-initdb.d/
 
   ######################################
   # MICROSERVICES
@@ -71,24 +75,24 @@ services:
     ##1##restart: always
     ##1##ports: 
       ##1##- "8002:8002"   
-
-  # DIGITIZATION
-  arcen-service-digitization:
-    build: ./service-digitization
-    container_name: arcen-service-digitization
+      
+  # FURNITURE STORAGE
+  arcen-service-furniture-storage:
+    build: ./service-furniture-storage
+    container_name: arcen-service-furniture-storage
     environment:
-      - MONGODB_CONNSTRING=mongodb://arcen:arcen@arcen-mongodb:27017/
-      - MONGODB_DB=arcen_audit
-      - MONGODB_HOST=arcen-postgresql-host
-      - MONGODB_PORT=27017
-      - FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
-      - FEIGN_ARCEN_SAVE=/
+        - POSTGRESQL_CONNSTRING=postgresql://arcen:arcen@arcen-postgresql:5432/arcen
+        - POSTGRESQL_DB=arcen
+        - POSTGRESQL_HOST=arcen-postgresql-host
+        - POSTGRESQL_PORT=5432
+        - FEIGN_ARCEN=http://arcen-service-audit:8001/api/audit
+        - FEIGN_ARCEN_SAVE=/
     depends_on:
-      - arcen-mongodb
+      - arcen-postgresql
       - arcen-service-audit
     restart: always
     ports: 
-      - "8003:8003"
+      - "8004:8004"
       
 ######################################
 # VOLUMEN

@@ -65,10 +65,10 @@ DATABASE= {
             "pk": "_id",
             "column": [
                 "id",
-                "id_document_location",
-                "name",
                 "document",
-                "path_document",
+                "id_document_location",
+                "foliation_index",
+                "description",
                 "date"
             ]
         },
@@ -77,9 +77,9 @@ DATABASE= {
             "pk": "_id",
             "column": [
                 "id",
-                "name",
-                "id_object",
-                "id_invoice",
+                "serie",
+                "subserie",
+                "id_box",
                 "date"
             ]
         },
