@@ -1,3 +1,12 @@
+"""
+    @name - UpdateUserService
+    @description - Servicio para actualizar un user por su pk
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.feign.AuditFeign import AuditFeign
@@ -10,11 +19,17 @@ from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTEN
 
 class UpdateUserService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = UpdateUserRepository(db)
         self.schema = UserSchema()
         self.feing = AuditFeign()
 
+    # @override
+    # @method - Actualizar un user por su pk
+    # @parameter - data - Json con el user a actualizar
+    # @return - User
     def execute(self, data:dict):
         try:
             element = self.repository.execute(data)            

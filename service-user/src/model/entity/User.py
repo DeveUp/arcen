@@ -1,3 +1,12 @@
+"""
+    @name - User
+    @description - Entidad User
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from datetime import datetime
 from sqlalchemy.types import Boolean
 from sqlalchemy.schema import Column

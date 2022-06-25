@@ -1,3 +1,12 @@
+"""
+    @name - SaveDependenceService
+    @description - Servicio para registrar un dependence
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.feign.AuditFeign import AuditFeign
@@ -10,11 +19,17 @@ from src.util.constant import AUDIT_DEPENDENCE_SERVICE, AUDIT_GENERIC_OPERATION_
 
 class SaveDependenceService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = SaveRepository(db)
         self.schema = SchemaEntity()
         self.feign = AuditFeign()
 
+    # @override
+    # @method - Registra un dependence
+    # @parameter - data - Json con el dependence a registrar
+    # @return - Dependence
     def execute(self, data:dict):
         try:
             element = self.repository.execute(data)

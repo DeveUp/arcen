@@ -1,3 +1,12 @@
+"""
+    @name - UpdateUserRoleService
+    @description - Servicio para actualizar un user role por su pk
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.feign.AuditFeign import AuditFeign
@@ -14,6 +23,8 @@ from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTEN
 
 class UpdateUserRoleService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = UpdateUserRoleRepository(db)
         self.schema = UserRoleSchema()
@@ -22,6 +33,10 @@ class UpdateUserRoleService(IService):
         self.feing = AuditFeign()
         self.feign_dependence = DependenceFeign()
 
+    # @override
+    # @method - Actualizar un user role por su pk
+    # @parameter - data - Json con el user role a actualizar
+    # @return - UserRole
     def execute(self, data:dict):
         userRole = data.get("user_role")
         roleId = userRole.id_role

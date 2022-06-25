@@ -1,3 +1,12 @@
+"""
+    @name - UpdateUserLoginRepository
+    @description - Repositorio para actualizar un user por su email
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.model.entity.User import User
@@ -6,9 +15,15 @@ from src.util.constant import COLUMN_USER, COLUMN_USER_ID
 
 class UpdateUserLoginRepository(IRepository):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db:Session):
         self.db = db
 
+    # @override
+    # @method - Actualiza un user por su email
+    # @parameter - data - Json con el email del user y el user a actualizar
+    # @return - User
     def execute(self, data:dict):
         id = data[COLUMN_USER_ID]
         element2 = data[COLUMN_USER]

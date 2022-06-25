@@ -1,3 +1,12 @@
+"""
+    @name - LoginUserService
+    @description - Servicio para actualizar un user por su email cambiar estadoLogin
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -11,11 +20,17 @@ from src.util.common import get_http_exception,  get_response_audit
 
 class LoginUserService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = UpdateUserLoginRepository(db)
         self.repositoryFind = FindByEmailUserRepository(db)
         self.schema = UserSchema()
 
+    # @override
+    # @method - Actualizar un user por su email
+    # @parameter - data - Json con el user a actualizar
+    # @return - User
     def execute(self, data:dict):
         user = data.get("user")
         #print(data)

@@ -1,3 +1,12 @@
+"""
+    @name - DeleteByIdDependenceService
+    @description - Servicio para eliminar un dependence
+    @version - 1.0.0
+    @creation-date - 2022-06-14 
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 from src.util.common import get_http_exception,get_response_audit
 from src.service.IService import IService
@@ -12,12 +21,18 @@ from src.util.constant import AUDIT_DEPENDENCE_SERVICE, AUDIT_GENERIC_OPERATION_
 
 class DeleteByIdDependenceService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.find_by_id = FindByRepository(db)
         self.repository = DeleteByIdRepository(db)
         self.feign = AuditFeign()
         self.schema = EntitySchema()
 
+    # @override
+    # @method - Elimina un dependence por su pk
+    # @parameter - data - Json con el pk del objeto a eliminar
+    # @return - Void
     def execute(self, data:dict):
         try:
             id= data[COLUMN_DEPENDENCE_ID] 

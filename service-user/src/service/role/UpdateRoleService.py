@@ -1,3 +1,12 @@
+"""
+    @name - UpdateRoleService
+    @description - Servicio para actualizar un role por su pk
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.feign.AuditFeign import AuditFeign
@@ -10,11 +19,17 @@ from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTEN
 
 class UpdateRoleService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = UpdateRoleRepository(db)
         self.schema = RoleSchema()
         self.feing = AuditFeign()
 
+    # @override
+    # @method - Actualizar un role por su pk
+    # @parameter - data - Json con el role a actualizar
+    # @return - Role
     def execute(self, data:dict):
         try:
             element = self.repository.execute(data)

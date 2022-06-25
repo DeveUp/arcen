@@ -1,3 +1,12 @@
+"""
+    @name - SaveRoleService
+    @description - Servicio para registrar un role
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.feign.AuditFeign import AuditFeign
@@ -10,11 +19,17 @@ from src.util.common import get_http_exception,  get_response_audit
 
 class SaveRoleService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = SaveRoleRepository(db)
         self.schema = RoleSchema()
         self.feign = AuditFeign()
 
+    # @override
+    # @method - Registra un role
+    # @parameter - data - Json con el role a registrar
+    # @return - Role
     def execute(self, data:dict):
         try:
             element = self.repository.execute(data)

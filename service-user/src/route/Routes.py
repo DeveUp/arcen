@@ -1,3 +1,12 @@
+"""
+    @name - Routes
+    @description - Puntos de entradas del microservicio box
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 import imp
 from fastapi import FastAPI
 
@@ -31,19 +40,43 @@ from src.route.Login.LogoutUserRouter import router_logout_user
 routes = FastAPI()
 
 # ADD ROUTES
+
+"""
+    @description - Puntos de entradas servicio role
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 routes.include_router(router_detele_by_id_role)
 routes.include_router(router_find_all_role)
 routes.include_router(router_save_role)
 routes.include_router(router_find_by_id_role)
 routes.include_router(router_update_role)
 
+"""
+    @description - Puntos de entradas servicio user
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 routes.include_router(router_detele_by_id_user)
 routes.include_router(router_find_all_user)
 routes.include_router(router_find_by_id_user)
 routes.include_router(router_save_user)
 routes.include_router(router_update_user)
 
-
+"""
+    @description - Puntos de entradas servicio user role
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 routes.include_router(router_detele_by_id_user_role)
 routes.include_router(router_find_all_user_role)
 routes.include_router(router_find_by_id_user_role)
