@@ -1,3 +1,12 @@
+"""
+    @name - Routes
+    @description - Puntos de entradas del microservicio shelf
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from fastapi import FastAPI
 
 # ROUTES DEPENDENCE
@@ -25,19 +34,42 @@ from src.route.shelf.UpdateShelfRouter import router_update_shelf
 routes = FastAPI()
 # ADD ROUTES
 
-
+"""
+    @description - Puntos de entradas servicio type shelf
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 routes.include_router(router_detele_by_id_type_shelf)
 routes.include_router(router_find_all_type_shelf)
 routes.include_router(router_find_by_id_type_shelf)
 routes.include_router(router_save_type_shelf)
 routes.include_router(router_update_type_shelf)
 
+"""
+    @description - Puntos de entradas servicio dependence
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 routes.include_router(router_detele_by_id_dependence)
 routes.include_router(router_find_all_dependence)
 routes.include_router(router_find_by_id_dependence)
 routes.include_router(router_save_dependence)
 routes.include_router(router_update_dependence)
 
+"""
+    @description - Puntos de entradas servicio shelf
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 routes.include_router(router_detele_by_id_shelf)
 routes.include_router(router_find_all_shelf)
 routes.include_router(router_find_by_id_shelf)

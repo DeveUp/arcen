@@ -1,3 +1,12 @@
+"""
+    @name - UpdateShelfRouter
+    @description - Punto de entrada servicio shelf operacion actualizar un shelf por su pk
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -14,6 +23,11 @@ endpoint = ENDPOINT_APP+ENDPOINT_APP_SHELF+ENDPOINT_GENERIC_UPDATE
 response = ResponseArcen
 status=RESPONSE_STATUS_CODE_GENERIC_UPDATE
 
+# @Rest - Actualiza un shelf por su pk
+# @Parameter - endpoint - Representa el punto de entrada
+# @Parameter - response_model (Optional) - Representa el objeto de respuesta
+# @Parameter - status_code (Optional) - Representa el codigo de respuesta
+# @Return - Response<Shelf>
 @router_update_shelf.put(endpoint,response_model = response,status_code=status,tags=["Shelf"])
 async def update(id: str, shelf: ShelfDto, db: Session = Depends(table.execute)):
     data = dict({

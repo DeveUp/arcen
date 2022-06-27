@@ -1,3 +1,12 @@
+"""
+    @name - UpdateTrayService
+    @description - Servicio para actualizar un tray por su pk
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 import os
 
@@ -13,12 +22,18 @@ from src.util.constant import RESPONSE_MSG_SHELF_FIND_BY_ID_NOT_CONTENT
 
 class UpdateTrayService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = UpdateTrayRepository(db)
         self.schema = TraySchema()
         self.feing = AuditFeign()
         self.feignShelf = ShelfFeign()
 
+    # @override
+    # @method - Actualizar un tray por su pk
+    # @parameter - data - Json con el tray a actualizar
+    # @return - Tray
     def execute(self, data:dict):
         tray = data.get("tray")
         c = self.feignShelf.findByID(tray.id_shelf)

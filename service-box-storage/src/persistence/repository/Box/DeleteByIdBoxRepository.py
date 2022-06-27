@@ -1,3 +1,12 @@
+"""
+    @name - DeleteByIdBoxRepository
+    @description - Repositorio para eliminar una box
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.persistence.repository.IRepository import IRepository
@@ -5,9 +14,15 @@ from src.util.constant import COLUMN_BOX
 
 class DeleteByIdBoxRepository(IRepository):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.db = db
 
+    # @override
+    # @method - Elimina una box por su pk
+    # @parameter - data - Json con el pk del box
+    # @return - Boolean
     def execute(self, data:dict):
         element = data[COLUMN_BOX]
         self.db.delete(element)

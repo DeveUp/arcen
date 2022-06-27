@@ -1,3 +1,12 @@
+"""
+    @name - UpdateBoxService
+    @description - Servicio para actualizar un box por su pk
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.feign.AuditFeign import AuditFeign
@@ -12,6 +21,8 @@ from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_FIND_BY_ID_NOT_CONTEN
 
 class UpdateBoxService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = UpdateBoxRepository(db)
         self.repositoryTypeBox = FindByEntity1(db);
@@ -19,6 +30,10 @@ class UpdateBoxService(IService):
         self.schema = BoxSchema()
         self.feing = AuditFeign()
 
+    # @override
+    # @method - Actualizar un box por su pk
+    # @parameter - data - Json con el box a actualizar
+    # @return - Box
     def execute(self, data:dict):
         box = data.get("box")
         typeBoxId = box.id_type_box

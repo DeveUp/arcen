@@ -1,3 +1,12 @@
+"""
+    @name - UpdateBoxRouter
+    @description - Punto de entrada servicio box operacion actualizar un box por su pk
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -14,6 +23,11 @@ endpoint = ENDPOINT_APP+ENDPOINT_APP_BOX+ENDPOINT_GENERIC_UPDATE
 response = ResponseArcen
 status=RESPONSE_STATUS_CODE_GENERIC_UPDATE
 
+# @Rest - Actualiza un box por su pk
+# @Parameter - endpoint - Representa el punto de entrada
+# @Parameter - response_model (Optional) - Representa el objeto de respuesta
+# @Parameter - status_code (Optional) - Representa el codigo de respuesta
+# @Return - Response<Box>
 @router_update_box.put(endpoint ,response_model = response ,status_code=status,tags=["Box"])
 async def update(id: str, box: BoxDto, db: Session = Depends(table.execute)):
     data = dict({
