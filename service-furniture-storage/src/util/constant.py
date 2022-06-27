@@ -29,7 +29,12 @@ ENDPOINT = {
     "path": "/api",
     "service": {
         "block": {
-           "path": "/block",
+            "path": "/block",
+            "operation":{
+                "get":{
+                    "find_by_letter_and_flat": "/find-by-letter-and-flat/{letter}/and/{flat}"
+                }
+            }
         },
         "furniture": {
             "path": "/furniture"
@@ -38,7 +43,12 @@ ENDPOINT = {
            "path": "/type-furniture" 
         },
         "building": {
-            "path": "/building"
+            "path": "/building",
+            "operation":{
+                "get":{
+                    "find_by_name_and_flat": "/find-by-name-and-flat/{name}/and/{flat}"
+                }
+            }
         }
     },
     "operation":{
@@ -371,6 +381,19 @@ RESPONSE = {
                     }
                 }
             },
+            "find_by_name_and_flat":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
+                        "msg":  "¡Ups! verifique el nombre o el piso del edificio, no encontramos ningun resultado."
+                    }
+                }
+            },
             "find_all": RESPONSE_GENERIC['get']['find_all']
         },  
         "post":{
@@ -384,6 +407,10 @@ RESPONSE = {
                     "default": {
                         "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
                         "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("el edificio")
+                    },
+                    "name_and_flat":{
+                        "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
+                        "msg":  "Ouch! Ya existe un piso de edificio con ese nombre!"
                     }
                 }
             }
@@ -434,6 +461,19 @@ RESPONSE = {
                     }
                 }
             },
+            "find_by_letter_and_flat":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
+                        "msg":  "¡Ups! verifique la letra o el piso del bloque, no encontramos ningun resultado."
+                    }
+                }
+            },
             "find_all": RESPONSE_GENERIC['get']['find_all']
         },  
         "post":{
@@ -447,6 +487,10 @@ RESPONSE = {
                     "default": {
                         "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
                         "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("el bloque")
+                    },
+                    "letter_and_flat":{
+                        "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
+                        "msg":  "Ouch! Ya existe un piso de bloque con esa letra!"
                     }
                 }
             }

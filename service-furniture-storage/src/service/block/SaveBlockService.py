@@ -16,6 +16,7 @@ from src.model.entity.Block import Block
 
 from src.service.IService import IService
 from src.service.building.FindByIdBuildingService import FindByIdBuildingService
+from src.service.block.FindByLetterAndFlatBlockService import FindByLetterAndFlatBlockService
 
 from src.persistence.repository.block.SaveBlockRepository import SaveBlockRepository
 from src.persistence.schema.BlockSchema import BlockSchema
@@ -24,6 +25,7 @@ from src.util.constant import RESPONSE
 from src.util.constant import FEIGN
 from src.util.constant import DATABASE
 from src.util.common_feign import feign_audit_save, feign_audit_save_error, feign_audit_build_error
+from src.util.common import get_exception_http
 
 class SaveBlockService(IService):
 
@@ -32,6 +34,7 @@ class SaveBlockService(IService):
     def __init__(self, db: Session):
         self.repository = SaveBlockRepository(db)
         self.find_by_id_building = FindByIdBuildingService(db)
+        self.find_by_letter_and_flat_block = FindByLetterAndFlatBlockService(db)
         self.schema = BlockSchema()
         # Comunicacion con el servicio auditoria
         self.feign_audit = AuditFeign("FEIGN_ARCEN")
@@ -75,7 +78,27 @@ class SaveBlockService(IService):
     # @return - list
     def depedencies(self, data):
         block = Block(**dict(data[DATABASE['table']['block']['name']]))
+        # Se verifica si ya existe un piso con esa letra
+        self.block_by_letter_and_flat(block)
+        # Se consulta si existe un edificio con ese pk
         building  = self.find_by_id_building.execute(dict({
             DATABASE['table']['building']['pk']: str(block.id_building)
         }))
         return [building]
+    
+    # @method - Verifica si existe un bloque con una letra en un piso
+    # @parameter - block - Informacion del bloque
+    # @return - Void
+    def block_by_letter_and_flat(self, block:Block):
+        try:
+            block_letter_and_flat = self.find_by_letter_and_flat_block.execute(dict({
+                DATABASE['table']['block']['column'][1]: str(block.letter),
+                DATABASE['table']['block']['column'][2]: str(block.flat)
+            }))
+        except HTTPException:
+            block_letter_and_flat = None
+        except:
+            block_letter_and_flat = None
+        finally:
+            if block_letter_and_flat != None:
+                raise get_exception_http(RESPONSE['block']['post']['save']['error']['letter_and_flat'])
