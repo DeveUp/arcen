@@ -19,7 +19,8 @@ services:
       MONGO_INITDB_ROOT_USERNAME: arcen
       MONGO_INITDB_ROOT_PASSWORD: arcen
     volumes:
-      - arcen_db_mongodb:/data/db
+      - C:/ARCEN/MONGODB/data:/data/db
+      - C:/ARCEN/MONGODB/config:/data/configdb
     ports:
       - '27017:27017'
 
@@ -37,7 +38,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - arcen_db_postgresql:/var/lib/postgresql/data/
+      - C:/ARCEN/POSTGRESQL/data:/var/lib/postgresql/data/
       #- ../db-postgresql:/docker-entrypoint-initdb.d/
 
   ######################################
@@ -186,11 +187,3 @@ services:
       - arcen-service-object-storage
       - arcen-service-shelf-storage
       - arcen-service-user
-
-######################################
-# VOLUMEN
-######################################
-
-volumes:
-  arcen_db_mongodb: {}
-  arcen_db_postgresql: {}
