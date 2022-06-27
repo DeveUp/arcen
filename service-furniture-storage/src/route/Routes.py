@@ -4,7 +4,7 @@
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
-    @modification-date - 2022-06-22
+    @modification-date - 2022-06-27
     @author-modification -  Sergio Stives Barrios Buitrago
 """
 from fastapi import FastAPI
@@ -13,6 +13,7 @@ from fastapi import FastAPI
 from src.route.building.DeleteByIdBuildingRouter import router_detele_by_id_building
 from src.route.building.FindAllBuildingRouter import router_find_all_building
 from src.route.building.FindByIdBuildingRouter import router_find_by_id_building
+from src.route.building.FindByNameAndFlatBuildingRouter import router_find_by_name_and_flat_building
 from src.route.building.SaveBuildingRouter import router_save_building
 from src.route.building.UpdateBuildingRouter import router_update_building
 
@@ -20,6 +21,7 @@ from src.route.building.UpdateBuildingRouter import router_update_building
 from src.route.block.DeleteByIdBlockRouter import router_detele_by_id_block
 from src.route.block.FindAllBlockRouter import router_find_all_block
 from src.route.block.FindByIdBlockRouter import router_find_by_id_block
+from src.route.block.FindByLetterAndFlatBlockRouter import router_find_letter_and_flat_block
 from src.route.block.SaveBlockRouter import router_save_block
 from src.route.block.UpdateBlockRouter import router_update_block
 
@@ -44,12 +46,13 @@ routes = FastAPI()
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
-    @modification-date - 2022-06-22
+    @modification-date - 2022-06-27
     @author-modification -  Sergio Stives Barrios Buitrago
 """
 routes.include_router(router_detele_by_id_building)
 routes.include_router(router_find_all_building)
 routes.include_router(router_find_by_id_building)
+routes.include_router(router_find_by_name_and_flat_building)
 routes.include_router(router_save_building)
 routes.include_router(router_update_building)
 
@@ -58,12 +61,13 @@ routes.include_router(router_update_building)
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
-    @modification-date - 2022-06-20
+    @modification-date - 2022-06-27
     @author-modification -  Sergio Stives Barrios Buitrago
 """
 routes.include_router(router_detele_by_id_block)
 routes.include_router(router_find_all_block)
 routes.include_router(router_find_by_id_block)
+routes.include_router(router_find_letter_and_flat_block)
 routes.include_router(router_save_block)
 routes.include_router(router_update_block)
 
