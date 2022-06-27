@@ -1,3 +1,12 @@
+"""
+    @name - SaveTrayService
+    @description - Servicio para registrar un tray
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 import os
 from sqlalchemy.orm import Session
 
@@ -15,12 +24,18 @@ from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESP
 
 class SaveTrayService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = SaveRepository(db)
         self.schema = TraySchema()
         self.feign = AuditFeign()
         self.feignShelf = ShelfFeign()
 
+    # @override
+    # @method - Registra un tray
+    # @parameter - data - Json con el tray a registrar
+    # @return - Tray
     def execute(self, data:dict):
         tray = data.get("tray")
         c = self.feignShelf.findByID(tray.id_shelf)

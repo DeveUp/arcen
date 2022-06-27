@@ -1,3 +1,12 @@
+"""
+    @name - UpdateShelfService
+    @description - Servicio para actualizar un shelf por su pk
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 import os
 from src.feign.AuditFeign import AuditFeign
@@ -16,6 +25,8 @@ from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESP
 
 class UpdateShelfService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = UpdateRepository(db)
         self.schema = EntitySchema()
@@ -24,6 +35,10 @@ class UpdateShelfService(IService):
         self.feign = AuditFeign()
         self.feing_furniture = FurnitureFeign()
 
+    # @override
+    # @method - Actualizar un shelf por su pk
+    # @parameter - data - Json con el shelf a actualizar
+    # @return - Shelf
     def execute(self, data:dict):
         shelf = data.get("shelf")
         typeShelfId = shelf.id_type_shelf

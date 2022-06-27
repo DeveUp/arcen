@@ -1,9 +1,20 @@
+"""
+    @name - ShelfSchema
+    @description - Convertidor a diferentes tipos de shelf
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from src.model.entity.Shelf import Shelf
 from src.model.response.ShelfResponse import ShelfResponse
 from src.util.constant import COLUMN_SHELF_ID, COLUMN_SHELF_ID_DEPENDENCE, COLUMN_SHELF_ID_TYPE_SHELF, COLUMN_SHELF_ID_FURNITURE, COLUMN_SHELF_CREATION_DATE, COLUMN_SHELF_NUMBER_SHELF
 
 class ShelfSchema:
 
+    # @method - Contructor 
+    # @return - Void
     def __init__(self):
         self.id = COLUMN_SHELF_ID
         self.id_dependence = COLUMN_SHELF_ID_DEPENDENCE
@@ -12,16 +23,25 @@ class ShelfSchema:
         self.number_shelf = COLUMN_SHELF_NUMBER_SHELF
         self.creation_date = COLUMN_SHELF_CREATION_DATE
 
+    # @method - Convierte un objeto a una entidad
+    # @parameter - object - Representa objecto a convertir
+    # @return - Shelf
     def entity(self, object) -> Shelf:
         if object == None: 
             return object
         return object
 
+    # @method - Convierte un objeto a una lista
+    # @parameter - objects - Representa los objectos a convertir
+    # @return - list
     def lists(self, objects) -> list:
         if objects == None: 
             return objects
         return [self.entity(object) for object in objects]
     
+    # @method - Convierte un objeto a una respuesta
+    # @parameter - object - Representa objecto a convertir
+    # @return - ShelfResponse
     def response(self, object) -> ShelfResponse:
         if object == None: 
             return object
@@ -34,6 +54,10 @@ class ShelfSchema:
             date =str( object.date)
         )
 
+    # @method - Convierte un objeto a un diccionario
+    # @parameter - object - Representa los objecto a convertir
+    # @parameter - create (Optional) - Representa la fecha creacion
+    # @return - dict
     def dict(self, object, create= None) -> dict:
         if object == None: 
             return object

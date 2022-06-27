@@ -1,3 +1,12 @@
+"""
+    @name - SaveUserService
+    @description - Servicio para registrar un user
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.feign.AuditFeign import AuditFeign
@@ -10,11 +19,17 @@ from src.util.common import get_http_exception,  get_response_audit
 
 class SaveUserService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = SaveUserRepository(db)
         self.schema = UserSchema()
         self.feign = AuditFeign()
 
+    # @override
+    # @method - Registra un user
+    # @parameter - data - Json con el user a registrar
+    # @return - User
     def execute(self, data:dict):
         try:
             element = self.repository.execute(data)

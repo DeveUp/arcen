@@ -1,6 +1,25 @@
+"""
+    @name - common
+    @description - Funciones comunes del microservicio user
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from fastapi import HTTPException
 import json
 
+
+##########################################################
+# VALIDATOR
+##########################################################
+
+# @method - Valida que un objeto tenga una clave
+# @parameter - data - Representa el objeto
+# @parameter - key - Representa la clave
+# @parameter - default - Representa el valor por defecto si no existe la clave
+# @return - String
 def get_validate_field(data:str, key:str, default = None):
     try:
         field= data[key]
@@ -12,6 +31,13 @@ def get_validate_field(data:str, key:str, default = None):
         field = default
     return field
     
+##########################################################
+# EXCEPTION 
+##########################################################
+
+# @method - Genera una excepcion http
+# @parameter - error - Json con el codigo y mensaje de error
+# @return - HTTPException  
 def get_http_exception(code:str, message:str) -> HTTPException:
     return HTTPException(status_code=code, detail=message)
 

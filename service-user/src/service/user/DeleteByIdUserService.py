@@ -1,3 +1,12 @@
+"""
+    @name - DeleteByIdUserService
+    @description - Servicio para eliminar un user
+    @version - 1.0.0
+    @creation-date - 2022-06-14 
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.feign.AuditFeign import AuditFeign
@@ -13,12 +22,18 @@ from src.util.constant import AUDIT_USER_SERVICE, AUDIT_GENERIC_OPERATION_DELETE
 
 class DeleteByIdUserService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.find_by_id = FindByIdUserRepository(db)
         self.repository = DeleteByIdUserRepository(db)
         self.feign = AuditFeign()
         self.schema = EntitySchema()
 
+    # @override
+    # @method - Elimina un user por su pk
+    # @parameter - data - Json con el pk del objeto a eliminar
+    # @return - Void
     def execute(self, data:dict): 
         try:
             id = data[COLUMN_USER_ID]

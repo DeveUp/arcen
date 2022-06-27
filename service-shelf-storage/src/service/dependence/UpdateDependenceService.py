@@ -1,3 +1,12 @@
+"""
+    @name - UpdateDependenceService
+    @description - Servicio para actualizar un dependence por su pk
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 from src.feign.AuditFeign import AuditFeign
@@ -10,11 +19,17 @@ from src.util.constant import AUDIT_DEPENDENCE_SERVICE, AUDIT_GENERIC_OPERATION_
 
 class UpdateDependenceService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = UpdateRepository(db)
         self.schema = DependenceSchema()
         self.feign = AuditFeign()
 
+    # @override
+    # @method - Actualizar un dependence por su pk
+    # @parameter - data - Json con el dependence a actualizar
+    # @return - Dependence
     def execute(self, data:dict):
         try:
             element = self.repository.execute(data)

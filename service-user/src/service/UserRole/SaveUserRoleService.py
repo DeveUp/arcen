@@ -1,3 +1,12 @@
+"""
+    @name - SaveUserRoleService
+    @description - Servicio para registrar un user role
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 from sqlalchemy.orm import Session
 
 
@@ -16,6 +25,8 @@ from src.util.common import get_http_exception,  get_response_audit
 
 class SaveUserRoleService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = SaveUserRoleRepository(db)
         self.schema = UserRoleSchema()
@@ -24,6 +35,10 @@ class SaveUserRoleService(IService):
         self.feign = AuditFeign()
         self.feign_dependence = DependenceFeign()
 
+    # @override
+    # @method - Registra un user role
+    # @parameter - data - Json con el user role a registrar
+    # @return - UserRole
     def execute(self, data:dict):
         userRole = data.get("user_role")
         roleId = userRole.id_role

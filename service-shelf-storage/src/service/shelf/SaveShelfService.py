@@ -1,3 +1,12 @@
+"""
+    @name - SaveShelfService
+    @description - Servicio para registrar un shelf
+    @version - 1.0.0
+    @creation-date - 2022-06-14
+    @author-creation - Jose Gregorio Perez Manosalva
+    @modification-date - 2022-06-20
+    @author-modification -  Jose Gregorio Perez Manosalva
+"""
 import os
 import httpx
 from sqlalchemy.orm import Session
@@ -18,6 +27,8 @@ from src.util.constant import RESPONSE_STATUS_CODE_GENERIC_SAVE_ERROR_SAVE, RESP
 
 class SaveShelfService(IService):
 
+    # @method - Constructor 
+    # @return - Void
     def __init__(self, db: Session):
         self.repository = SaveRepository(db)
         self.repositoryTypeShelf = FindByEntity1(db);
@@ -26,6 +37,10 @@ class SaveShelfService(IService):
         self.feing_furniture = FurnitureFeign()
         self.feign = AuditFeign()
 
+    # @override
+    # @method - Registra un shelf
+    # @parameter - data - Json con el shelf a registrar
+    # @return - Shelf
     def execute(self, data:dict):
         shelf = data.get("shelf")
         typeShelfId = shelf.id_type_shelf
