@@ -2,6 +2,7 @@ CREATE TABLE block(
 	id BIGINT NOT NULL,
     letter VARCHAR(255) NOT NULL,
     flat VARCHAR(255),
+    id_building INT NOT NULL,
     date date,
     PRIMARY KEY (id)
 );

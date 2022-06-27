@@ -29,13 +29,26 @@ ENDPOINT = {
     "path": "/api",
     "service": {
         "block": {
-           "path": "/block",
+            "path": "/block",
+            "operation":{
+                "get":{
+                    "find_by_letter_and_flat": "/find-by-letter-and-flat/{letter}/and/{flat}"
+                }
+            }
         },
         "furniture": {
             "path": "/furniture"
         },
         "type_furniture": {
            "path": "/type-furniture" 
+        },
+        "building": {
+            "path": "/building",
+            "operation":{
+                "get":{
+                    "find_by_name_and_flat": "/find-by-name-and-flat/{name}/and/{flat}"
+                }
+            }
         }
     },
     "operation":{
@@ -70,6 +83,7 @@ DATABASE= {
                 "id",
                 "letter",
                 "flat",
+                "id_building",
                 "date"
             ]
         },
@@ -95,6 +109,18 @@ DATABASE= {
                 "depth",
                 "height",
                 "width",
+                "date"
+            ]
+        },
+        "building":{
+            "name": "building",
+            "pk": "id",
+            "column": [
+                "id",
+                "name",
+                "name_area",
+                "cellar",
+                "flat",
                 "date"
             ]
         }
@@ -314,6 +340,7 @@ FEIGN = {
         },
         "service": {
             "block":  "BLOCK",
+            "building":  "BUILDING",
             "furniture": "FURNITURE",
             "type_furniture": "TYPE_FURNITURE"
         }
@@ -339,6 +366,86 @@ FEIGN = {
 # @json - Respuestas servicios del microservicio de mueble
 # @Content - block - Respuesta bloque
 RESPONSE = {
+    "building":{
+        "get": {
+            "find_by_id":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['get']['find_by_id']['error']['default']['msg']%("del edificio")
+                    }
+                }
+            },
+            "find_by_name_and_flat":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
+                        "msg":  "¡Ups! verifique el nombre o el piso del edificio, no encontramos ningun resultado."
+                    }
+                }
+            },
+            "find_all": RESPONSE_GENERIC['get']['find_all']
+        },  
+        "post":{
+            "save":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("el edificio")
+                    },
+                    "name_and_flat":{
+                        "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
+                        "msg":  "Ouch! Ya existe un piso de edificio con ese nombre!"
+                    }
+                }
+            }
+        },
+        "put":{
+            "update":{
+                 "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['put']['update']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['put']['update']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['put']['update']['error']['default']['msg']%("el edificio")
+                    }
+                }
+            }
+        },
+        "delete":{
+            "delete_by_id":{
+                 "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['delete']['delete_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['code'],
+                        "msg":  RESPONSE_GENERIC['delete']['delete_by_id']['error']['default']['msg']%("el edificio")
+                    }
+                }
+            }
+        }   
+    },
     "block":{
         "get": {
             "find_by_id":{
@@ -351,6 +458,19 @@ RESPONSE = {
                     "default": {
                         "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
                         "msg":  RESPONSE_GENERIC['get']['find_by_id']['error']['default']['msg']%("del bloque")
+                    }
+                }
+            },
+            "find_by_letter_and_flat":{
+                "success": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['success']['default']['code']
+                    }
+                },
+                "error": {
+                    "default": {
+                        "code": RESPONSE_GENERIC['get']['find_by_id']['error']['default']['code'],
+                        "msg":  "¡Ups! verifique la letra o el piso del bloque, no encontramos ningun resultado."
                     }
                 }
             },
@@ -367,6 +487,10 @@ RESPONSE = {
                     "default": {
                         "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
                         "msg":  RESPONSE_GENERIC['post']['save']['error']['default']['msg']%("el bloque")
+                    },
+                    "letter_and_flat":{
+                        "code": RESPONSE_GENERIC['post']['save']['error']['default']['code'],
+                        "msg":  "Ouch! Ya existe un piso de bloque con esa letra!"
                     }
                 }
             }

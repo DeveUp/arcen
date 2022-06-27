@@ -1,6 +1,6 @@
 """
-    @name - BlockDto
-    @description - Dto bloque
+    @name - BuildingDto
+    @description - Dto edificio
     @version - 1.0.0
     @creation-date - 2022-06-14
     @author-creation - Sergio Stives Barrios Buitrago
@@ -9,7 +9,8 @@
 """
 from pydantic import BaseModel
 
-class BlockDto(BaseModel): 
-    letter: str
+class BuildingDto(BaseModel):
+    name: str
+    name_area: str
+    cellar: str
     flat: str
-    id_building: int
