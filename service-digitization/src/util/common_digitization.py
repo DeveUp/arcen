@@ -54,9 +54,6 @@ def convert_images_to_pdf(folder:str, filename:str, ext:str = '.jpeg', ext_pdf= 
     print(imagenes)
     path_pdf = str(find_env("APP_PATH_PDF")) + filename +ext_pdf
     print(path_pdf)
-    try:
-        with open(path_pdf, "wb") as documento:
-	        documento.write(img2pdf.convert(imagenes))
-    except:
-        print("Error al convertir a pdf .......")
+    with open(path_pdf, "wb") as documento:
+	    documento.write(img2pdf.convert(imagenes))
     
